@@ -1,11 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/mainheader.dart';
-// import 'package:testapp/main.dart';
 import 'package:testapp/widgets/categories/catbody.dart';
 
 class Categories_Page extends StatelessWidget {
@@ -13,7 +8,7 @@ class Categories_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<Provider1>(context);
+    // final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
     return Container(
       height: double.infinity,

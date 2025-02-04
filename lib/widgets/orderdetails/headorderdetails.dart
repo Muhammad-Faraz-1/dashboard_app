@@ -6,7 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
-import 'package:testapp/widgets/allorders/head.dart';
+// import 'package:testapp/widgets/allorders/head.dart';
+import 'package:testapp/widgets/orderdetails/orderheadercompoenets.dart';
 
 class Headerdetails extends StatelessWidget {
   const Headerdetails({super.key});
@@ -45,7 +46,49 @@ class Headerdetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // CatsubSectionHeader(name: 'Order Details'),
-
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    // provider.cattype==0?
+                    // Navigator.pop(context):provider.goback();
+                    // print('hi');
+                  },
+                  child: Container(
+                    height: 34.h,
+                    width: 34.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4).r,
+                        gradient: LinearGradient(colors: [
+                          theme.primary.withOpacity(0.6),
+                          theme.primary.withOpacity(0.3),
+                          theme.primary.withOpacity(0.6),
+                        ])),
+                    child: Center(
+                      ///////// backarrow will be placed here
+                      child: Icon(
+                        Icons.keyboard_arrow_left_rounded,
+                        color: theme.secondary,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.sp),
+                    child: Pageheading(
+                      subtitle:'Order Details',
+                    )),
+                //////////////////////
+              ],
+            ),
+            // 
             SizedBox(
               height: 10.h,
             ),
@@ -82,34 +125,34 @@ class Headerdetails extends StatelessWidget {
                         onTap: () {
                           provider.changepos(1);
                         },
-                        child: orderfilter(
+                        child: ordersfilter(
                             img: 'assets/all.png', label: 'Customer'),
                       ),
                       GestureDetector(
                         onTap: () {
                            provider.changepos(2);
                         },
-                        child: orderfilter(
+                        child: ordersfilter(
                             img: 'assets/pending.png', label: 'Order'),
                       ),
                       GestureDetector(
                         onTap: () {
                            provider.changepos(3);
                         },
-                        child: orderfilter(
+                        child: ordersfilter(
                             img: 'assets/cancel.png', label: 'Addon'),
                       ),
                       GestureDetector(
                         onTap: () {
                            provider.changepos(4);
                         },
-                        child: orderfilter(
+                        child: ordersfilter(
                             img: 'assets/cancel.png', label: 'Payment'),
                       ),
                     ],
                   ),
                 ),
-                activeline(),
+                activesline(),
               ],
             )
           ],

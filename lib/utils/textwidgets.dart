@@ -31,6 +31,7 @@ class Pageheading extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -55,6 +56,7 @@ class Sectionheading extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -76,9 +78,13 @@ class SectionSubheading extends StatelessWidget {
           fontSize: 12.sp,
           height: 1.25,
           fontWeight:weight==null? FontWeight.w500:weight,
+          
         ),
+        
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
+      
     );
   }
 }
@@ -103,6 +109,7 @@ class Contentheading1 extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -133,6 +140,7 @@ class Contentlarge extends StatelessWidget {
       ),
       textAlign: TextAlign.start,
       // maxLines: 2,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -159,6 +167,7 @@ class Contentsmall extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -185,6 +194,7 @@ class Contentmedium extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -214,6 +224,7 @@ class cost extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
+      textScaler: TextScaler.linear(1.sp),
     );
   }
 }

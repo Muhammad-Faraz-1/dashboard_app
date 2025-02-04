@@ -1,13 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingHeader_content extends StatelessWidget {
-  const LandingHeader_content({super.key});
+  String date=DateTime.now().toString().substring(0,10); 
+   LandingHeader_content({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -15,11 +19,11 @@ class LandingHeader_content extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('1st January 2025',
+                Text(date,
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                           fontSize: 12.sp,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: theme.primary,
                           height: 1.1),
                     )),

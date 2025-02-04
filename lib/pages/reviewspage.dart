@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:testapp/utils/mainheader.dart';
-import 'package:testapp/widgets/allorders/body.dart';
-class OrdersPage extends StatelessWidget {
-  const OrdersPage({super.key});
+import 'package:testapp/widgets/reviews/reviewsbody.dart';
+
+class Reviewspage extends StatelessWidget {
+  const Reviewspage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,7 @@ class OrdersPage extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.transparent,
-       gradient: LinearGradient(colors: [
+        gradient: LinearGradient(colors: [
               theme.primary.withOpacity(0.6),
               theme.primary.withOpacity(0.3),
               theme.primary.withOpacity(0.6),
@@ -21,12 +23,14 @@ class OrdersPage extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
-          children: const [
+          children:  [
             ////// header widget
-            // Head(),
+            // Header(),
             MainPageHeader(),
-            ///// body section
-            BodySection(),
+            SizedBox(
+              height: 10.h,
+            ),
+            Reviewsbody()
           ],
         ),
       ),

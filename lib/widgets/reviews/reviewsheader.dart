@@ -1,18 +1,17 @@
 // ignore_for_file: must_be_immutable
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/provider1.dart';
-// import 'package:testapp/utils/headstatic.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
-class Allorder_Header extends StatelessWidget {
-  const Allorder_Header({super.key});
+class Reviewsheader extends StatelessWidget {
+  const Reviewsheader({super.key});
 
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     final provider = Provider.of<Provider1>(context);
     return Column(
@@ -22,23 +21,14 @@ class Allorder_Header extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            headinfobox(
-              label: 'Orders',
-              val: '100',
+            review(
+              label: 'Total Reviews',
+              val: '70',
             ),
-            SizedBox(
-              width: 5.w,
-            ),
-            headinfobox(
-              label: 'Sales',
-              val: '\$40K',
-            ),
-            SizedBox(
-              width: 5.w,
-            ),
-            headinfobox(
-              label: 'Sales',
-              val: '\$40K',
+            
+            review(
+              label: 'Total rating',
+              val: '4.5',
             ),
           ],
         ),
@@ -65,21 +55,21 @@ class Allorder_Header extends StatelessWidget {
                     onTap: () {
                       provider.changeorderfilter(1);
                     },
-                    child: orderfilter(img: 'assets/all.png', label: 'All'),
+                    child: reviewfilter(img: 'assets/approved.png', label: 'Approved'),
                   ),
                   GestureDetector(
                     onTap: () {
                       provider.changeorderfilter(2);
                     },
-                    child: orderfilter(
-                        img: 'assets/pending.png', label: 'Processing'),
+                    child: reviewfilter(
+                        img: 'assets/pending.png', label: 'Pending'),
                   ),
                   GestureDetector(
                     onTap: () {
                       provider.changeorderfilter(3);
                     },
-                    child: orderfilter(
-                        img: 'assets/cancel.png', label: 'Canceled'),
+                    child: reviewfilter(
+                        img: 'assets/cancel.png', label: 'Rejected'),
                   ),
                 ],
               ),
@@ -92,17 +82,21 @@ class Allorder_Header extends StatelessWidget {
   }
 }
 
-class headinfobox extends StatelessWidget {
+//////////////////////////////////////////
+
+
+class review extends StatelessWidget {
   String? val;
   String? label;
-  headinfobox({super.key, required this.val, required this.label});
+  review({super.key, required this.val, required this.label});
 
+  @override
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Container(
       height: 54.h,
-      width: 109.w,
+      width: 160.w,
       padding: EdgeInsets.symmetric(vertical: 10.sp),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10).r,
@@ -121,31 +115,23 @@ class headinfobox extends StatelessWidget {
                     height: 1.1,
                     color: theme.primary)),
           ),
-          Text(
-            label!,
-            style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w500,
-                    height: 1.5,
-                    color: theme.primary)),
-          )
+          Contentsmall(subtitle: label!, weight: FontWeight.w600, colors: theme.primary)
         ],
       ),
     );
   }
 }
 
-class orderfilter extends StatelessWidget {
+class reviewfilter extends StatelessWidget {
   String? img;
   String? label;
-  orderfilter({super.key, required this.img, required this.label});
+  reviewfilter({super.key, required this.img, required this.label});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Container(
-      height: 58.h,
+      height: 65.h,
       width: 86.w,
       padding: EdgeInsets.symmetric(vertical: 5.sp),
       color: Colors.transparent,
@@ -177,6 +163,8 @@ class orderfilter extends StatelessWidget {
     );
   }
 }
+
+////////////////////////////////////////////////////
 
 class activeline extends StatelessWidget {
   const activeline({super.key});

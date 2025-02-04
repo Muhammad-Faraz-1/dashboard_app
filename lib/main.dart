@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/pages/allorders.dart';
 import 'package:testapp/pages/application.dart';
+import 'package:testapp/pages/companyid.dart';
+import 'package:testapp/pages/loginpage.dart';
 // import 'package:testapp/pages/catpage.dart';
 // import 'package:testapp/pages/landingpage.dart';
 import 'package:testapp/pages/orderdetails.dart';
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
+      // fontSizeFactor: 1.sp,
       builder: (context, child) {
         return MultiProvider(
           providers: [
@@ -40,10 +43,12 @@ class MyApp extends StatelessWidget {
             title: 'Flutter Demo',
             initialRoute: '/',
             routes: {
-              '/': (context) => Application_Page(),
+              '/': (context) => Idpage(),
+              '/first': (context) => Loginpage(),
+              '/second': (context) => Application_Page(),
               '/third': (context) => OrdersPage(),
-              '/fourth':(context) => OrderDetails(),
-              '/fifth':(context) => SubCategoriesPage(),
+              '/fourth': (context) => OrderDetails(),
+              '/fifth': (context) => SubCategoriesPage(),
             },
             // home: SafeArea(
             //   child: Scaffold(

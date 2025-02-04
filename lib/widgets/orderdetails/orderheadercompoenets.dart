@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
-class orderfilter extends StatelessWidget {
+class ordersfilter extends StatelessWidget {
   String? img;
   String? label;
-  orderfilter({super.key, required this.img, required this.label});
+  ordersfilter({super.key, required this.img, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,8 @@ class orderfilter extends StatelessWidget {
   }
 }
 
-class activeline extends StatelessWidget {
-  const activeline({super.key});
+class activesline extends StatelessWidget {
+  const activesline({super.key});
 
   @override
   Widget build(BuildContext context) {

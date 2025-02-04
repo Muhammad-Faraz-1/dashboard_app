@@ -8,6 +8,7 @@ import 'package:testapp/utils/headstatic.dart';
 import 'package:testapp/widgets/allorders/head.dart';
 import 'package:testapp/widgets/categories/categoryheader.dart';
 import 'package:testapp/widgets/landingpage/headercontent.dart';
+import 'package:testapp/widgets/reviews/reviewsheader.dart';
 
 class MainPageHeader extends StatelessWidget {
   const MainPageHeader({super.key});
@@ -49,7 +50,7 @@ class MainPageHeader extends StatelessWidget {
             ////////////////////////////////////////////////////////
             SizedBox(height: 10.h,),
             provider.currentpage==1?
-            LandingHeader_content():provider.currentpage==2?Allorder_Header():Category_Header(),
+            LandingHeader_content():provider.currentpage==2?Allorder_Header(): provider.currentpage==3?  Category_Header(): Reviewsheader(),
           ],
         ),
       ),

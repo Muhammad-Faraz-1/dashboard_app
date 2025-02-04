@@ -117,7 +117,7 @@ class Navbar extends StatelessWidget {
                   //         Border(bottom: BorderSide(color: Colors.red, width: 2))),
                   child: Center(
                       child: Image.asset(
-                    provider.currentpage == 1
+                    provider.currentpage == 4
                         ? 'assets/setting-fill.png'
                         : 'assets/setting-line.png',
                     color: provider.currentpage == 4

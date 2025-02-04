@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:testapp/pages/allorders.dart';
 import 'package:testapp/pages/catpage.dart';
 import 'package:testapp/pages/landingpage.dart';
+import 'package:testapp/pages/reviewspage.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/navbar.dart';
 
@@ -37,7 +38,9 @@ class Application_Page extends StatelessWidget {
                         ? OrdersPage()
                         : provider.currentpage == 3
                             ? Categories_Page()
-                            : Landingpage(),
+                            : provider.currentpage == 4
+                                ? Reviewspage()
+                                : Landingpage(),
               ),
             ),
             Positioned(bottom: 10, left: 10, child: Navbar()),

@@ -24,10 +24,10 @@ class BodySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'All Orders'),
-          SizedBox(
-            height: 5.w,
-          ),
+          // Sectionheading(subtitle: 'All Orders'),
+          // SizedBox(
+          //   height: 5.w,
+          // ),
           SizedBox(
             height: 350.h,
             child: SingleChildScrollView(

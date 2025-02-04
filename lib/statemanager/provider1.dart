@@ -88,4 +88,11 @@ goback(){
   notifyListeners();
 }
 // navbar_animation(){}
+
+bool obs=true;
+obstate(){
+  obs=!obs;
+  print(obs);
+  notifyListeners();
+}
 }

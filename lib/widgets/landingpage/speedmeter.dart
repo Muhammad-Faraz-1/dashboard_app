@@ -216,7 +216,7 @@ class _speedometer2State extends State<speedometer2> {
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter),
                         animationType: AnimationType.ease,
-                        value: 60,
+                        value: 90,
                         animationDuration: 3000,
                         needleStartWidth: 2,
                         needleEndWidth: 4,
