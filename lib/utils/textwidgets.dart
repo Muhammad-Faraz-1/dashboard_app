@@ -207,7 +207,7 @@ class cost extends StatelessWidget {
   FontWeight? weight;
   int? fontSize;
   double? height;
-   cost({super.key,required this.subtitle,required this.colors,required this.weight,required this.fontSize,required this.height});
+   cost({super.key,required this.subtitle,required this.colors,required this.weight,required this.fontSize,required this.height,});
 
   @override
   Widget build(BuildContext context) {

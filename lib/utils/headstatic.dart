@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
 class Static_Header extends StatelessWidget {
@@ -8,6 +10,7 @@ class Static_Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -15,20 +18,26 @@ class Static_Header extends StatelessWidget {
       children: [
         Row(
           children: [
-            Container(
-              height: 34.h,
-              width: 34.w,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4).r,
-                  gradient: LinearGradient(colors: [
-                    theme.primary.withOpacity(0.6),
-                    theme.primary.withOpacity(0.3),
-                    theme.primary.withOpacity(0.6),
-                  ])),
-              child: Center(
-                child: SvgPicture.asset(
-                  "assets/drawer.svg",
-                  fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () {
+                // Navigator.pushNamed(context, '/third');
+                provider.changeval();
+              },
+              child: Container(
+                height: 34.h,
+                width: 34.w,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4).r,
+                    gradient: LinearGradient(colors: [
+                      theme.primary.withOpacity(0.6),
+                      theme.primary.withOpacity(0.3),
+                      theme.primary.withOpacity(0.6),
+                    ])),
+                child: Center(
+                  child: SvgPicture.asset(
+                    "assets/drawer.svg",
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

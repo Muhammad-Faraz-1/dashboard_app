@@ -1,7 +1,7 @@
-import 'dart:ui';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/utils/drawer.dart';
 import 'package:testapp/pages/allorders.dart';
 import 'package:testapp/pages/catpage.dart';
 import 'package:testapp/pages/landingpage.dart';
@@ -19,31 +19,48 @@ class Application_Page extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                image: DecorationImage(
-                    image: AssetImage(
-                      "assets/bg.png",
-                    ),
-                    fit: BoxFit.fill),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                child: provider.currentpage == 1
-                    ? Landingpage()
-                    : provider.currentpage == 2
-                        ? OrdersPage()
-                        : provider.currentpage == 3
-                            ? Categories_Page()
-                            : provider.currentpage == 4
-                                ? Reviewspage()
-                                : Landingpage(),
-              ),
+            MyDrawer(),
+            TweenAnimationBuilder(
+              tween:Tween<double>(
+                    begin: 0, end: provider.val == true ? 1 : 0),
+              duration: Duration(seconds: 1),
+              builder: (_, double val, __) {
+                return Transform(
+                  alignment: Alignment.center,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..setEntry(0, 3, 200 * val)
+                      ..rotateY((pi / 6) * val),
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: double.infinity,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                              image: AssetImage(
+                                "assets/bg.png",
+                              ),
+                              fit: BoxFit.fill),
+                        ),
+                        child: provider.currentpage == 1
+                            ? Landingpage()
+                            : provider.currentpage == 2
+                                ? OrdersPage()
+                                : provider.currentpage == 3
+                                    ? Categories_Page()
+                                    : provider.currentpage == 4
+                                        ? Reviewspage()
+                                        : Landingpage(),
+                      ),
+                      Positioned(bottom: 10, left: 10, child: Navbar()),
+                    ],
+                  ),
+                );
+              },
             ),
-            Positioned(bottom: 10, left: 10, child: Navbar()),
           ],
         ),
       ),

@@ -25,7 +25,7 @@ class Reviewsbody extends StatelessWidget {
             height: 5.w,
           ),
           SizedBox(
-            height: 350.h,
+            height: 330.h,
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(

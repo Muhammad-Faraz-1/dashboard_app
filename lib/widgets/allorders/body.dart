@@ -98,7 +98,7 @@ class orderbox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // provider.changepage(5);
-        Navigator.pushNamed(context, '/fourth');
+        Navigator.pushNamed(context, '/third');
       },
       child: SizedBox(
         child: Stack(
@@ -141,7 +141,7 @@ class orderbox extends StatelessWidget {
                       colors: theme.secondary,
                       weight: FontWeight.w600,
                       fontSize: 15,
-                      height: 1.2)
+                      height: 1.2,)
                 ],
               ),
             ),

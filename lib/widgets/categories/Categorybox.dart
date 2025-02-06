@@ -16,7 +16,7 @@ class Categorybox extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         // provider.changecattype(1);
-        Navigator.pushNamed(context, '/fifth');
+        Navigator.pushNamed(context, '/fourth');
       },
       child: Container(
         height: 50.h,

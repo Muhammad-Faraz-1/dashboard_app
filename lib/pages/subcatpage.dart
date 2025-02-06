@@ -51,21 +51,16 @@ class SubCategoriesPage extends StatelessWidget {
                     theme.primary.withOpacity(0.6),
                   ]),
                 ),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      ////// header widget
-                      // CatsubSectionHeader(name: 'Bedrooms'),
-                      head(),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      provider.cattype == 0 ? SubCatBody() :provider.cattype==1? Productbody():Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: ProductDetails()),
-                    ],
-                  ),
+                child: Column(
+                  children: [
+                    ////// header widget
+                    // CatsubSectionHeader(name: 'Bedrooms'),
+                    head(),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    provider.cattype == 0 ? SubCatBody() :provider.cattype==1? Productbody():ProductDetails(),
+                  ],
                 ),
               ),
             ),

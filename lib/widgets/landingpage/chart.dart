@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_svg/svg.dart';
@@ -53,7 +54,7 @@ class RevenueChart extends StatelessWidget {
                     ]),
                     borderRadius: BorderRadius.circular(4.r),
                   ),
-                  child: dropdownmonths()),
+                  child: DropdownMonths()),
             ],
           ),
           SizedBox(
@@ -155,10 +156,7 @@ class RevenueChart extends StatelessWidget {
             height: 10,
           ),
           Container(
-            height: 250,
-            // width: double.infinity,
-            // color: Colors.amber,
-            // child: LineChartScreen(),
+            height: 250.h,
             child: provider.selected == "line"
                 ? LineChartScreen()
                 : GroupedHistogramChart(),
@@ -169,46 +167,55 @@ class RevenueChart extends StatelessWidget {
   }
 }
 
+/////////////////////////////////////////////
 // ignore: must_be_immutable
-class dropdownmonths extends StatelessWidget {
-  dropdownmonths({super.key});
 
-  // List of months
+class DropdownMonths extends StatelessWidget {
+  DropdownMonths({super.key});
+
   final List<String> _months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
   ];
-
-  // Selected month (default: January)
-  String _selectedMonth = 'January';
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
+
     return DropdownButtonHideUnderline(
-      child: DropdownButton<String>(
-        value: _selectedMonth,
-        icon: const Icon(Icons.keyboard_arrow_down_rounded),
-        iconSize: 20.sp,
-        elevation: 16,
+      child: DropdownButton2<String>(
+        value: provider.selectedMonth, // Get value from provider
+        isExpanded: true, // Ensures the button takes full width
+        iconStyleData: IconStyleData(
+          icon: const Icon(Icons.keyboard_arrow_down_rounded),
+          iconSize: 20.sp,
+          iconEnabledColor: theme.shadow,
+        ),
+        dropdownStyleData: DropdownStyleData(
+          padding: EdgeInsets.symmetric(vertical: 5.sp,horizontal: 0),
+          maxHeight: 200.h, // Set max height for dropdown
+          elevation: 5,
+          width: 120.w,
+          offset: const Offset(-5, -5), // Ensures dropdown opens below
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.r),
+            color: theme.primary.withOpacity(0.8),
+          ),
+        ),
+        menuItemStyleData: MenuItemStyleData(
+          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 4.h),
+        ),
         style: TextStyle(color: theme.shadow, fontSize: 18.sp),
-        onChanged: (String? newValue) {},
+        onChanged: (String? newValue) {
+          provider.updateMonth(newValue!); 
+        },
         items: _months.map<DropdownMenuItem<String>>((String month) {
           return DropdownMenuItem<String>(
             value: month,
             child: Text(
               month,
-              style: TextStyle(fontSize: 12.sp),
+              style: TextStyle(fontSize: 12.sp, height: 1.2),
             ),
           );
         }).toList(),
@@ -216,6 +223,9 @@ class dropdownmonths extends StatelessWidget {
     );
   }
 }
+//////////////////////////////////
+
+
 
 class LineChartScreen extends StatefulWidget {
   const LineChartScreen({super.key});

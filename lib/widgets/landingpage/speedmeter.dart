@@ -1,133 +1,92 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:testapp/statemanager/provider1.dart';
 import 'dart:ui';
 
 import 'package:testapp/utils/textwidgets.dart';
 
-class SpeedoMeter extends StatefulWidget {
-  const SpeedoMeter({super.key});
+// class SpeedoMeter extends StatefulWidget {
+//   const SpeedoMeter({super.key});
 
-  @override
-  State<SpeedoMeter> createState() => _SpeedoMeterState();
-}
+//   @override
+//   State<SpeedoMeter> createState() => _SpeedoMeterState();
+// }
 
-class _SpeedoMeterState extends State<SpeedoMeter> {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
-    return Container(
-      height: 350,
-      width: 155,
-      // padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          theme.primary.withOpacity(0.6),
-          theme.primary.withOpacity(0.3),
-          theme.primary.withOpacity(0.6),
-        ]),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: theme.shadow,
-            blurRadius: 4,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          // Text(''),
-          SfRadialGauge(
-            enableLoadingAnimation: true,
-            animationDuration: 3500,
-            axes: <RadialAxis>[
-              RadialAxis(
-                  axisLineStyle: const AxisLineStyle(
-                      thicknessUnit: GaugeSizeUnit.factor, thickness: 0.15),
-                  radiusFactor: 0.9,
-                  showTicks: false,
-                  showLastLabel: true,
-                  maximum: 100,
-                  axisLabelStyle: const GaugeTextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  // Added custom axis renderer that extended from RadialAxisRenderer
-                  // onCreateAxisRenderer: handleCreateAxisRenderer,
-                  // pointers: const <GaugePointer>[
-
-                  //   // NeedlePointer(
-
-                  //   //     enableAnimation: true,
-                  //   //     gradient: LinearGradient(colors: <Color>[
-                  //   //       // Color.fromRGBO(203, 126, 223, 0),
-                  //   //       // Color(0xFFCB7EDF)
-                  //   //       theme.onSecondaryContainer,
-                  //   //       theme.onSecondaryContainer,
-                  //   //     ], stops: <double>[
-                  //   //       0.25,
-                  //   //       0.75
-                  //   //     ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
-                  //   //     animationType: AnimationType.ease,
-                  //   //     value: 60,
-                  //   //     animationDuration: 3000,
-                  //   //     needleStartWidth: 2,
-                  //   //     needleEndWidth: 4,
-                  //   //     needleLength: 0.7,
-                  //   //     knobStyle: KnobStyle(
-                  //   //       knobRadius: 0,
-                  //   //     )),
-
-                  //   RangePointer(
-                  //     cornerStyle: CornerStyle.bothCurve,
-                  //       value: 60,
-                  //       width: 0.15,
-                  //       sizeUnit: GaugeSizeUnit.factor,
-                  //       // color: _pointerColor,
-                  //       // color: Colors.amber,
-                  //       animationDuration: 1300,
-                  //       animationType: AnimationType.easeOutBack,
-                  //       gradient: SweepGradient(
-                  //           colors: <Color>[theme.onSecondaryContainer,theme.onSecondaryContainer ],
-                  //           stops: <double>[0.25, 0.75]),
-                  //       enableAnimation: true)
-                  // ],
-                  pointers: <GaugePointer>[
-                    NeedlePointer(value: 90)
-                  ],
-                  annotations: <GaugeAnnotation>[
-                    GaugeAnnotation(
-                        widget: Container(
-                            child: Text('90.0',
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold))),
-                        angle: 90,
-                        positionFactor: 0.5)
-                  ])
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+// class _SpeedoMeterState extends State<SpeedoMeter> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final theme = Theme.of(context).colorScheme;
+//     return Container(
+//       height: 350,
+//       width: 155,
+//       // padding: EdgeInsets.all(10),
+//       decoration: BoxDecoration(
+//         gradient: LinearGradient(colors: [
+//           theme.primary.withOpacity(0.6),
+//           theme.primary.withOpacity(0.3),
+//           theme.primary.withOpacity(0.6),
+//         ]),
+//         borderRadius: BorderRadius.circular(20),
+//         boxShadow: [
+//           BoxShadow(
+//             color: theme.shadow,
+//             blurRadius: 4,
+//             spreadRadius: 2,
+//           ),
+//         ],
+//       ),
+//       child: Column(
+//         children: [
+//           SfRadialGauge(
+//             enableLoadingAnimation: true,
+//             animationDuration: 3500,
+//             axes: <RadialAxis>[
+//               RadialAxis(
+//                   axisLineStyle: const AxisLineStyle(
+//                       thicknessUnit: GaugeSizeUnit.factor, thickness: 0.15),
+//                   radiusFactor: 0.9,
+//                   showTicks: false,
+//                   showLastLabel: true,
+//                   maximum: 100,
+//                   axisLabelStyle: const GaugeTextStyle(
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.w500,
+//                   ),
+//                   pointers: <GaugePointer>[
+//                     NeedlePointer(value: 90)
+//                   ],
+//                   annotations: <GaugeAnnotation>[
+//                     GaugeAnnotation(
+//                         widget: Container(
+//                             child: Text('90.0',
+//                                 style: TextStyle(
+//                                     fontSize: 25,
+//                                     fontWeight: FontWeight.bold))),
+//                         angle: 90,
+//                         positionFactor: 0.5)
+//                   ])
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 //////////////////////////////////////
 ///
-class speedometer2 extends StatefulWidget {
+class speedometer2 extends StatelessWidget {
   const speedometer2({super.key});
 
   @override
-  State<speedometer2> createState() => _speedometer2State();
-}
-
-class _speedometer2State extends State<speedometer2> {
-  @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
     return Container(
       height: 180.h,
@@ -152,14 +111,19 @@ class _speedometer2State extends State<speedometer2> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Sectionheading(subtitle: 'Website Performance'),
-          SectionSubheading(subtitle: 'Website Performance',weight: FontWeight.w600,),
+          SectionSubheading(
+            subtitle: 'Website Performance',
+            weight: FontWeight.w600,
+          ),
           SizedBox(
             height: 5.h,
           ),
           SizedBox(
             height: 150.h,
             child: SfRadialGauge(axes: <RadialAxis>[
+              
               RadialAxis(
+                
                   minimum: 0,
                   maximum: 100,
                   showLabels: false,
@@ -190,23 +154,13 @@ class _speedometer2State extends State<speedometer2> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    // GaugeRange(startValue: 50,endValue: 100,color: Colors.orange),
-                    // GaugeRange(startValue: 100,endValue: 150,color: Colors.red)
                   ],
-                  pointers:  <GaugePointer>[
-                    // NeedlePointer(
-                    //   value: 90,
-                    //   needleColor: theme.onSecondaryContainer,
-                    //   needleLength: 20,
-                    //   knobStyle: ,
-                    // )
+                  pointers: <GaugePointer>[
                     NeedlePointer(
-                        enableAnimation: true,
+                        enableAnimation: provider.chck==1? true:false,
                         gradient: LinearGradient(
-                            colors: <Color>[
-                              // Color.fromRGBO(203, 126, 223, 0),
-                              // Color(0xFFCB7EDF)
-                              theme.secondaryContainer,
+                            colors: [
+                              theme.onSecondary,
                               theme.secondaryContainer,
                             ],
                             stops: <double>[
@@ -215,9 +169,9 @@ class _speedometer2State extends State<speedometer2> {
                             ],
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter),
-                        animationType: AnimationType.ease,
+                        animationType:AnimationType.linear,
                         value: 90,
-                        animationDuration: 3000,
+                        animationDuration:3000,
                         needleStartWidth: 2,
                         needleEndWidth: 4,
                         needleLength: 0.7,
@@ -228,17 +182,19 @@ class _speedometer2State extends State<speedometer2> {
                   annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Container(
-                          child: Text(
-                            '90%',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  color: theme.primary,
-                                  fontSize: 22.sp,
-                                  height: 1.13,
-                                  fontWeight: FontWeight.w500),
+                            child:provider.chck==1? AcceleratingCounter1(
+                          targetNumber: 90, color: theme.primary, percent: true,
+                        ): Text(
+                              '90%',
+                              style: GoogleFonts.poppins(
+                                textStyle: TextStyle(
+                                    color: theme.primary,
+                                    fontSize: 22.sp,
+                                    height: 1.13,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
-                          ),
-                        ),
+                            ),
                         angle: 90,
                         positionFactor: 0.5)
                   ])
@@ -258,6 +214,7 @@ class secruity extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
     return Container(
       height: 180.h,
@@ -282,9 +239,12 @@ class secruity extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-              width: double.infinity,
-              child: 
-          SectionSubheading(subtitle: 'Website Security',weight: FontWeight.w600,),),
+            width: double.infinity,
+            child: SectionSubheading(
+              subtitle: 'Website Security',
+              weight: FontWeight.w600,
+            ),
+          ),
           SizedBox(
             height: 5.h,
           ),
@@ -314,8 +274,9 @@ class secruity extends StatelessWidget {
                       'assets/w1.png',
                       fit: BoxFit.cover,
                     )),
-                Text(
-                  '90%',
+                   provider.chck==1? AcceleratingCounter1(targetNumber: 86, color: Colors.green, percent: true,)
+                :Text(
+                  '86%',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                         fontSize: 22,
@@ -328,6 +289,36 @@ class secruity extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AcceleratingCounter1 extends StatelessWidget {
+  final int? targetNumber; // The final number to reach
+  Color? color;
+  bool? percent;
+   AcceleratingCounter1({super.key, required this.targetNumber,required this.color,required this.percent});
+
+  @override
+  Widget build(BuildContext context) {
+    // final theme = Theme.of(context).colorScheme;
+    return TweenAnimationBuilder<int>(
+      tween: IntTween(begin: 0, end: targetNumber),
+      duration: const Duration(milliseconds: 1000), // Adjust duration as needed
+      curve: Curves.decelerate, // Simulates acceleration
+      builder: (context, value, child) {
+        return Text(
+          percent==true?
+          '$value%':value.toString(),
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+                color: color,
+                fontSize: 22.sp,
+                height: 1.13,
+                fontWeight: FontWeight.w500),
+          ),
+        );
+      },
     );
   }
 }

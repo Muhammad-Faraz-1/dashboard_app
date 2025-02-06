@@ -62,37 +62,88 @@ class Provider1 extends ChangeNotifier {
                 : pos = 275;
     notifyListeners();
   }
-int currentpage=1;
-double navpos=20;
-changepage(int activepage){
-  currentpage=activepage;
-  currentpage == 1
+
+  int currentpage = 1;
+  double navpos = 20;
+  changepage(int activepage) {
+    chck==1? chck=0:null;
+    currentpage = activepage;
+    currentpage == 1
         ? navpos = 20
         : currentpage == 2
             ? navpos = 105
             : currentpage == 3
                 ? navpos = 190
                 : navpos = 275;
-  notifyListeners();
-}
+                
+    notifyListeners();
+  }
 
 ////////////
- int cattype = 0;
- changecattype(int type){
-  cattype=type;
-  notifyListeners();
- }
-goback(){
-  cattype=cattype-1;
-  print('hello world');
-  notifyListeners();
-}
+  int cattype = 0;
+  changecattype(int type) {
+    cattype = type;
+    notifyListeners();
+  }
+
+  goback() {
+    cattype = cattype - 1;
+    print('hello world');
+    notifyListeners();
+  }
 // navbar_animation(){}
 
-bool obs=true;
-obstate(){
-  obs=!obs;
-  print(obs);
-  notifyListeners();
-}
+  bool obs = true;
+  obstate() {
+    obs = !obs;
+    print(obs);
+    notifyListeners();
+  }
+
+  ////////////
+  // draweranimatio
+  bool val = false;
+  changeval() {
+    val = !val;
+    print(val);
+    notifyListeners();
+  }
+////////////////first visit check
+  int chck=0;
+  chckval(int val){
+    chck= val;
+    notifyListeners();
+  }
+  ///////////////////
+  ///size selection styling
+  int selected_size = 1;
+  change_size(int val){
+    selected_size = val;
+    notifyListeners();
+  }
+  //////////////////////////////
+  /// package selection styling
+  int selected_package = 1;
+  change_package(int val){
+    selected_package = val;
+    notifyListeners();
+  }
+  ////////////////////////////
+  /// color selection style
+  int selected_color = 1;
+  change_color(int val){
+    selected_color=val;
+    notifyListeners();
+  }
+
+  ////////////
+  // dropdown 
+  String selectedMonth = 'January';
+
+  // String get selectedMonth => _selectedMonth;
+
+  void updateMonth(String newMonth) {
+    selectedMonth = newMonth;
+    notifyListeners(); // Notify UI to rebuild
+  }
 }

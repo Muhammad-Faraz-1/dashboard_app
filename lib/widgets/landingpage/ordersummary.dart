@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:testapp/utils/textwidgets.dart';
+import 'package:testapp/widgets/landingpage/speedmeter.dart';
 
 class summarybox extends StatelessWidget {
   const summarybox({super.key});
@@ -35,6 +35,13 @@ class summarybox extends StatelessWidget {
           SizedBox(
             height: 5.h,
           ),
+          // GridView.builder( gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //       crossAxisCount: 2, // Set the number of columns in the grid
+          //       crossAxisSpacing: 10, // Space between columns
+          //       mainAxisSpacing: 10, // Space between rows
+          //       childAspectRatio: 2.2), itemBuilder: (BuildContext,4){
+          //         return summarydetails(head: '', val: '')
+          //       })
           GridView(
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -77,15 +84,17 @@ class summarydetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SectionSubheading(subtitle: head!),
-          Text(
-            val!,
-            style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
-                    height: 1.1,
-                    color: theme.primary)),
-          )
+          AcceleratingCounter1(targetNumber: int.parse(val!), color: Colors.white,percent: false,)
+          //  AcceleratingCounter(targetNumber: int.parse(val!), color: theme.primary,)
+          // Text(
+          //   val!,
+          //   style: GoogleFonts.poppins(
+          //       textStyle: TextStyle(
+          //           fontSize: 20.sp,
+          //           fontWeight: FontWeight.w500,
+          //           height: 1.1,
+          //           color: theme.primary)),
+          // )
         ],
       ),
     );
