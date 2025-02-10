@@ -24,8 +24,8 @@ class Static_Header extends StatelessWidget {
                 provider.changeval();
               },
               child: Container(
-                height: 34.h,
-                width: 34.w,
+                height: 30.h,
+                width: 30.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4).r,
                     gradient: LinearGradient(colors: [

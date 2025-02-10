@@ -110,7 +110,7 @@ class review extends StatelessWidget {
             val!,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w500,
                     height: 1.1,
                     color: theme.primary)),
@@ -174,7 +174,7 @@ class activeline extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     final provider = Provider.of<Provider1>(context);
     return AnimatedPositioned(
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 500),
       left: provider.left.w,
       bottom: 0.h,
       child: Container(

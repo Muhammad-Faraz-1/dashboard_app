@@ -66,7 +66,7 @@ class assemblybox extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Container(
-      height: 55.h,
+      // height: 60.h,
       width: double.infinity,
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -103,11 +103,14 @@ class assemblybox extends StatelessWidget {
                         subtitle: label!,
                         colors:active==1? theme.primary:theme.secondary,
                         weight: FontWeight.w600),
+                        SizedBox(height: 3.h,),
                     Contentsmall(
                         subtitle:
                             content!,
                         weight: FontWeight.w400,
-                        colors:active==1? theme.primary:theme.secondary,)
+                        colors:active==1? theme.primary:theme.secondary,
+                        height: 1.2,
+                        )
                   ],
                 ),
               ),

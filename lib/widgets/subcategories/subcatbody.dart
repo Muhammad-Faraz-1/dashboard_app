@@ -17,32 +17,58 @@ class SubCatBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'All Catgories'),
+          Sectionheading(subtitle: 'All Sub Catgories'),
           SizedBox(
-            height: 5.w,
+            height: 5.h,
           ),
           SizedBox(
             height: 350.h,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: GridView(
-                      shrinkWrap: true,
-                      // padding: EdgeInsets.all(10),
-                      gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Set the number of columns in the grid
-                          crossAxisSpacing: 5, // Space between columns
-                          mainAxisSpacing: 5, // Space between rows
-                          childAspectRatio: 3.3),
-                      children:const [
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Subcatbox(),
                         Subcatbox(),
+                    ],
+                  ),
+                  SizedBox(height: 5.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Subcatbox(),
                         Subcatbox(),
+                    ],
+                  ),
+                  SizedBox(height: 5.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Subcatbox(),
                         Subcatbox(),
+                    ],
+                  ),
+                  SizedBox(height: 5.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Subcatbox(),
                         Subcatbox(),
+                    ],
+                  ),
+                  SizedBox(height: 5.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Subcatbox(),
                         Subcatbox(),
-                        Subcatbox(),
-                        Subcatbox(),
-                      ],
-                    ),
+                    ],
+                  ),
+                ],
+              ),
+             
             ),
           )
         ],
@@ -66,7 +92,7 @@ class Subcatbox extends StatelessWidget {
       },
       child: Container(
         height: 50.h,
-        width: 170.w,
+        width: 167.w,
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

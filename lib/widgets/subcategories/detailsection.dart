@@ -36,7 +36,7 @@ class ProductDetails extends StatelessWidget {
                       theme.primary.withOpacity(0.3),
                       theme.primary.withOpacity(0.5)
                     ]),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10).r,
                     boxShadow: [
                       BoxShadow(
                           color: Colors.black.withOpacity(0.15),
@@ -52,7 +52,7 @@ class ProductDetails extends StatelessWidget {
                       height: 180.h,
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(10).r),
                       child: Image.asset(
                         'assets/product2.png',
                         fit: BoxFit.cover,
@@ -68,7 +68,7 @@ class ProductDetails extends StatelessWidget {
                         Container(
                           height: 22.h,
                           padding:
-                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                              EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
                           color: Colors.green,
                           child: Center(
                             child: Text(
@@ -130,7 +130,7 @@ class ProductDetails extends StatelessWidget {
                                   textStyle: TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                       decorationColor: theme.tertiary,
-                                      fontSize: 12,
+                                      fontSize: 12.sp,
                                       height: 1.25,
                                       fontWeight: FontWeight.w500,
                                       color: theme.tertiary)),
@@ -139,7 +139,7 @@ class ProductDetails extends StatelessWidget {
                               '\$105',
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                       height: 1.2,
                                       fontWeight: FontWeight.w600,
                                       color: theme.tertiary)),
@@ -459,7 +459,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                     text: _isExpanded
                         ? widget.text
                         : widget.text
-                            .substring(0, textPainter.width.toInt() - 50),
+                            .substring(0, 250),
                   ),
                   if (isOverflowing || _isExpanded)
                     WidgetSpan(
@@ -474,7 +474,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                           _isExpanded ? ' See Less' : ' See More',
                           style: TextStyle(
                             color: theme.secondaryContainer,
-                            fontSize: 10,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

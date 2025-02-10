@@ -31,7 +31,7 @@ class summarybox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'Order Summary'),
+          SectionSubheading(subtitle: 'Order Summary'),
           SizedBox(
             height: 5.h,
           ),
@@ -42,20 +42,25 @@ class summarybox extends StatelessWidget {
           //       childAspectRatio: 2.2), itemBuilder: (BuildContext,4){
           //         return summarydetails(head: '', val: '')
           //       })
-          GridView(
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Set the number of columns in the grid
-                crossAxisSpacing: 10, // Space between columns
-                mainAxisSpacing: 10, // Space between rows
-                childAspectRatio: 2.2),
+          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              summarydetails(head: 'New Order', val: '15'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  summarydetails(head: 'New Order', val: '15'),
               summarydetails(head: 'Completed Order', val: '8'),
-              summarydetails(head: 'Processing Order', val: '6'),
+                ],
+              ),
+              SizedBox(height: 10.h,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [summarydetails(head: 'Processing Order', val: '6'),
               summarydetails(head: 'Canceled Order', val: '1'),
+                ],
+              )
             ],
           )
+         
         ],
       ),
     );

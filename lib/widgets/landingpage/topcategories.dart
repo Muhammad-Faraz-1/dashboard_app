@@ -34,7 +34,7 @@ class topsellingcategoriessection extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SectionSubheading(subtitle: 'Top Categories'),
               Container(

@@ -109,7 +109,7 @@ class Contentheading1 extends StatelessWidget {
         ),
       ),
       textAlign: TextAlign.start,
-      textScaler: TextScaler.linear(1.sp),
+      // textScaler: TextScaler.linear(1.sp),
     );
   }
 }
@@ -189,12 +189,10 @@ class Contentmedium extends StatelessWidget {
           color: colors,
           fontSize: 10.sp,
           height: 1.2,
-          // fontWeight: FontWeight.w500,
           fontWeight: weight==null?FontWeight.w500:weight,
         ),
       ),
       textAlign: TextAlign.start,
-      textScaler: TextScaler.linear(1.sp),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/provider1.dart';
+import 'package:testapp/utils/popup.dart';
 import 'package:testapp/utils/textwidgets.dart';
 // import 'package:testapp/widgets/allorders/head.dart';
 import 'package:testapp/widgets/orderdetails/orderheadercompoenets.dart';
@@ -23,8 +24,7 @@ class Headerdetails extends StatelessWidget {
         // height: 210.h,
         padding: EdgeInsets.all(10.sp),
         decoration: BoxDecoration(
-          border:
-              Border.all(color: theme.tertiary, width: 1),
+          border: Border.all(color: theme.tertiary, width: 1),
           borderRadius: BorderRadius.only(
               bottomLeft: const Radius.circular(20).r,
               bottomRight: Radius.circular(20).r),
@@ -83,12 +83,12 @@ class Headerdetails extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.sp),
                     child: Pageheading(
-                      subtitle:'Order Details',
+                      subtitle: 'Order Details',
                     )),
                 //////////////////////
               ],
             ),
-            // 
+            //
             SizedBox(
               height: 10.h,
             ),
@@ -130,21 +130,21 @@ class Headerdetails extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                           provider.changepos(2);
+                          provider.changepos(2);
                         },
                         child: ordersfilter(
                             img: 'assets/pending.png', label: 'Order'),
                       ),
                       GestureDetector(
                         onTap: () {
-                           provider.changepos(3);
+                          provider.changepos(3);
                         },
                         child: ordersfilter(
                             img: 'assets/cancel.png', label: 'Addon'),
                       ),
                       GestureDetector(
                         onTap: () {
-                           provider.changepos(4);
+                          provider.changepos(4);
                         },
                         child: ordersfilter(
                             img: 'assets/cancel.png', label: 'Payment'),
@@ -174,13 +174,13 @@ class headinfobox extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            height: 60.h,
+            height: 70.h,
             // width: 340.w,
             padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 10.sp),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10).r,
-                gradient:
-                    LinearGradient(colors: [theme.onSecondary, theme.onSecondaryContainer])),
+                gradient: LinearGradient(
+                    colors: [theme.onSecondary, theme.onSecondaryContainer])),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,25 +254,37 @@ class headinfobox extends StatelessWidget {
             ),
           ),
           Positioned(
-          bottom: 10,
-          right: 10,
-          child: Container(
-            width: 90.w,
-            height: 22.h,
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            decoration: BoxDecoration(color: Color(0xff32A848),borderRadius: BorderRadius.circular(4)),
-            child: Center(
-              child: Text(
-                'Delivered',
-                style: GoogleFonts.poppins(
-                    fontSize: 9.sp,
-                    fontWeight: FontWeight.w700,
-                    height: 1.3,
-                    color: theme.primary),
+            bottom: 10,
+            right: 10,
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomPopup();
+                  },
+                );
+              },
+              child: Container(
+                width: 90.w,
+                height: 22.h,
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                decoration: BoxDecoration(
+                    color: Color(0xff32A848),
+                    borderRadius: BorderRadius.circular(4)),
+                child: Center(
+                  child: Text(
+                    'Delivered',
+                    style: GoogleFonts.poppins(
+                        fontSize: 9.sp,
+                        fontWeight: FontWeight.w700,
+                        height: 1.3,
+                        color: theme.primary),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
         ],
       ),
     );

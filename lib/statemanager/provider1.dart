@@ -146,4 +146,19 @@ class Provider1 extends ChangeNotifier {
     selectedMonth = newMonth;
     notifyListeners(); // Notify UI to rebuild
   }
+
+  //////////////////////////
+  ///order status pop radio btn
+  int state = 1;
+  changestatus(int val){
+    state = val;
+    notifyListeners();
+  }
+  //////////////////////////////
+  ///review status btn 
+String reviewstatus = 'Approved';
+  changereview(String val){
+    reviewstatus=val;
+    notifyListeners();
+  }
 }

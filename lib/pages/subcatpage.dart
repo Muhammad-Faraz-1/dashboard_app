@@ -25,42 +25,46 @@ class SubCategoriesPage extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
-          body: Container(
-            height: double.infinity,
-            width: double.infinity,
-            // padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              image: DecorationImage(
-                  image: AssetImage(
-                    "assets/bg.png",
-                  ),
-                  fit: BoxFit.fill),
-            ),
-            // child: SvgPicture.asset("assets/star.svg",),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  gradient: LinearGradient(colors: [
-                    theme.primary.withOpacity(0.6),
-                    theme.primary.withOpacity(0.3),
-                    theme.primary.withOpacity(0.6),
-                  ]),
-                ),
-                child: Column(
-                  children: [
-                    ////// header widget
-                    // CatsubSectionHeader(name: 'Bedrooms'),
-                    head(),
-                    SizedBox(
-                      height: 10.h,
+          body: MediaQuery(
+            
+          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              // padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                image: DecorationImage(
+                    image: AssetImage(
+                      "assets/bg.png",
                     ),
-                    provider.cattype == 0 ? SubCatBody() :provider.cattype==1? Productbody():ProductDetails(),
-                  ],
+                    fit: BoxFit.fill),
+              ),
+              // child: SvgPicture.asset("assets/star.svg",),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                child: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    gradient: LinearGradient(colors: [
+                      theme.primary.withOpacity(0.6),
+                      theme.primary.withOpacity(0.3),
+                      theme.primary.withOpacity(0.6),
+                    ]),
+                  ),
+                  child: Column(
+                    children: [
+                      ////// header widget
+                      // CatsubSectionHeader(name: 'Bedrooms'),
+                      head(),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      provider.cattype == 0 ? SubCatBody() :provider.cattype==1? Productbody():ProductDetails(),
+                    ],
+                  ),
                 ),
               ),
             ),

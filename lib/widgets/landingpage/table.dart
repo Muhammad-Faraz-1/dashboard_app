@@ -87,7 +87,7 @@ class customtable extends StatelessWidget {
                   child: Text(
                     'Price',
                     style: GoogleFonts.poppins(
-                        fontSize: 10.w,
+                        fontSize: 10.sp,
                         fontWeight: FontWeight.w600,
                         height: 1.2,
                         color: theme.primary),

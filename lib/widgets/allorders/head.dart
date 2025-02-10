@@ -116,7 +116,7 @@ class headinfobox extends StatelessWidget {
             val!,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w500,
                     height: 1.1,
                     color: theme.primary)),
@@ -145,7 +145,7 @@ class orderfilter extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Container(
-      height: 58.h,
+      height: 75.h,
       width: 86.w,
       padding: EdgeInsets.symmetric(vertical: 5.sp),
       color: Colors.transparent,
@@ -154,7 +154,7 @@ class orderfilter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: 36.w,
+            height: 36.h,
             width: 36.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -168,6 +168,7 @@ class orderfilter extends StatelessWidget {
               ),
             ),
           ),
+          // SizedBox(height: 5.h,),
           Contentheading1(
             subtitle: label!,
             color: theme.onSecondary,
@@ -186,7 +187,7 @@ class activeline extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     final provider = Provider.of<Provider1>(context);
     return AnimatedPositioned(
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 500),
       left: provider.left.w,
       bottom: 0.h,
       child: Container(

@@ -145,9 +145,8 @@ class Activeline extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
     return AnimatedPositioned(
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 500),
       left: provider.navpos.w,
-      // left: 20.w,
       bottom: 0.h,
       child: Container(
         height: 5.h,

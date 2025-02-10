@@ -41,7 +41,7 @@ class RevenueChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Sectionheading(subtitle: 'Revenue'),
+              SectionSubheading(subtitle: 'Revenue'),
               Container(
                   width: 120.w,
                   height: 30.h,
@@ -67,7 +67,7 @@ class RevenueChart extends StatelessWidget {
                 '\$4500',
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
-                    fontSize: 22,
+                    fontSize: 22.sp,
                     height: 1.2,
                     fontWeight: FontWeight.w600,
                     color: theme.secondaryContainer,
@@ -235,20 +235,29 @@ class LineChartScreen extends StatefulWidget {
 }
 
 class _LineChartScreenState extends State<LineChartScreen> {
-  late List<ChartData> _chartData;
+    late List<ChartData> _chartData;
 
   @override
   void initState() {
     super.initState();
     _chartData = getChartData();
+// Enable TooltipBehavior
   }
+  
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return SfCartesianChart(
       // title: ChartTitle(text: 'Sales Comparison'),
-
+      // Enable TooltipBehavior for the chart
+      tooltipBehavior: TooltipBehavior(
+        enable: true, // Enable the tooltip
+        header: 'Revenue', // Optional header
+        format: 'point.x: point.y', // Customize the tooltip format
+        textStyle: TextStyle(color: theme.primary), 
+        color: Color(0xff012345)// Customize text color
+      ),
       legend: Legend(
         isVisible: true, // Enables legends
         // overflowMode: LegendItemOverflowMode.wrap,
@@ -291,9 +300,6 @@ class _LineChartScreenState extends State<LineChartScreen> {
           dashArray: <double>[5, 3], // Makes vertical lines dashed
           color: theme.onTertiary, // Optional: Set color of dashes
         ),
-        // interval: 5, // This controls the range of values to plot grid lines
-        //     minimum: 0, // Set the minimum value for the Y-axis
-        //     maximum: 50, // Set the maximum value for the Y-axis
         minorGridLines: const MinorGridLines(width: 0), // No minor grid lines
         axisLine: const AxisLine(width: 0), // Remove axis line
       ),
@@ -303,42 +309,54 @@ class _LineChartScreenState extends State<LineChartScreen> {
         minorGridLines: const MinorGridLines(width: 0),
         axisLine: const AxisLine(width: 0), // Remove Y-axis line
       ),
-
-      // primaryXAxis: CategoryAxis(), // X-Axis (Categories)
-      // primaryYAxis: NumericAxis(
-      //   majorGridLines:
-      //       const MajorGridLines(width: 0), // Removes horizontal grid lines
-      //   minorGridLines: const MinorGridLines(width: 0),
-      // ), // Y-Axis (Numeric Values)
-      // plotAreaBorderWidth: 0, // Removes the border around the chart
-      // plotAreaBackgroundColor: Colors.transparent,
-      series: <LineSeries<ChartData, String>>[
-        LineSeries<ChartData, String>(
-          name: 'Bed Room', // Legend Name
+      // **Using SplineAreaSeries instead of LineSeries**
+      series: <ChartSeries<ChartData, String>>[
+        SplineAreaSeries<ChartData, String>(
+          name: 'Bed Room',
           dataSource: _chartData,
           xValueMapper: (ChartData data, _) => data.month,
           yValueMapper: (ChartData data, _) => data.salesA,
+          gradient: LinearGradient( // Adds a smooth color transition
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              theme.secondaryContainer.withOpacity(0.7),
+              theme.secondaryContainer.withOpacity(0.2),
+            ],
+          ),
+          borderColor: theme.secondaryContainer,
+          borderWidth: 2,
           markerSettings: MarkerSettings(
-              isVisible: true,
-              borderWidth: 0,
-              color: theme.secondaryContainer,
-              height: 5.h,
-              width: 5.w), // Show data points
-          color: theme.secondaryContainer, // Line color
+            isVisible: true,
+            borderWidth: 0,
+            color: theme.secondaryContainer,
+            height: 5,
+            width: 5,
+          ),
         ),
-        LineSeries<ChartData, String>(
-            name: 'Living Room', // Legend Name
-            dataSource: _chartData,
-            xValueMapper: (ChartData data, _) => data.month,
-            yValueMapper: (ChartData data, _) => data.salesB,
-            markerSettings: MarkerSettings(
-                isVisible: true,
-                borderWidth: 0,
-                color: theme.tertiaryContainer,
-                height: 5.h,
-                width: 5.w),
-            color: theme.tertiaryContainer // Line color
-            ),
+        SplineAreaSeries<ChartData, String>(
+          name: 'Living Room',
+          dataSource: _chartData,
+          xValueMapper: (ChartData data, _) => data.month,
+          yValueMapper: (ChartData data, _) => data.salesB,
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              theme.tertiaryContainer.withOpacity(0.7),
+              theme.tertiaryContainer.withOpacity(0.2),
+            ],
+          ),
+          borderColor: theme.tertiaryContainer,
+          borderWidth: 2,
+          markerSettings: MarkerSettings(
+            isVisible: true,
+            borderWidth: 0,
+            color: theme.tertiaryContainer,
+            height: 5,
+            width: 5,
+          ),
+        ),
       ],
     );
   }
@@ -363,7 +381,7 @@ class ChartData {
   final double salesA;
   final double salesB;
 }
-
+////////////////////////////////////////////////////////////////
 class GroupedHistogramChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

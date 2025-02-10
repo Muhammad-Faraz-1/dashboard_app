@@ -104,7 +104,7 @@ class Productbox extends StatelessWidget {
                       color: Colors.green,
                       child: Center(
                         child: Text('In stock',style: GoogleFonts.poppins(
-                          fontSize: 7,
+                          fontSize: 7.sp,
                           fontWeight: FontWeight.w500,
                           color: Colors.white
                         ),),
@@ -122,7 +122,7 @@ class Productbox extends StatelessWidget {
                   textStyle: TextStyle(
                     decoration: TextDecoration.lineThrough,
                     decorationColor: Colors.white,
-                    fontSize: 8,
+                    fontSize: 8.sp,
                     height: 1.25,
                     fontWeight: FontWeight.w500,
                     color: Colors.white
@@ -130,7 +130,7 @@ class Productbox extends StatelessWidget {
                 ),),
                 Text('\$145',style: GoogleFonts.poppins(
                   textStyle: TextStyle(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     height: 1.25,
                     fontWeight: FontWeight.w600,
                     color: Colors.white

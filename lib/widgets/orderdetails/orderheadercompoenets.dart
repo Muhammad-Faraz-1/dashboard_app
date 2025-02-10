@@ -56,7 +56,7 @@ class activesline extends StatelessWidget {
     final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
     return AnimatedPositioned(
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 500),
       left: provider.pos.w,
       // left: 20.w,
       bottom: 0.h,

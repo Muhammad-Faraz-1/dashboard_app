@@ -61,7 +61,7 @@ class catinfobox extends StatelessWidget {
             val!,
             style: GoogleFonts.poppins(
                 textStyle: TextStyle(
-                    fontSize: 20,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w500,
                     height: 1.1,
                     color: theme.primary)),

@@ -38,18 +38,23 @@ class ListofProducts extends StatelessWidget {
                     SingleProductDetails(),
                     SizedBox(height: 5.h),
                     divide(),
+                    SizedBox(height: 5.h),
                     SingleProductDetails(),
                     SizedBox(height: 5.h),
                     divide(),
+                    SizedBox(height: 5.h),
                     SingleProductDetails(),
                     SizedBox(height: 5.h),
                     divide(),
+                    SizedBox(height: 5.h),
                     SingleProductDetails(),
                     SizedBox(height: 5.h),
                     divide(),
+                    SizedBox(height: 5.h),
                     SingleProductDetails(),
                     SizedBox(height: 5.h),
                     divide(),
+                    SizedBox(height: 5.h),
                     SingleProductDetails(),
                     SizedBox(height: 5.h),
                   ],
@@ -85,83 +90,92 @@ class SingleProductDetails extends StatelessWidget {
     return SizedBox(
       height: 60.h,
       width: 300.w,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              SizedBox(
-                height: 54.h,
-                width: 81.w,
-                child: Image.asset('assets/product.png'),
-              ),
-              Positioned(
-                right: -3,
-                top: -3,
-                child: Container(
-                  height: 15.h,
-                  width: 15.w,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: theme.secondary),
-                  child: Center(
-                    child: Text(
-                      '1',
-                      style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.w400,
-                              height: 1.4,
-                              color: theme.primary)),
+      child: Padding(
+        padding:  EdgeInsets.symmetric(vertical: 2.sp),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                SizedBox(
+                  height: 60.h,
+                  width: 81.w,
+                  child: Image.asset(
+                    'assets/product.png',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Positioned(
+                  right: -3,
+                  top: -3,
+                  child: Container(
+                    height: 15.h,
+                    width: 15.w,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: theme.secondary),
+                    child: Center(
+                      child: Text(
+                        '1',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w400,
+                                height: 1.4,
+                                color: theme.primary)),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 10.w,
-          ),
-          ///////
-          Expanded(
-            child: SizedBox(
-              height: double.infinity,
-              width: 147.w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      'Monaco 3 PC Modular Sectional with 2 Chaise, Grey, Sectional',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: theme.primary,
-                          fontSize: 12.sp,
-                          height: 1.25,
-                          fontWeight: FontWeight.w500,
+              ],
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            ///////
+            Expanded(
+              child: SizedBox(
+                height: double.infinity,
+                width: 147.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        'Monaco 3 PC Modular Sectional with 2 Chaise, Grey, Sectional',
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: theme.primary,
+                            fontSize: 12.sp,
+                            height: 1.25,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      maxLines: 2),
-                  SizedBox(height: 5),
-                  Contentsmall(
-                      subtitle: 'sku-1273971',
-                      weight: FontWeight.w400,
-                      colors: theme.primary),
-                  Contentsmall(
-                      subtitle: 'Brown color Queen Size Bed',
-                      weight: FontWeight.w400,
-                      colors: theme.primary),
-                ],
+                        maxLines: 2),
+                    SizedBox(height: 5.h),
+                    Contentsmall(
+                        subtitle: 'sku-1273971',
+                        height: 1.2,
+                        weight: FontWeight.w400,
+                        colors: theme.primary),
+                    Contentsmall(
+                        subtitle: 'Brown color Queen Size Bed',
+                        height: 1.2,
+                        weight: FontWeight.w400,
+                        colors: theme.primary),
+                  ],
+                ),
               ),
             ),
-          ),
-          /////////////
-          cost(
-              subtitle: '\$455',
-              colors: theme.primary,
-              weight: FontWeight.w600,
-              fontSize: 12,
-              height: 1.25)
-        ],
+            /////////////
+            cost(
+                subtitle: '\$455',
+                colors: theme.primary,
+                weight: FontWeight.w600,
+                fontSize: 12,
+                height: 1.25)
+          ],
+        ),
       ),
     );
   }

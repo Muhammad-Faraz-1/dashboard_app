@@ -12,8 +12,8 @@ class MyDrawer extends StatelessWidget {
     final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
     return SafeArea(
-        child: Material(
-      child: Container(
+        child: Scaffold(
+      body: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -80,6 +80,8 @@ class MyDrawer extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
+                // scrollDirection: Axis.none,
+                physics: NeverScrollableScrollPhysics(),
                 children: [
                   ListTile(
                     title: Row(
@@ -154,7 +156,7 @@ class MyDrawer extends StatelessWidget {
                       // Add your action when the drawer item is pressed
                       // Navigator.pop(context);
                       provider.changeval();
-                  provider.changepage(3);
+                      provider.changepage(3);
                     },
                   ),
                   ListTile(
@@ -177,7 +179,7 @@ class MyDrawer extends StatelessWidget {
                     ),
                     onTap: () {
                       provider.changeval();
-                  provider.changepage(4);
+                      provider.changepage(4);
                     },
                   ),
                   ListTile(
@@ -199,9 +201,8 @@ class MyDrawer extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      
                       provider.changeval();
-                  provider.changepage(4);
+                      provider.changepage(4);
                     },
                   ),
                   ListTile(
@@ -223,9 +224,8 @@ class MyDrawer extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      
                       provider.changeval();
-                  provider.changepage(4);
+                      provider.changepage(4);
                     },
                   ),
                   ListTile(
@@ -247,9 +247,8 @@ class MyDrawer extends StatelessWidget {
                       ],
                     ),
                     onTap: () {
-                      
                       provider.changeval();
-                  provider.changepage(4);
+                      provider.changepage(4);
                     },
                   ),
                   SizedBox(
@@ -276,10 +275,9 @@ class MyDrawer extends StatelessWidget {
                     onTap: () {
                       provider.changeval();
                       Navigator.pop(context);
-                  // provider.changepage(4);
+                      // provider.changepage(4);
                     },
                   ),
-                  
                 ],
               ),
             )

@@ -16,161 +16,171 @@ class Loginpage extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            image: DecorationImage(
-                image: AssetImage(
-                  "assets/bg.png",
-                ),
-                fit: BoxFit.fill),
-          ),
+        body: MediaQuery(
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(1.0)),
           child: Container(
             height: double.infinity,
             width: double.infinity,
-            // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-            padding: EdgeInsets.fromLTRB(40, 40, 40, 10),
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              theme.primary.withOpacity(0.6),
-              theme.primary.withOpacity(0.3),
-              theme.primary.withOpacity(0.6),
-            ])),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: 50.h,
-                        width: 140.w,
-                        child: Image.asset('assets/fm-logo.png'),
-                      ),
-                      SizedBox(
-                        height: 38.h,
-                        width: 38.w,
-                        child: Image.asset('assets/country-flag.png'),
-                      ),
-                    ],
+              color: Colors.transparent,
+              image: DecorationImage(
+                  image: AssetImage(
+                    "assets/bg.png",
                   ),
-                  SizedBox(height: 110.h,),
-                  ////////////////////////////////////////////////
-                  ////////////////////////////////////////////////
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Pageheading(subtitle: 'Sign In'),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      fieldwithlabel(
-                        hint: 'Username',
-                        icon: Icons.check_circle_outline,
-                        obs: false,
-                      ),
-                      fieldwithlabel(
-                        hint: 'Password',
-                        icon: Icons.remove_red_eye_sharp,
-                        obs: true,
-                      ),
-                      Row(
-                        children: [
-                          CustomCheckbox(),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Contentmedium(
-                              subtitle: 'Remember me', colors: theme.primary)
-                        ],
-                      ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                      GestureDetector(
-                        onTap: ()async {
-                          // provider.chckval(1);
-                          provider.changepage(1);
-                          Navigator.pushNamed(context, '/second');
-                        },
-                        child: Container(
+                  fit: BoxFit.fill),
+            ),
+            child: Container(
+              height: double.infinity,
+              width: double.infinity,
+              // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+              padding: EdgeInsets.fromLTRB(40, 40, 40, 10),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                theme.primary.withOpacity(0.6),
+                theme.primary.withOpacity(0.3),
+                theme.primary.withOpacity(0.6),
+              ])),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 50.h,
+                          width: 140.w,
+                          child: Image.asset('assets/fm-logo.png'),
+                        ),
+                        SizedBox(
                           height: 38.h,
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            // border: Border.all(color: theme.onTertiary),
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                              colors: [
-                                theme.onSecondary,
-                                theme.secondaryContainer
-                              ],
+                          width: 38.w,
+                          child: Image.asset('assets/country-flag.png'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 110.h,
+                    ),
+                    ////////////////////////////////////////////////
+                    ////////////////////////////////////////////////
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Pageheading(subtitle: 'Sign In'),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        fieldwithlabel(
+                          hint: 'Username',
+                          icon: Icons.check_circle_outline,
+                          obs: false,
+                        ),
+                        fieldwithlabel(
+                          hint: 'Password',
+                          icon: Icons.remove_red_eye_sharp,
+                          obs: true,
+                        ),
+                        Row(
+                          children: [
+                            CustomCheckbox(),
+                            SizedBox(
+                              width: 5.w,
                             ),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Login',
-                                  style: GoogleFonts.poppins(
-                                    textStyle: TextStyle(
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: theme.primary,
-                                        height: 1.5),
+                            Contentmedium(
+                                subtitle: 'Remember me', colors: theme.primary)
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            // provider.chckval(1);
+                            provider.changepage(1);
+                            Navigator.pushNamed(context, '/second');
+                          },
+                          child: Container(
+                            height: 38.h,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              // border: Border.all(color: theme.onTertiary),
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                colors: [
+                                  theme.onSecondary,
+                                  theme.secondaryContainer
+                                ],
+                              ),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Login',
+                                    style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: theme.primary,
+                                          height: 1.5),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  ///////////////////////////////////////
-                  SizedBox(height: 160.h,),
-                  ////////////////////////////////////////////////
-                  ////////////////////////////////////////////////
-                  Column(
-                    children: [
-                      SizedBox(height: 80.h,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 15.h,
-                            width: 15.w,
-                            child: Image.asset('assets/halflogo.png'),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Contentmedium(
-                            subtitle: 'Version 1.0.0',
-                            colors: theme.primary,
-                            weight: FontWeight.w600,
-                          ),
-                        ],
-                      ),
-                      Contentmedium(
-                        subtitle: 'Designed & Managed By Zelle Solutions',
-                        colors: theme.primary,
-                        weight: FontWeight.w600,
-                      ),
-                      // Text('Designed & Managed By Zelle Solutions',style: GoogleFonts.poppins(
-                      //               textStyle: TextStyle(
-                      //                   fontSize: 10.sp,
-                      //                   fontWeight: FontWeight.w600,
-                      //                   color: theme.primary,
-                      //                   height: 1.2),
-                      //             ),)
-                    ],
-                  )
-                ],
+                      ],
+                    ),
+                    ///////////////////////////////////////
+                    SizedBox(
+                      height: 160.h,
+                    ),
+                    ////////////////////////////////////////////////
+                    ////////////////////////////////////////////////
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: 80.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 15.h,
+                              width: 15.w,
+                              child: Image.asset('assets/halflogo.png'),
+                            ),
+                            SizedBox(
+                              width: 5.w,
+                            ),
+                            Contentmedium(
+                              subtitle: 'Version 1.0.0',
+                              colors: theme.primary,
+                              weight: FontWeight.w600,
+                            ),
+                          ],
+                        ),
+                        Contentmedium(
+                          subtitle: 'Designed & Managed By Zelle Solutions',
+                          colors: theme.primary,
+                          weight: FontWeight.w600,
+                        ),
+                        // Text('Designed & Managed By Zelle Solutions',style: GoogleFonts.poppins(
+                        //               textStyle: TextStyle(
+                        //                   fontSize: 10.sp,
+                        //                   fontWeight: FontWeight.w600,
+                        //                   color: theme.primary,
+                        //                   height: 1.2),
+                        //             ),)
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -193,10 +203,6 @@ class fieldwithlabel extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Pageheading(subtitle: label),
-        // SizedBox(
-        //   height: 15.h,
-        // ),
         Container(
           height: 38.h,
           padding: EdgeInsets.only(left: 10.sp),
@@ -221,14 +227,17 @@ class fieldwithlabel extends StatelessWidget {
                       color: theme.tertiary,
                       height: 1.5)),
               decoration: InputDecoration(
-                
-                contentPadding: EdgeInsets.symmetric(vertical: 12.h),
+                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                 fillColor: Colors.transparent,
-                border: InputBorder.none,
-                suffixIcon:obs==true? Icon(
-                  Icons.remove_red_eye_sharp,
-                  color: theme.primary,
-                ):null,
+                border:InputBorder.none,
+                // border: OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.red, width: 3)),
+                suffixIcon: obs == true
+                    ? Icon(
+                        Icons.remove_red_eye_sharp,
+                        color: theme.primary,
+                      )
+                    : null,
                 hintText: hint,
                 hintStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
@@ -249,7 +258,6 @@ class fieldwithlabel extends StatelessWidget {
   }
 }
 
-
 class CustomCheckbox extends StatelessWidget {
   const CustomCheckbox({super.key});
 
@@ -262,9 +270,7 @@ class CustomCheckbox extends StatelessWidget {
         height: 10.h,
         width: 10.w,
         decoration: BoxDecoration(
-          color: theme.primary,
-          border: Border.all(color: theme.onTertiary)
-        ),
+            color: theme.primary, border: Border.all(color: theme.onTertiary)),
       ),
     );
   }

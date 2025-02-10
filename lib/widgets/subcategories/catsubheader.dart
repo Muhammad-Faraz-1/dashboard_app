@@ -21,13 +21,13 @@ class head extends StatelessWidget {
       child: Container(
         width: double.infinity,
         // height: 275.h,
-        padding: EdgeInsets.all(10.sp),
+        padding: EdgeInsets.symmetric(horizontal: 10.sp,vertical: 10.sp),
         decoration: BoxDecoration(
           border: Border.all(color: theme.onTertiary, width: 1),
           borderRadius: BorderRadius.only(
                   bottomLeft: const Radius.circular(20).r,
-                  bottomRight: Radius.circular(20))
-              .r,
+                  bottomRight: Radius.circular(20).r)
+              ,
           gradient: LinearGradient(colors: [
             theme.primary.withOpacity(0.6),
             theme.primary.withOpacity(0.3),
@@ -53,7 +53,7 @@ class head extends StatelessWidget {
                   onTap: () {
                     provider.cattype==0?
                     Navigator.pop(context):provider.goback();
-                    print('hi');
+                    // print('hi');
                   },
                   child: Container(
                     height: 34.h,
@@ -87,9 +87,9 @@ class head extends StatelessWidget {
               ],
             ),
             ////////////////////////////////////////////////////////
-            SizedBox(
-              height: 10.h,
-            ),
+            // SizedBox(
+            //   height: 10.h,
+            // ),
             provider.cattype>=2?Container(height: 0,):
             subcatheaderinfo(),
           ],

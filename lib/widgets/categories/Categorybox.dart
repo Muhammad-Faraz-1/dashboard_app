@@ -20,7 +20,7 @@ class Categorybox extends StatelessWidget {
       },
       child: Container(
         height: 50.h,
-        width: 170.w,
+        width: 167.w,
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

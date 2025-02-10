@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:testapp/utils/textwidgets.dart';
-import 'package:testapp/widgets/reviews/popup.dart';
+import 'package:testapp/utils/popup.dart';
 
 class Reviewsbody extends StatelessWidget {
   const Reviewsbody({super.key});
@@ -98,12 +98,15 @@ class ReviewBox extends StatelessWidget {
                 Container(
                   height: 22.h,
                   padding: EdgeInsets.symmetric(horizontal: 22),
-                  color: Colors.green,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5).r,
+                    color: Color(0xff32A848),
+                  ),
                   child: Center(
                     child: Text(
                       'Approved',
                       style: GoogleFonts.poppins(
-                          fontSize: 7,
+                          fontSize: 10.sp,
                           fontWeight: FontWeight.w500,
                           color: Colors.white),
                     ),

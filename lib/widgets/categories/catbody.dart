@@ -17,30 +17,37 @@ class Categroiesbody extends StatelessWidget {
         children: [
           Sectionheading(subtitle: 'All Catgories'),
           SizedBox(
-            height: 5.w,
+            height: 5.h,
           ),
           SizedBox(
             height: 350.h,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: GridView(
-                      shrinkWrap: true,
-                      // padding: EdgeInsets.all(10),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, // Set the number of columns in the grid
-                          crossAxisSpacing: 5, // Space between columns
-                          mainAxisSpacing: 5, // Space between rows
-                          childAspectRatio: 3.3),
-                      children: [
+              child: Column(
+                children: [
+                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Categorybox(),
                         Categorybox(),
+                          ],
+                        ),
+                        SizedBox(height: 5.h,),
+                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Categorybox(),
                         Categorybox(),
+                          ],
+                        ),
+                        SizedBox(height: 5.h,),
+                         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Categorybox(),
                         Categorybox(),
-                        Categorybox(),
-                        Categorybox(),
-                        Categorybox(),
-                        Categorybox(),
-                      ],
-                    ),
+                          ],
+                        ),
+                        SizedBox(height: 5.h,),
+                ],
+              )
             ),
           )
         ],

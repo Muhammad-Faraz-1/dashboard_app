@@ -14,56 +14,68 @@ class Application_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  // double? width= MediaQuery.of(context).size.width;
+  // double? height= MediaQuery.of(context).size.height;
+  // print('width');
+  // print(width);
+  // print('height');
+  // print(height);
     final provider = Provider.of<Provider1>(context);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.red,
         body: Stack(
-          children: [
-            MyDrawer(),
-            TweenAnimationBuilder(
-              tween:Tween<double>(
-                    begin: 0, end: provider.val == true ? 1 : 0),
-              duration: Duration(seconds: 1),
-              builder: (_, double val, __) {
-                return Transform(
-                  alignment: Alignment.center,
-                    transform: Matrix4.identity()
-                      ..setEntry(3, 2, 0.001)
-                      ..setEntry(0, 3, 200 * val)
-                      ..rotateY((pi / 6) * val),
-                  child: Stack(
-                    children: [
-                      Container(
-                        height: double.infinity,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                              image: AssetImage(
-                                "assets/bg.png",
-                              ),
-                              fit: BoxFit.fill),
+            
+            children: [
+              MyDrawer(),
+              TweenAnimationBuilder(
+                tween:Tween<double>(
+                      begin: 0, end: provider.val == true ? 1 : 0),
+                duration: Duration(seconds: 1),
+                builder: (_, double val, __) {
+                  return Transform(
+                    alignment: Alignment.center,
+                      transform: Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..setEntry(0, 3, 200 * val)
+                        ..rotateY((pi / 6) * val),
+                    child: Stack(
+                      children: [
+                        MediaQuery(
+                          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+                          child: Container(
+                            height: double.infinity,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                    "assets/bg.png",
+                                  ),
+                                  fit: BoxFit.fill),
+                            ),
+                            child: provider.currentpage == 1
+                                ? Landingpage()
+                                : provider.currentpage == 2
+                                    ? OrdersPage()
+                                    : provider.currentpage == 3
+                                        ? Categories_Page()
+                                        : provider.currentpage == 4
+                                            ? Reviewspage()
+                                            : Landingpage(),
+                          ),
                         ),
-                        child: provider.currentpage == 1
-                            ? Landingpage()
-                            : provider.currentpage == 2
-                                ? OrdersPage()
-                                : provider.currentpage == 3
-                                    ? Categories_Page()
-                                    : provider.currentpage == 4
-                                        ? Reviewspage()
-                                        : Landingpage(),
-                      ),
-                      Positioned(bottom: 10, left: 10, child: Navbar()),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+                        Positioned(bottom: 10, left: 10, child: Navbar()),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
       ),
     );
   }
 }
+
+      // data:MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
