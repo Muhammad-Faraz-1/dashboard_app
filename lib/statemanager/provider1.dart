@@ -26,16 +26,16 @@ class Provider1 extends ChangeNotifier {
   }
 
   /////////////////////
+  ///dashbaord page chart change method
 
   filterposition() {}
-
   String? selected = 'line';
   changechart(String select) {
     selected = select;
     notifyListeners();
   }
 
-//////// all orders page
+//////// all orders page top navigation for filters
   int activefilter = 1;
   double left = 37;
   changeorderfilter(int active) {
@@ -48,7 +48,7 @@ class Provider1 extends ChangeNotifier {
     notifyListeners();
   }
 
-  ////////////// order details page
+  ////////////// order details page top navigation for filters
   int filter = 1;
   double pos = 20;
   changepos(int active) {
@@ -63,10 +63,11 @@ class Provider1 extends ChangeNotifier {
     notifyListeners();
   }
 
+  // naviagtion bar changes pages from this method
   int currentpage = 1;
   double navpos = 20;
   changepage(int activepage) {
-    chck==1? chck=0:null;
+    chck = 0;
     currentpage = activepage;
     currentpage == 1
         ? navpos = 20
@@ -75,17 +76,20 @@ class Provider1 extends ChangeNotifier {
             : currentpage == 3
                 ? navpos = 190
                 : navpos = 275;
-                
+
     notifyListeners();
   }
 
 ////////////
+  ///categories page flow is controlled here
   int cattype = 0;
   changecattype(int type) {
     cattype = type;
     notifyListeners();
   }
 
+////////////
+  ///backbutton logic so that it does not route to main page directly
   goback() {
     cattype = cattype - 1;
     print('hello world');
@@ -101,43 +105,47 @@ class Provider1 extends ChangeNotifier {
   }
 
   ////////////
-  // draweranimatio
-  bool val = false;
+  // drawer animation
+  bool drawerval = false;
   changeval() {
-    val = !val;
-    print(val);
+    drawerval = !drawerval;
+    print(drawerval);
     notifyListeners();
   }
+
 ////////////////first visit check
-  int chck=0;
-  chckval(int val){
-    chck= val;
+  int chck = 0;
+  chckval(int val) {
+    chck = val;
     notifyListeners();
   }
+
   ///////////////////
   ///size selection styling
   int selected_size = 1;
-  change_size(int val){
+  change_size(int val) {
     selected_size = val;
     notifyListeners();
   }
+
   //////////////////////////////
   /// package selection styling
   int selected_package = 1;
-  change_package(int val){
+  change_package(int val) {
     selected_package = val;
     notifyListeners();
   }
+
   ////////////////////////////
   /// color selection style
   int selected_color = 1;
-  change_color(int val){
-    selected_color=val;
+  change_color(int val) {
+    selected_color = val;
     notifyListeners();
   }
 
   ////////////
-  // dropdown 
+  // dropdown
   String selectedMonth = 'January';
 
   // String get selectedMonth => _selectedMonth;
@@ -150,15 +158,16 @@ class Provider1 extends ChangeNotifier {
   //////////////////////////
   ///order status pop radio btn
   int state = 1;
-  changestatus(int val){
+  changestatus(int val) {
     state = val;
     notifyListeners();
   }
+
   //////////////////////////////
-  ///review status btn 
-String reviewstatus = 'Approved';
-  changereview(String val){
-    reviewstatus=val;
+  ///review status btn
+  String reviewstatus = 'Approved';
+  changereview(String val) {
+    reviewstatus = val;
     notifyListeners();
   }
 }

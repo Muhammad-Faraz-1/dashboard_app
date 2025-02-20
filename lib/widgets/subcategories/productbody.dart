@@ -18,7 +18,7 @@ class Productbody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'Products'),
+          // Sectionheading(subtitle: 'Products'),
           SizedBox(
             height: 5.w,
           ),

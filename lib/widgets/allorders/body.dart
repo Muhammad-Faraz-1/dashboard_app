@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/provider1.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/pages/orderdetails.dart';
 // import 'package:testapp/statemanager/provider1.dart';
@@ -94,11 +96,12 @@ class orderbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    // final provider = Provider.of<Provider1>(context);
+    final provider = Provider.of<Provider1>(context);
     return GestureDetector(
       onTap: () {
         // provider.changepage(5);
-        Navigator.pushNamed(context, '/third');
+        provider.drawerval == false ? Navigator.pushNamed(context, '/third') : null;
+        
       },
       child: SizedBox(
         child: Stack(
@@ -108,12 +111,13 @@ class orderbox extends StatelessWidget {
               width: 320.w,
               padding: EdgeInsets.all(10.sp),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.r),
-                  gradient: LinearGradient(colors: [
+                borderRadius: BorderRadius.circular(10.r),
+                gradient: LinearGradient(colors: [
                   theme.primary.withOpacity(0.6),
                   theme.primary.withOpacity(0.3),
                   theme.primary.withOpacity(0.6),
-                ]),),
+                ]),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -137,11 +141,12 @@ class orderbox extends StatelessWidget {
                       colors: theme.secondary,
                       weight: FontWeight.w500),
                   cost(
-                      subtitle: '\$450',
-                      colors: theme.secondary,
-                      weight: FontWeight.w600,
-                      fontSize: 15,
-                      height: 1.2,)
+                    subtitle: '\$450',
+                    colors: theme.secondary,
+                    weight: FontWeight.w600,
+                    fontSize: 15,
+                    height: 1.2,
+                  )
                 ],
               ),
             ),
@@ -151,7 +156,8 @@ class orderbox extends StatelessWidget {
               child: Container(
                 width: 90.w,
                 padding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 5.sp),
-                decoration: BoxDecoration(color: color!,borderRadius: BorderRadius.circular(4.r)),
+                decoration: BoxDecoration(
+                    color: color!, borderRadius: BorderRadius.circular(4.r)),
                 child: Center(
                   child: Text(
                     val!,

@@ -81,7 +81,7 @@ class head extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.sp),
                     child: Pageheading(
-                      subtitle:provider.cattype==0? 'Category Name':provider.cattype==1?'Products page':'Product Details',
+                      subtitle:provider.cattype==0? 'Subcategories':provider.cattype==1?'All Products':'Product Details',
                     )),
                 //////////////////////
               ],

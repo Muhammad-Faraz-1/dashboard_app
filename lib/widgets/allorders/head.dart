@@ -42,14 +42,15 @@ class Allorder_Header extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
         Stack(
           children: [
             Container(
               height: 85.h,
               width: 340.w,
-              padding:
-                  EdgeInsets.symmetric(horizontal: 21.sp, vertical: 10.sp),
+              padding: EdgeInsets.symmetric(horizontal: 21.sp, vertical: 10.sp),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10).r,
                   gradient: LinearGradient(colors: [
@@ -61,25 +62,20 @@ class Allorder_Header extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      provider.changeorderfilter(1);
-                    },
-                    child: orderfilter(img: 'assets/all.png', label: 'All'),
+                  orderfilter(
+                    img: 'assets/all.png',
+                    label: 'All',
+                    id: 1,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.changeorderfilter(2);
-                    },
-                    child: orderfilter(
-                        img: 'assets/pending.png', label: 'Processing'),
+                  orderfilter(
+                    img: 'assets/pending.png',
+                    label: 'Processing',
+                    id: 2,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.changeorderfilter(3);
-                    },
-                    child: orderfilter(
-                        img: 'assets/cancel.png', label: 'Canceled'),
+                  orderfilter(
+                    img: 'assets/cancel.png',
+                    label: 'Canceled',
+                    id: 3,
                   ),
                 ],
               ),
@@ -106,8 +102,8 @@ class headinfobox extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10.sp),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10).r,
-          gradient:
-              LinearGradient(colors: [theme.onSecondary, theme.secondaryContainer])),
+          gradient: LinearGradient(
+              colors: [theme.onSecondary, theme.secondaryContainer])),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -139,41 +135,49 @@ class headinfobox extends StatelessWidget {
 class orderfilter extends StatelessWidget {
   String? img;
   String? label;
-  orderfilter({super.key, required this.img, required this.label});
+  int? id;
+  orderfilter(
+      {super.key, required this.img, required this.label, required this.id});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
-    return Container(
-      height: 75.h,
-      width: 86.w,
-      padding: EdgeInsets.symmetric(vertical: 5.sp),
-      color: Colors.transparent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 36.h,
-            width: 36.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: theme.onSecondaryContainer,
-            ),
-            child: Center(
-              child: SizedBox(
-                height: 26.h,
-                width: 26.w,
-                child: Image.asset(img!),
+    return GestureDetector(
+      onTap: () {
+        provider.drawerval == false ? provider.changeorderfilter(id!) : null;
+      },
+      child: Container(
+        height: 75.h,
+        width: 86.w,
+        padding: EdgeInsets.symmetric(vertical: 5.sp),
+        color: Colors.transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 36.h,
+              width: 36.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.onSecondaryContainer,
+              ),
+              child: Center(
+                child: SizedBox(
+                  height: 26.h,
+                  width: 26.w,
+                  child: Image.asset(img!),
+                ),
               ),
             ),
-          ),
-          // SizedBox(height: 5.h,),
-          Contentheading1(
-            subtitle: label!,
-            color: theme.onSecondary,
-          )
-        ],
+            // SizedBox(height: 5.h,),
+            Contentheading1(
+              subtitle: label!,
+              color: theme.onSecondary,
+            )
+          ],
+        ),
       ),
     );
   }

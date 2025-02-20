@@ -17,7 +17,7 @@ class SubCatBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'All Sub Catgories'),
+          // Sectionheading(subtitle: 'All Sub Catgories'),
           SizedBox(
             height: 5.h,
           ),

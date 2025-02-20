@@ -6,11 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-import 'package:testapp/glowcircle.dart';
+// import 'package:testapp/glowcircle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'dart:ui';
 
 import 'package:testapp/utils/textwidgets.dart';
+import 'package:testapp/widgets/landingpage/glowcontainer.dart';
 // import 'package:testapp/widgets/landingpage/glowcontainer.dart';
 
 // class SpeedoMeter extends StatefulWidget {
@@ -182,35 +183,34 @@ class speedometer2 extends StatelessWidget {
                   annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Container(
-                          child: provider.chck == 1
-                              ? AcceleratingCounter1(
-                                  targetNumber: 90,
-                                  color: theme.primary,
-                                  percent: true,
-                                )
-                              : RichText(
-                        textAlign: TextAlign.end,
-                        text: TextSpan(
-                            text: '90',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  fontSize: 30.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: theme.primary),
-                            ),
-                            children: [
-                              TextSpan(
-                                text: '\%',
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: theme.primary),
-                                ),
-                              )
-                            ]),
-                      )
-                        ),
+                            child: provider.chck == 1
+                                ? AcceleratingCounter1(
+                                    targetNumber: 90,
+                                    color: theme.primary,
+                                    percent: true,
+                                  )
+                                : RichText(
+                                    textAlign: TextAlign.end,
+                                    text: TextSpan(
+                                        text: '90',
+                                        style: GoogleFonts.poppins(
+                                          textStyle: TextStyle(
+                                              fontSize: 30.sp,
+                                              fontWeight: FontWeight.w600,
+                                              color: theme.primary),
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: '\%',
+                                            style: GoogleFonts.poppins(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: theme.primary),
+                                            ),
+                                          )
+                                        ]),
+                                  )),
                         angle: 90,
                         positionFactor: 0.5)
                   ])
@@ -271,6 +271,7 @@ class secruity extends StatelessWidget {
               children: [
                 // GlowingCircle(size: 200, color: Color(0xff43CC5C),),
                 // GlowingImage(),
+                GlowEffectScreen(),
                 // SizedBox(
                 //     height: 130.h,
                 //     width: 120.w,
@@ -278,11 +279,11 @@ class secruity extends StatelessWidget {
                 //       'assets/sheild.png',
                 //       fit: BoxFit.cover,
                 //     )),
-                    SizedBox(
+                SizedBox(
                     height: 130.h,
                     width: 120.w,
                     child: Image.asset(
-                      'assets/w1.png',
+                      'assets/g1.png',
                       fit: BoxFit.cover,
                     )),
                 SizedBox(
@@ -293,7 +294,7 @@ class secruity extends StatelessWidget {
                       fit: BoxFit.cover,
                     )),
                 SizedBox(
-                    height: 120.h,
+                    height: 110.h,
                     width: 110.w,
                     child: Image.asset(
                       'assets/w1.png',
@@ -366,24 +367,31 @@ class AcceleratingCounter1 extends StatelessWidget {
         return RichText(
           textAlign: TextAlign.end,
           text: TextSpan(
-              text: percent == true ? '$value' : value.toString(),
-              style: GoogleFonts.poppins(
-                textStyle: TextStyle(
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w600,
-                    color: color),
-              ),
-              children: [
-                TextSpan(
-                  text: '\%',
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                        color: color),
-                  ),
-                )
-              ]),
+            text: '$value' ,
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                  fontSize: 22.sp, fontWeight: FontWeight.w600, color: color),
+            ),
+            children: [percent == true ? 
+              TextSpan(
+                text: '\%',
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                      color: color),
+                ),
+              ):TextSpan(
+                text: '',
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w600,
+                      color: color),
+                ),
+              )
+            ],
+          ),
         );
       },
     );

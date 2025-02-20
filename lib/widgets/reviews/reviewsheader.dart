@@ -11,9 +11,9 @@ class Reviewsheader extends StatelessWidget {
   const Reviewsheader({super.key});
 
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    final provider = Provider.of<Provider1>(context);
+    // final provider = Provider.of<Provider1>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,21 +25,21 @@ class Reviewsheader extends StatelessWidget {
               label: 'Total Reviews',
               val: '70',
             ),
-            
             review(
               label: 'Total rating',
               val: '4.5',
             ),
           ],
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(
+          height: 10.h,
+        ),
         Stack(
           children: [
             Container(
               height: 85.h,
               width: 340.w,
-              padding:
-                  EdgeInsets.symmetric(horizontal: 21.sp, vertical: 10.sp),
+              padding: EdgeInsets.symmetric(horizontal: 21.sp, vertical: 10.sp),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10).r,
                   gradient: LinearGradient(colors: [
@@ -51,26 +51,12 @@ class Reviewsheader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      provider.changeorderfilter(1);
-                    },
-                    child: reviewfilter(img: 'assets/approved.png', label: 'Approved'),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.changeorderfilter(2);
-                    },
-                    child: reviewfilter(
-                        img: 'assets/pending.png', label: 'Pending'),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      provider.changeorderfilter(3);
-                    },
-                    child: reviewfilter(
-                        img: 'assets/cancel.png', label: 'Rejected'),
-                  ),
+                  reviewfilter(
+                      img: 'assets/approved.png', label: 'Approved', id: 1,),
+                  reviewfilter(
+                      img: 'assets/pending.png', label: 'Pending', id: 2,),
+                  reviewfilter(
+                      img: 'assets/cancel.png', label: 'Rejected', id: 3,),
                 ],
               ),
             ),
@@ -83,7 +69,6 @@ class Reviewsheader extends StatelessWidget {
 }
 
 //////////////////////////////////////////
-
 
 class review extends StatelessWidget {
   String? val;
@@ -100,8 +85,8 @@ class review extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10.sp),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10).r,
-          gradient:
-              LinearGradient(colors: [theme.onSecondary, theme.secondaryContainer])),
+          gradient: LinearGradient(
+              colors: [theme.onSecondary, theme.secondaryContainer])),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,7 +100,8 @@ class review extends StatelessWidget {
                     height: 1.1,
                     color: theme.primary)),
           ),
-          Contentsmall(subtitle: label!, weight: FontWeight.w600, colors: theme.primary)
+          Contentsmall(
+              subtitle: label!, weight: FontWeight.w600, colors: theme.primary)
         ],
       ),
     );
@@ -125,40 +111,47 @@ class review extends StatelessWidget {
 class reviewfilter extends StatelessWidget {
   String? img;
   String? label;
-  reviewfilter({super.key, required this.img, required this.label});
+  int? id;
+  reviewfilter({super.key, required this.img, required this.label,required this.id});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    return Container(
-      height: 65.h,
-      width: 86.w,
-      padding: EdgeInsets.symmetric(vertical: 5.sp),
-      color: Colors.transparent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 36.w,
-            width: 36.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: theme.onSecondaryContainer,
-            ),
-            child: Center(
-              child: SizedBox(
-                height: 26.h,
-                width: 26.w,
-                child: Image.asset(img!),
+    final provider = Provider.of<Provider1>(context);
+    return GestureDetector(
+      onTap: () {
+        provider.drawerval == false ? provider.changeorderfilter(id!) : null;
+      },
+      child: Container(
+        height: 65.h,
+        width: 86.w,
+        padding: EdgeInsets.symmetric(vertical: 5.sp),
+        color: Colors.transparent,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              height: 36.w,
+              width: 36.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.onSecondaryContainer,
+              ),
+              child: Center(
+                child: SizedBox(
+                  height: 26.h,
+                  width: 26.w,
+                  child: Image.asset(img!),
+                ),
               ),
             ),
-          ),
-          Contentheading1(
-            subtitle: label!,
-            color: theme.onSecondary,
-          )
-        ],
+            Contentheading1(
+              subtitle: label!,
+              color: theme.onSecondary,
+            )
+          ],
+        ),
       ),
     );
   }

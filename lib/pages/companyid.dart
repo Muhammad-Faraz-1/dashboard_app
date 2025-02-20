@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -71,6 +72,8 @@ class Idpage extends StatelessWidget {
                             ])),
                         child: Center(
                           child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [CustomTextInputFormatter()],
                             style: GoogleFonts.poppins(
                               decoration: TextDecoration.none,
                               textStyle: TextStyle(
@@ -86,7 +89,7 @@ class Idpage extends StatelessWidget {
                               //   borderSide: BorderSide(color: Colors.red,width: 3)
                               // ),
                               contentPadding:
-                                  EdgeInsets.symmetric(vertical: 10.h),
+                                  EdgeInsets.symmetric(vertical: 7.h),
                               suffixIcon: Icon(
                                 Icons.check_circle_outline,
                                 color: theme.primary,
@@ -96,8 +99,11 @@ class Idpage extends StatelessWidget {
                                 textStyle: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400,
-                                    color: theme.tertiary,
-                                    height: 1.5),
+                                    color: theme.tertiary.withOpacity(0.5),
+                                    height: 1.5,
+                                    
+                                    ),
+                                    
                               ),
                             ),
                           ),
@@ -193,6 +199,30 @@ class Idpage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+
+
+class CustomTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    String text = newValue.text.replaceAll('-', ''); // Remove existing hyphens
+
+    // Ensure only up to 8 digits are kept
+    if (text.length > 8) {
+      text = text.substring(0, 8);
+    }
+
+    // Add hyphen after the 4th digit
+    if (text.length > 4) {
+      text = text.substring(0, 4) + '-' + text.substring(4);
+    }
+
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 import 'package:testapp/utils/popup.dart';
 
@@ -20,7 +22,7 @@ class Reviewsbody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'All Reviews'),
+          // Sectionheading(subtitle: 'All Reviews'),
           SizedBox(
             height: 5.w,
           ),
@@ -68,13 +70,16 @@ class ReviewBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<Provider1>(context);
     return GestureDetector(
-      onTap: () => showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomPopup();
-        },
-      ),
+      onTap: () {provider.drawerval==false?
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomPopup();
+          },
+        ):null;
+      },
       child: Container(
         height: 60.h,
         width: double.infinity,

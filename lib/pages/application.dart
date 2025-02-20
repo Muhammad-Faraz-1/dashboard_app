@@ -30,7 +30,7 @@ class Application_Page extends StatelessWidget {
               MyDrawer(),
               TweenAnimationBuilder(
                 tween:Tween<double>(
-                      begin: 0, end: provider.val == true ? 1 : 0),
+                      begin: 0, end: provider.drawerval == true ? 1 : 0),
                 duration: Duration(seconds: 1),
                 builder: (_, double val, __) {
                   return Transform(

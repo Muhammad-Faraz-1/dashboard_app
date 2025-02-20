@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:testapp/utils/textwidgets.dart';
+// import 'package:testapp/utils/textwidgets.dart';
 import 'package:testapp/widgets/categories/Categorybox.dart';
 
 class Categroiesbody extends StatelessWidget {
@@ -15,7 +15,7 @@ class Categroiesbody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Sectionheading(subtitle: 'All Catgories'),
+          // Sectionheading(subtitle: 'All Catgories'),
           SizedBox(
             height: 5.h,
           ),

@@ -34,7 +34,7 @@ class Loginpage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               // padding: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-              padding: EdgeInsets.fromLTRB(40, 40, 40, 10),
+              padding: EdgeInsets.fromLTRB(40, 20, 40, 10),
               decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
                 theme.primary.withOpacity(0.6),
@@ -76,12 +76,12 @@ class Loginpage extends StatelessWidget {
                         fieldwithlabel(
                           hint: 'Username',
                           icon: Icons.check_circle_outline,
-                          obs: false,
+                          val: 0,
                         ),
-                        fieldwithlabel(
+                        passfieldwithlabel(
                           hint: 'Password',
                           icon: Icons.remove_red_eye_sharp,
-                          obs: true,
+                          obs: true, val: 1,
                         ),
                         Row(
                           children: [
@@ -97,9 +97,8 @@ class Loginpage extends StatelessWidget {
                           height: 10.h,
                         ),
                         GestureDetector(
-                          onTap: () async {
-                            // provider.chckval(1);
-                            provider.changepage(1);
+                          onTap: () {
+                            provider.chckval(1);
                             Navigator.pushNamed(context, '/second');
                           },
                           child: Container(
@@ -190,16 +189,18 @@ class Loginpage extends StatelessWidget {
   }
 }
 
-class fieldwithlabel extends StatelessWidget {
+class passfieldwithlabel extends StatelessWidget {
   IconData? icon;
   String? hint;
   bool? obs;
-  fieldwithlabel(
-      {super.key, required this.hint, required this.icon, required this.obs});
+  int? val;
+  passfieldwithlabel(
+      {super.key, required this.hint, required this.icon, required this.obs,required this.val});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<Provider1>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -217,7 +218,7 @@ class fieldwithlabel extends StatelessWidget {
           child: Center(
             child: TextField(
               textAlignVertical: TextAlignVertical.center,
-              obscureText: obs!,
+              obscureText: provider.obs,
               cursorColor: theme.tertiary,
               style: GoogleFonts.poppins(
                   decoration: TextDecoration.none,
@@ -227,23 +228,28 @@ class fieldwithlabel extends StatelessWidget {
                       color: theme.tertiary,
                       height: 1.5)),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+                contentPadding: EdgeInsets.symmetric(vertical: 7.h),
                 fillColor: Colors.transparent,
                 border:InputBorder.none,
                 // border: OutlineInputBorder(
                 //     borderSide: BorderSide(color: Colors.red, width: 3)),
-                suffixIcon: obs == true
-                    ? Icon(
-                        Icons.remove_red_eye_sharp,
-                        color: theme.primary,
-                      )
+                suffixIcon: val == 1
+                    ? GestureDetector(
+                      onTap: () {
+                        provider.obstate();
+                      },
+                      child: Icon(
+                          Icons.remove_red_eye_sharp,
+                          color: theme.primary,
+                        ),
+                    )
                     : null,
                 hintText: hint,
                 hintStyle: GoogleFonts.poppins(
                   textStyle: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
-                      color: theme.tertiary,
+                      color: theme.tertiary.withOpacity(0.5),
                       height: 1.5),
                 ),
               ),
@@ -257,6 +263,83 @@ class fieldwithlabel extends StatelessWidget {
     );
   }
 }
+
+///////////////////////////////////
+class fieldwithlabel extends StatelessWidget {
+  IconData? icon;
+  String? hint;
+  // bool? obs;
+  int? val;
+  fieldwithlabel(
+      {super.key, required this.hint, required this.icon,required this.val});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    final provider = Provider.of<Provider1>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 38.h,
+          padding: EdgeInsets.only(left: 10.sp),
+          decoration: BoxDecoration(
+              border: Border.all(color: theme.onTertiary),
+              borderRadius: BorderRadius.circular(10),
+              gradient: LinearGradient(colors: [
+                theme.primary.withOpacity(0.6),
+                theme.primary.withOpacity(0.3),
+                theme.primary.withOpacity(0.6),
+              ])),
+          child: Center(
+            child: TextField(
+              textAlignVertical: TextAlignVertical.center,
+              // obscureText: provider.obs,
+              cursorColor: theme.tertiary,
+              style: GoogleFonts.poppins(
+                  decoration: TextDecoration.none,
+                  textStyle: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: theme.tertiary,
+                      height: 1.5)),
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 7.h),
+                fillColor: Colors.transparent,
+                border:InputBorder.none,
+                // border: OutlineInputBorder(
+                //     borderSide: BorderSide(color: Colors.red, width: 3)),
+                suffixIcon: val == 1
+                    ? GestureDetector(
+                      onTap: () {
+                        provider.obstate();
+                      },
+                      child: Icon(
+                          Icons.remove_red_eye_sharp,
+                          color: theme.primary,
+                        ),
+                    )
+                    : null,
+                hintText: hint,
+                hintStyle: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: theme.tertiary.withOpacity(0.5),
+                      height: 1.5),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+      ],
+    );
+  }
+}
+///
 
 class CustomCheckbox extends StatelessWidget {
   const CustomCheckbox({super.key});
