@@ -7,7 +7,7 @@ import 'package:testapp/pages/loginpage.dart';
 import 'package:testapp/pages/orderdetails.dart';
 import 'package:testapp/pages/subcatpage.dart';
 import 'package:testapp/statemanager/provider1.dart';
-import 'package:testapp/statemanager/provider2.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/utils/theme.dart';
 
 void main() {
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => Provider1()),
-            ChangeNotifierProvider(create: (context) => Provider2()),
+            ChangeNotifierProvider(create: (context) => apiDataHandeling()),
           ],
           child: MaterialApp(
             theme: ThemeDataStyle.light,

@@ -82,8 +82,10 @@ class SectionSubheading extends StatelessWidget {
         ),
         
       ),
+      overflow: TextOverflow.clip,
       textAlign: TextAlign.start,
       textScaler: TextScaler.linear(1.sp),
+      maxLines: 2,
       
     );
   }

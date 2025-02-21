@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/pages/orderdetails.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/pages/orderdetails.dart';
@@ -19,6 +21,7 @@ class BodySection extends StatelessWidget {
   Widget build(BuildContext context) {
     // final theme = Theme.of(context).colorScheme;
     // final provider = Provider.of<Provider1>(context);
+    final apicat = Provider.of<apiDataHandeling>(context);
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
@@ -34,50 +37,79 @@ class BodySection extends StatelessWidget {
             height: 360.h,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  orderbox(
-                    color: Color(0xffEBA352),
-                    val: 'Hold',
+
+              child: SizedBox(
+                height: 500.h,
+                child: GridView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  scrollDirection: Axis.vertical,
+                  itemCount: 20,
+                  // apicat.orderdetails?.length ?? 0, // Ensure null safety
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1, // 2 items per row
+                    mainAxisSpacing: 5, // Space between rows
+                    childAspectRatio: 4.6.sp, // Adjust height of boxes
                   ),
-                  SizedBox(
-                    height: 5.w,
-                  ),
-                  orderbox(
-                    color: Color(0xff5285B4),
-                    val: 'Processing',
-                  ),
-                  SizedBox(
-                    height: 5.w,
-                  ),
-                  orderbox(
-                    color: Color(0xff32A848),
-                    val: 'Delivered',
-                  ),
-                  SizedBox(
-                    height: 5.w,
-                  ),
-                  orderbox(
-                    color: Color(0xffF08F9F),
-                    val: 'Canceled',
-                  ),
-                  SizedBox(
-                    height: 5.w,
-                  ),
-                  orderbox(
-                    color: Color(0xff32A848),
-                    val: 'Delivered',
-                  ),
-                  SizedBox(
-                    height: 5.w,
-                  ),
-                  orderbox(
-                    color: Color(0xff32A848),
-                    val: 'Delivered',
-                  ),
-                ],
+                  itemBuilder: (context, index) {
+                    final order = apicat.orderdetails![index];
+                    return orderbox(
+                      name: order['billing']['first_name'] +
+                          " " +
+                          order['billing']['last_name'],
+                      orderid: order['_id'],
+                      date: order['createdAt'],
+                      totalprice: order['total'],
+                      status: order['status'],
+                      // status: 'Processing',
+                    );
+                  },
+                ),
               ),
+
+              // child: Column(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     orderbox(
+              //       color: Color(0xffEBA352),
+              //       val: 'Hold',
+              //     ),
+              //     SizedBox(
+              //       height: 5.w,
+              //     ),
+              //     orderbox(
+              //       color: Color(0xff5285B4),
+              //       val: 'Processing',
+              //     ),
+              //     SizedBox(
+              //       height: 5.w,
+              //     ),
+              //     orderbox(
+              //       color: Color(0xff32A848),
+              //       val: 'Delivered',
+              //     ),
+              //     SizedBox(
+              //       height: 5.w,
+              //     ),
+              //     orderbox(
+              //       color: Color(0xffF08F9F),
+              //       val: 'Canceled',
+              //     ),
+              //     SizedBox(
+              //       height: 5.w,
+              //     ),
+              //     orderbox(
+              //       color: Color(0xff32A848),
+              //       val: 'Delivered',
+              //     ),
+              //     SizedBox(
+              //       height: 5.w,
+              //     ),
+              //     orderbox(
+              //       color: Color(0xff32A848),
+              //       val: 'Delivered',
+              //     ),
+              //   ],
+              // ),
             ),
           )
         ],
@@ -89,19 +121,29 @@ class BodySection extends StatelessWidget {
 /////////////////
 
 class orderbox extends StatelessWidget {
-  Color? color;
-  String? val;
-  orderbox({super.key, required this.color, required this.val});
+  String? name;
+  String? orderid;
+  String? date;
+  double? totalprice;
+  String? status;
+  orderbox(
+      {super.key,
+      this.date,
+      this.name,
+      this.orderid,
+      this.status,
+      this.totalprice});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    final provider = Provider.of<Provider1>(context);
+    // final provider = Provider.of<Provider1>(context);
     return GestureDetector(
       onTap: () {
         // provider.changepage(5);
-        provider.drawerval == false ? Navigator.pushNamed(context, '/third') : null;
-        
+        // provider.drawerval == false
+        //     ? Navigator.pushNamed(context, '/third')
+        //     : null;
       },
       child: SizedBox(
         child: Stack(
@@ -111,6 +153,7 @@ class orderbox extends StatelessWidget {
               width: 320.w,
               padding: EdgeInsets.all(10.sp),
               decoration: BoxDecoration(
+                border: Border.all(color: theme.primary),
                 borderRadius: BorderRadius.circular(10.r),
                 gradient: LinearGradient(colors: [
                   theme.primary.withOpacity(0.6),
@@ -125,23 +168,23 @@ class orderbox extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Contentsmall(
-                        subtitle: 'Order #13224',
+                        subtitle: orderid,
                         weight: FontWeight.w600,
                         colors: theme.onSecondary,
                       ),
                       Contentsmall(
-                        subtitle: '12 Jan 2025',
+                        subtitle: date!.substring(0, 9),
                         weight: FontWeight.w600,
                         colors: theme.secondary,
                       )
                     ],
                   ),
                   Contentlarge(
-                      subtitle: 'Abdul Sami',
+                      subtitle: name!,
                       colors: theme.secondary,
                       weight: FontWeight.w500),
                   cost(
-                    subtitle: '\$450',
+                    subtitle: '\$ ${totalprice!.toInt()}',
                     colors: theme.secondary,
                     weight: FontWeight.w600,
                     fontSize: 15,
@@ -157,10 +200,17 @@ class orderbox extends StatelessWidget {
                 width: 90.w,
                 padding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 5.sp),
                 decoration: BoxDecoration(
-                    color: color!, borderRadius: BorderRadius.circular(4.r)),
+                    color: status == 'pending'
+                        ? Color(0xffEBA352)
+                        : status == 'delivered'
+                            ? Color(0xff32A848)
+                            : status == 'cancel'
+                                ? Color(0xffF08F9F)
+                                : Color(0xff5285B4),
+                    borderRadius: BorderRadius.circular(4.r)),
                 child: Center(
                   child: Text(
-                    val!,
+                    status!,
                     style: GoogleFonts.poppins(
                         fontSize: 8.sp,
                         fontWeight: FontWeight.w700,

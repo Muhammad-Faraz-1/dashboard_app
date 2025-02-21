@@ -41,145 +41,143 @@ class Loginpage extends StatelessWidget {
                 theme.primary.withOpacity(0.3),
                 theme.primary.withOpacity(0.6),
               ])),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 50.h,
-                          width: 140.w,
-                          child: Image.asset('assets/fm-logo.png'),
-                        ),
-                        SizedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: 50.h,
+                        width: 140.w,
+                        child: Image.asset('assets/fm-logo.png'),
+                      ),
+                      SizedBox(
+                        height: 38.h,
+                        width: 38.w,
+                        child: Image.asset('assets/country-flag.png'),
+                      ),
+                    ],
+                  ),
+                  // SizedBox(
+                  //   height: 110.h,
+                  // ),
+                  ////////////////////////////////////////////////
+                  ////////////////////////////////////////////////
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Pageheading(subtitle: 'Sign In'),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      fieldwithlabel(
+                        hint: 'Username',
+                        icon: Icons.check_circle_outline,
+                        val: 0,
+                      ),
+                      passfieldwithlabel(
+                        hint: 'Password',
+                        icon: Icons.remove_red_eye_sharp,
+                        obs: true, val: 1,
+                      ),
+                      Row(
+                        children: [
+                          CustomCheckbox(),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Contentmedium(
+                              subtitle: 'Remember me', colors: theme.primary)
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          provider.chckval(1);
+                          Navigator.pushNamed(context, '/second');
+                        },
+                        child: Container(
                           height: 38.h,
-                          width: 38.w,
-                          child: Image.asset('assets/country-flag.png'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 110.h,
-                    ),
-                    ////////////////////////////////////////////////
-                    ////////////////////////////////////////////////
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Pageheading(subtitle: 'Sign In'),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        fieldwithlabel(
-                          hint: 'Username',
-                          icon: Icons.check_circle_outline,
-                          val: 0,
-                        ),
-                        passfieldwithlabel(
-                          hint: 'Password',
-                          icon: Icons.remove_red_eye_sharp,
-                          obs: true, val: 1,
-                        ),
-                        Row(
-                          children: [
-                            CustomCheckbox(),
-                            SizedBox(
-                              width: 5.w,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            // border: Border.all(color: theme.onTertiary),
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              colors: [
+                                theme.onSecondary,
+                                theme.secondaryContainer
+                              ],
                             ),
-                            Contentmedium(
-                                subtitle: 'Remember me', colors: theme.primary)
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            provider.chckval(1);
-                            Navigator.pushNamed(context, '/second');
-                          },
-                          child: Container(
-                            height: 38.h,
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              // border: Border.all(color: theme.onTertiary),
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                colors: [
-                                  theme.onSecondary,
-                                  theme.secondaryContainer
-                                ],
-                              ),
-                            ),
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Login',
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: theme.primary,
-                                          height: 1.5),
-                                    ),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Login',
+                                  style: GoogleFonts.poppins(
+                                    textStyle: TextStyle(
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: theme.primary,
+                                        height: 1.5),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    ///////////////////////////////////////
-                    SizedBox(
-                      height: 160.h,
-                    ),
-                    ////////////////////////////////////////////////
-                    ////////////////////////////////////////////////
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: 80.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 15.h,
-                              width: 15.w,
-                              child: Image.asset('assets/halflogo.png'),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Contentmedium(
-                              subtitle: 'Version 1.0.0',
-                              colors: theme.primary,
-                              weight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                        Contentmedium(
-                          subtitle: 'Designed & Managed By Zelle Solutions',
-                          colors: theme.primary,
-                          weight: FontWeight.w600,
-                        ),
-                        // Text('Designed & Managed By Zelle Solutions',style: GoogleFonts.poppins(
-                        //               textStyle: TextStyle(
-                        //                   fontSize: 10.sp,
-                        //                   fontWeight: FontWeight.w600,
-                        //                   color: theme.primary,
-                        //                   height: 1.2),
-                        //             ),)
-                      ],
-                    )
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  ///////////////////////////////////////
+                  // SizedBox(
+                  //   height: 260.h,
+                  // ),
+                  ////////////////////////////////////////////////
+                  ////////////////////////////////////////////////
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // SizedBox(
+                      //   height: 99.h,
+                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 15.h,
+                            width: 15.w,
+                            child: Image.asset('assets/halflogo.png'),
+                          ),
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Contentmedium(
+                            subtitle: 'Version 1.0.0',
+                            colors: theme.primary,
+                            weight: FontWeight.w600,
+                          ),
+                        ],
+                      ),
+                      Contentmedium(
+                        subtitle: 'Designed & Managed By Zelle Solutions',
+                        colors: theme.primary,
+                        weight: FontWeight.w600,
+                      ),
+                      // Text('Designed & Managed By Zelle Solutions',style: GoogleFonts.poppins(
+                      //               textStyle: TextStyle(
+                      //                   fontSize: 10.sp,
+                      //                   fontWeight: FontWeight.w600,
+                      //                   color: theme.primary,
+                      //                   height: 1.2),
+                      //             ),)
+                    ],
+                  )
+                ],
               ),
             ),
           ),
@@ -206,7 +204,7 @@ class passfieldwithlabel extends StatelessWidget {
       children: [
         Container(
           height: 38.h,
-          padding: EdgeInsets.only(left: 10.sp),
+          padding: EdgeInsets.only(left: 10.sp,),
           decoration: BoxDecoration(
               border: Border.all(color: theme.onTertiary),
               borderRadius: BorderRadius.circular(10),
@@ -228,7 +226,7 @@ class passfieldwithlabel extends StatelessWidget {
                       color: theme.tertiary,
                       height: 1.5)),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 7.h),
+                contentPadding: EdgeInsets.symmetric(vertical: 9.h),
                 fillColor: Colors.transparent,
                 border:InputBorder.none,
                 // border: OutlineInputBorder(
@@ -282,7 +280,7 @@ class fieldwithlabel extends StatelessWidget {
       children: [
         Container(
           height: 38.h,
-          padding: EdgeInsets.only(left: 10.sp),
+          padding: EdgeInsets.symmetric(vertical: 9.sp,horizontal: 10.sp),
           decoration: BoxDecoration(
               border: Border.all(color: theme.onTertiary),
               borderRadius: BorderRadius.circular(10),

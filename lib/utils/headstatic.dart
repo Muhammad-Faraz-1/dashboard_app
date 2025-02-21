@@ -42,10 +42,17 @@ class Static_Header extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.sp),
-                child: Pageheading(
-                  subtitle: "Furniture Mecca",
-                )),
+              padding: EdgeInsets.symmetric(horizontal: 10.sp),
+              child: Pageheading(
+                subtitle: provider.currentpage == 1
+                    ? "Furniture Mecca"
+                    : provider.currentpage == 2
+                        ? "All orders"
+                        : provider.currentpage == 3
+                            ? "Categories"
+                            : "Reviews",
+              ),
+            ),
           ],
         ),
         //////////////////////

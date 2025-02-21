@@ -46,6 +46,7 @@ dependencies:
   dropdown_button2: ^2.3.9 
   flutter_glow: ^0.3.0
   flutter_launcher_icons: "^0.14.3"
+  http: ^1.3.0
   
 flutter_launcher_icons:
   android: "launcher_icon"

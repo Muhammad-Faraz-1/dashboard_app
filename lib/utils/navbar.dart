@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/model/categoriesapi.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 
 class Navbar extends StatelessWidget {
@@ -11,6 +13,8 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
+    
+  final apicat = Provider.of<apiDataHandeling>(context, listen: false);
     final theme = Theme.of(context).colorScheme;
     return ClipRect(
       child: BackdropFilter(
@@ -63,6 +67,8 @@ class Navbar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
+                      apicat.getorderdetails();
+                      
                       provider.drawerval == false
                           ? provider.changepage(2)
                           : null;
@@ -91,6 +97,7 @@ class Navbar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
+                          apicat.fetchcategories();
                       provider.drawerval == false
                           ? provider.changepage(3)
                           : null;
