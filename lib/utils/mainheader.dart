@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/headstatic.dart';
-import 'package:testapp/widgets/allorders/head.dart';
+import 'package:testapp/widgets/orderlist/head.dart';
 import 'package:testapp/widgets/categories/categoryheader.dart';
 import 'package:testapp/widgets/landingpage/headercontent.dart';
 import 'package:testapp/widgets/reviews/reviewsheader.dart';

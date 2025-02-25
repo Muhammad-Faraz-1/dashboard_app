@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:testapp/model/categoriesapi.dart';
 import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 
@@ -14,7 +13,7 @@ class Navbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
     
-  final apicat = Provider.of<apiDataHandeling>(context, listen: false);
+  final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     return ClipRect(
       child: BackdropFilter(
@@ -47,9 +46,6 @@ class Navbar extends StatelessWidget {
                       width: 44.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4.r),
-                        // border: Border(
-                        //   bottom: BorderSide(color: Colors.black, width: 2),
-                        // ),
                       ),
                       child: Center(
                           child: Image.asset(
@@ -66,9 +62,9 @@ class Navbar extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      apicat.getorderdetails();
-                      
+                    onTap: () async{
+                      apicat.getorderlist();
+                      await Future.delayed(Duration(seconds: 2));
                       provider.drawerval == false
                           ? provider.changepage(2)
                           : null;
@@ -78,8 +74,6 @@ class Navbar extends StatelessWidget {
                       width: 44.w,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        // border:
-                        //     Border(bottom: BorderSide(color: Colors.red, width: 2))
                       ),
                       child: Center(
                           child: Image.asset(
@@ -105,10 +99,6 @@ class Navbar extends StatelessWidget {
                     child: Container(
                       height: 44.h,
                       width: 44.w,
-                      // decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(4),
-                      //     border:
-                      //         Border(bottom: BorderSide(color: Colors.red, width: 2))),
                       child: Center(
                           child: Image.asset(
                         provider.currentpage == 3
@@ -132,10 +122,6 @@ class Navbar extends StatelessWidget {
                     child: Container(
                       height: 44.h,
                       width: 44.w,
-                      // decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(4),
-                      //     border:
-                      //         Border(bottom: BorderSide(color: Colors.red, width: 2))),
                       child: Center(
                           child: Image.asset(
                         provider.currentpage == 4
@@ -166,6 +152,7 @@ class Activeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     final provider = Provider.of<Provider1>(context);
     return AnimatedPositioned(
       duration: Duration(milliseconds: 500),
@@ -175,11 +162,11 @@ class Activeline extends StatelessWidget {
         height: 5.h,
         width: 44.w,
         decoration: BoxDecoration(
-          color: Color(0xff6F75EB),
+          color: theme.onSecondary,
           borderRadius: BorderRadius.circular(10).r,
           border: Border.all(
             width: 4.w,
-            color: Color(0xff6F75EB),
+            color: theme.onSecondary,
           ),
         ),
       ),

@@ -11,6 +11,8 @@ class Order {
   final double? tax;
   final int? cartProtected;
   final double? cartProtectionPrice;
+  final int? professionalAssembled; 
+  final double? professionalAssembledPrice;
   final int? isShipping;
   final double? shippingCost;
   final double? total;
@@ -30,6 +32,8 @@ class Order {
      this.tax,
      this.cartProtected,
      this.cartProtectionPrice,
+     this.professionalAssembled,
+     this.professionalAssembledPrice,
      this.isShipping,
      this.shippingCost,
      this.total,
@@ -56,6 +60,9 @@ class Order {
         total: (json["total"] as num).toDouble(),
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
+        professionalAssembled:json["professional_assembled"],
+        professionalAssembledPrice: (json["professional_assembled_price"] as num?)?.toDouble() ?? 0.0,
+
       );
 }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/model/ordersapi.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
 class ListofProducts extends StatelessWidget {
@@ -8,7 +11,10 @@ class ListofProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+
+    // final order = apicat.selectedOrder;
     return Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
@@ -33,31 +39,32 @@ class ListofProducts extends StatelessWidget {
               //// product container starts here
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    SingleProductDetails(),
-                    SizedBox(height: 10.h),
-                    divide(),
-                    SizedBox(height: 10.h),
-                    SingleProductDetails(),
-                    SizedBox(height: 10.h),
-                    divide(),
-                    SizedBox(height: 10.h),
-                    SingleProductDetails(),
-                    SizedBox(height: 10.h),
-                    divide(),
-                    SizedBox(height: 10.h),
-                    SingleProductDetails(),
-                    SizedBox(height: 10.h),
-                    divide(),
-                    SizedBox(height: 10.h),
-                    SingleProductDetails(),
-                    SizedBox(height: 10.h),
-                    divide(),
-                    SizedBox(height: 10.h),
-                    SingleProductDetails(),
-                    SizedBox(height: 10.h),
-                  ],
+                child: SizedBox(
+                  height: 500.h,
+                  child: apicat.isfetchdeatils == true
+                      ? GridView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          scrollDirection: Axis.vertical,
+                          itemCount: apicat.selectedOrder?.items?.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1, // 2 items per row
+                            mainAxisSpacing: 5, // Space between rows
+                            childAspectRatio: 4.1.sp, // Adjust height of boxes
+                          ),
+                          itemBuilder: (context, index) {
+                            final product = apicat.selectedOrder!
+                                .items![index]; // Fetch product details
+
+                            return SingleProductDetails(product: product);
+                          },
+                        )
+                      : Center(
+                          child: SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: CircularProgressIndicator()),
+                        ),
                 ),
               ))
         ]));
@@ -80,18 +87,31 @@ class divide extends StatelessWidget {
   }
 }
 
+
+
+
+
 /////////////////////////////////////////////////////
 class SingleProductDetails extends StatelessWidget {
-  const SingleProductDetails({super.key});
+  final OrderItem product; // Product data
+
+  const SingleProductDetails({super.key, required this.product});
+  
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+    String valuesString = product.attributes
+    .map((attr) => attr["options"]?.map((opt) => opt["name"]).join(", "))
+    .join(", ");
+
+print(valuesString);
     return SizedBox(
-      height: 60.h,
+      height: 80.h,
       width: 300.w,
       child: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 2.sp),
+        padding: EdgeInsets.symmetric(vertical: 2.sp),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
@@ -101,8 +121,8 @@ class SingleProductDetails extends StatelessWidget {
                 SizedBox(
                   height: 60.h,
                   width: 81.w,
-                  child: Image.asset(
-                    'assets/product.png',
+                  child: Image.network(
+                    apicat.urlBase + product.image, // Show product image
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -116,7 +136,7 @@ class SingleProductDetails extends StatelessWidget {
                         shape: BoxShape.circle, color: theme.secondary),
                     child: Center(
                       child: Text(
-                        '1',
+                        product.quantity.toString(), // Show product quantity
                         style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                                 fontSize: 10.sp,
@@ -141,8 +161,7 @@ class SingleProductDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                        'Monaco 3 PC Modular Sectional with 2 Chaise, Grey, Sectional',
+                    Text(product.name, // Show product name
                         style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                             color: theme.primary,
@@ -154,12 +173,12 @@ class SingleProductDetails extends StatelessWidget {
                         maxLines: 2),
                     SizedBox(height: 5.h),
                     Contentsmall(
-                        subtitle: 'sku-1273971',
+                        subtitle: product.sku,
                         height: 1.2,
                         weight: FontWeight.w400,
                         colors: theme.primary),
                     Contentsmall(
-                        subtitle: 'Brown color Queen Size Bed',
+                        subtitle: valuesString,
                         height: 1.2,
                         weight: FontWeight.w400,
                         colors: theme.primary),
@@ -169,7 +188,7 @@ class SingleProductDetails extends StatelessWidget {
             ),
             /////////////
             cost(
-                subtitle: '\$455',
+                subtitle: '\$${product.total}', // Show product price
                 colors: theme.primary,
                 weight: FontWeight.w600,
                 fontSize: 12,

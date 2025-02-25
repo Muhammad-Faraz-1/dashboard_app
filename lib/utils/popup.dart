@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:testapp/widgets/allorders/orderstatuspopup.dart';
+import 'package:testapp/widgets/orderlist/orderstatuspopup.dart';
 import 'package:testapp/widgets/reviews/reviewspopupcontent.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/provider1.dart';

@@ -51,3 +51,38 @@ class Post {
     );
   }
 }
+
+///////////////////////////////////////////////////////
+  // getcategoriesdata(List<dynamic>? cat) {
+  //   // categories = cat;
+  //   print('got them');
+  //   ////////////////////////////////
+  //   if (categories != null) {
+  //     for (var item in categories!) {
+  //       // Convert each item to ProductCategory model
+  //       Post category = Post.fromJson(item);
+  //       // Print each field separately
+  //       print("Name: ${category.name}");
+  //       // print("ID: ${category.id}");
+  //       // print("UID: ${category.uid}");
+  //       // print("Slug: ${category.slug}");
+  //       // print("Display: ${category.display}");
+  //       // print("Parent: ${category.parent}");
+  //       // print("Menu Order: ${category.menuOrder}");
+  //       // print("Banner Image: ${category.bannerImage}");
+  //       print("Image: ${category.image}");
+  //       // print("Permalink: ${category.permalink}");
+  //       // print("Parent Name: ${category.parentName ?? 'N/A'}");  // Handle nullable field
+  //       // print("Description: ${category.description}");
+  //       // print("Created At: ${category.createdAt}");
+  //       // print("Updated At: ${category.updatedAt}");
+  //       print("------------------------------");
+  //     }
+  //   } else {
+  //     print("No categories available.");
+  //   }
+  //   // names = categories?.map((category) => category['name'].toString()).toList();
+  //   // print(names);
+
+  //   notifyListeners();
+  // }

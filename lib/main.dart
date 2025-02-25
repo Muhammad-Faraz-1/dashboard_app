@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeDataStyle.dark,
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            initialRoute: '/',
+            initialRoute: '/second',
             routes: {
               '/': (context) => Idpage(),
               '/first': (context) => Loginpage(),

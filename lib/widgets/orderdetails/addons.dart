@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
+// import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
 class Add_On extends StatelessWidget {
@@ -9,7 +12,10 @@ class Add_On extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
+    final apicat = Provider.of<apiDataHandeling>(context);
+    final order = apicat.selectedOrder;
     return Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
@@ -33,17 +39,21 @@ class Add_On extends StatelessWidget {
               child: Column(
                 children: [
                   assemblybox(
-                    active: 1,
+                    active:order?.professionalAssembled==1?1:0,
                     img: 'assets/assemble.png',
-                    label: 'Professional Assembly(\$210)', content: 'Use professional assembly for all products and save up to \$80',
+                    label: 'Professional Assembly(\$210)',
+                    content:
+                        'Use professional assembly for all products and save up to \$80',
                   ),
                   SizedBox(
                     height: 10.h,
                   ),
                   assemblybox(
-                    active: 0,
+                    active:order?.cartProtected==1?1:0,
                     img: 'assets/protection.png',
-                    label: 'Elite Platinum Protection(\$110)', content: '5 years coverage for all stains and most accidental damage',
+                    label: 'Elite Platinum Protection(\$110)',
+                    content:
+                        '5 years coverage for all stains and most accidental damage',
                   ),
                 ],
               ))
@@ -60,7 +70,8 @@ class assemblybox extends StatelessWidget {
       {super.key,
       required this.active,
       required this.img,
-      required this.label,required this.content});
+      required this.label,
+      required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -101,16 +112,17 @@ class assemblybox extends StatelessWidget {
                   children: [
                     Contentlarge(
                         subtitle: label!,
-                        colors:active==1? theme.primary:theme.secondary,
+                        colors: active == 1 ? theme.primary : theme.secondary,
                         weight: FontWeight.w600),
-                        SizedBox(height: 3.h,),
+                    SizedBox(
+                      height: 3.h,
+                    ),
                     Contentsmall(
-                        subtitle:
-                            content!,
-                        weight: FontWeight.w400,
-                        colors:active==1? theme.primary:theme.secondary,
-                        height: 1.2,
-                        )
+                      subtitle: content!,
+                      weight: FontWeight.w400,
+                      colors: active == 1 ? theme.primary : theme.secondary,
+                      height: 1.2,
+                    )
                   ],
                 ),
               ),
@@ -122,13 +134,15 @@ class assemblybox extends StatelessWidget {
           SizedBox(
             height: 20.h,
             width: 20.w,
-            child:active==1? Icon(
-              Icons.check_circle,
-              color: theme.primary,
-            ):Icon(
-              Icons.cancel,
-              color: theme.secondary,
-            ),
+            child: active == 1
+                ? Icon(
+                    Icons.check_circle,
+                    color: theme.primary,
+                  )
+                : Icon(
+                    Icons.cancel,
+                    color: theme.secondary,
+                  ),
           ),
         ],
       ),

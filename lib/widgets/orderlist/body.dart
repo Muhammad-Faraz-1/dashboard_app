@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:testapp/pages/orderdetails.dart';
+// import 'package:testapp/pages/orderdetails.dart';
 import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
+// import 'package:testapp/statemanager/provider1.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/pages/orderdetails.dart';
 // import 'package:testapp/statemanager/provider1.dart';
@@ -19,7 +20,7 @@ class BodySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final theme = Theme.of(context).colorScheme;
+    final theme = Theme.of(context).colorScheme;
     // final provider = Provider.of<Provider1>(context);
     final apicat = Provider.of<apiDataHandeling>(context);
     return Container(
@@ -37,79 +38,80 @@ class BodySection extends StatelessWidget {
             height: 360.h,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-
               child: SizedBox(
                 height: 500.h,
-                child: GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 20,
-                  // apicat.orderdetails?.length ?? 0, // Ensure null safety
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1, // 2 items per row
-                    mainAxisSpacing: 5, // Space between rows
-                    childAspectRatio: 4.6.sp, // Adjust height of boxes
-                  ),
-                  itemBuilder: (context, index) {
-                    final order = apicat.orderdetails![index];
-                    return orderbox(
-                      name: order['billing']['first_name'] +
-                          " " +
-                          order['billing']['last_name'],
-                      orderid: order['_id'],
-                      date: order['createdAt'],
-                      totalprice: order['total'],
-                      status: order['status'],
-                      // status: 'Processing',
-                    );
-                  },
-                ),
-              ),
+                child: apicat.isfetchdeatils == true
+                    ? GridView.builder(
+                        padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                        scrollDirection: Axis.vertical,
+                        itemCount: apicat.orderlist!.length,
 
-              // child: Column(
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     orderbox(
-              //       color: Color(0xffEBA352),
-              //       val: 'Hold',
-              //     ),
-              //     SizedBox(
-              //       height: 5.w,
-              //     ),
-              //     orderbox(
-              //       color: Color(0xff5285B4),
-              //       val: 'Processing',
-              //     ),
-              //     SizedBox(
-              //       height: 5.w,
-              //     ),
-              //     orderbox(
-              //       color: Color(0xff32A848),
-              //       val: 'Delivered',
-              //     ),
-              //     SizedBox(
-              //       height: 5.w,
-              //     ),
-              //     orderbox(
-              //       color: Color(0xffF08F9F),
-              //       val: 'Canceled',
-              //     ),
-              //     SizedBox(
-              //       height: 5.w,
-              //     ),
-              //     orderbox(
-              //       color: Color(0xff32A848),
-              //       val: 'Delivered',
-              //     ),
-              //     SizedBox(
-              //       height: 5.w,
-              //     ),
-              //     orderbox(
-              //       color: Color(0xff32A848),
-              //       val: 'Delivered',
-              //     ),
-              //   ],
-              // ),
+                        // apicat.orderdetails?.length ?? 0, // Ensure null safety
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1, // 2 items per row
+                          mainAxisSpacing: 5, // Space between rows
+                          childAspectRatio: 4.6.sp, // Adjust height of boxes
+                        ),
+                        itemBuilder: (context, index) {
+                          final order = apicat.orderlist![index];
+                          return apicat.orderfilter == "all"
+                              ? orderbox(
+                                  name: order['billing']['first_name'] +
+                                      " " +
+                                      order['billing']['last_name'],
+                                  orderid: order['_id'],
+                                  date: order['createdAt'],
+                                  totalprice: order['total'],
+                                  status: order['status'],
+                                  // status: 'Processing',
+                                )
+                              : order['status'] == apicat.orderfilter
+                                  ? orderbox(
+                                      name: order['billing']['first_name'] +
+                                          " " +
+                                          order['billing']['last_name'],
+                                      orderid: order['_id'],
+                                      date: order['createdAt'],
+                                      totalprice: order['total'],
+                                      status: order['status'],
+                                      // status: 'Processing',
+                                    )
+                                  : Container(
+                                      // height: 60.h,
+                                      width: 320.w,
+                                      padding: EdgeInsets.all(10.sp),
+                                      decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: theme.primary),
+                                        borderRadius:
+                                            BorderRadius.circular(10.r),
+                                        gradient: LinearGradient(colors: [
+                                          theme.primary.withOpacity(0.6),
+                                          theme.primary.withOpacity(0.3),
+                                          theme.primary.withOpacity(0.6),
+                                        ]),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                        },
+                      )
+                    : Center(
+                        child: SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: CircularProgressIndicator()),
+                      ),
+              ),
             ),
           )
         ],
@@ -137,13 +139,16 @@ class orderbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
-    // final provider = Provider.of<Provider1>(context);
+    final provider = Provider.of<Provider1>(context);
+    final apicat = Provider.of<apiDataHandeling>(context);
     return GestureDetector(
       onTap: () {
-        // provider.changepage(5);
-        // provider.drawerval == false
-        //     ? Navigator.pushNamed(context, '/third')
-        //     : null;
+        provider.drawerval == false
+            ? Navigator.pushNamed(context, '/third')
+            : null;
+        // provider.changepage(1);
+        // _selectedOrder
+        apicat.fetchOrderDetails(orderid!);
       },
       child: SizedBox(
         child: Stack(
@@ -168,7 +173,7 @@ class orderbox extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Contentsmall(
-                        subtitle: orderid,
+                        subtitle: orderid!,
                         weight: FontWeight.w600,
                         colors: theme.onSecondary,
                       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
 class CustomerDetails extends StatelessWidget {
@@ -7,7 +9,10 @@ class CustomerDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+
+    final order = apicat.selectedOrder; // Order? object
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
@@ -32,7 +37,7 @@ class CustomerDetails extends StatelessWidget {
                   ])),
               child: Column(
                 children: [
-                  customer(),
+                  Customer(),
                   SizedBox(height: 5.h),
                   address(),
                   SizedBox(height: 5.h),
@@ -57,7 +62,11 @@ class CustomerDetails extends StatelessWidget {
                           ),
                           SizedBox(height: 5.h),
                           Contentmedium(
-                              subtitle: 'Flat Rate Shipping',
+                              subtitle: order?.isShipping == 0
+                                  ? 'Local Pickup'
+                                  : order?.shippingCost == 0
+                                      ? 'Free Shipping'
+                                      : "Flat Rate Shipping",
                               colors: theme.primary),
                         ],
                       ),
@@ -78,7 +87,8 @@ class CustomerDetails extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 10.w),
-                      Column(crossAxisAlignment: CrossAxisAlignment.start,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Contentheading1(
                             subtitle: 'Payment Method',
@@ -86,7 +96,8 @@ class CustomerDetails extends StatelessWidget {
                           ),
                           SizedBox(height: 5.h),
                           Contentmedium(
-                              subtitle: 'Credit Card', colors: theme.primary),
+                              subtitle: order?.paymentMethod!,
+                              colors: theme.primary),
                         ],
                       )
                     ],
@@ -99,12 +110,25 @@ class CustomerDetails extends StatelessWidget {
   }
 }
 
-class customer extends StatelessWidget {
-  const customer({super.key});
+class Customer extends StatelessWidget {
+  const Customer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+
+    final order = apicat.selectedOrder; // Order? object select order object is connected to order to be used
+
+    if (order == null || order.billing == null) {
+      return Center(
+        child: Text(
+          "No Customer Data Available",
+          style: TextStyle(color: theme.error),
+        ),
+      );
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -117,9 +141,7 @@ class customer extends StatelessWidget {
             size: 20,
           ),
         ),
-        SizedBox(
-          width: 10.w,
-        ),
+        SizedBox(width: 10.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -127,13 +149,20 @@ class customer extends StatelessWidget {
               subtitle: 'Customer Info',
               color: theme.primary,
             ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Contentmedium(subtitle: 'Abdul Sami', colors: theme.primary),
+            SizedBox(height: 5.h),
             Contentmedium(
-                subtitle: 'abdulsami123@gmail.com', colors: theme.primary),
-            Contentmedium(subtitle: '026572612636', colors: theme.primary),
+              subtitle:
+                  order.billing!.firstName, 
+              colors: theme.primary,
+            ),
+            Contentmedium(
+              subtitle: order.billing!.email,
+              colors: theme.primary,
+            ),
+            Contentmedium(
+              subtitle: order.billing!.phone,
+              colors: theme.primary,
+            ),
           ],
         ),
       ],
@@ -146,7 +175,19 @@ class address extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+
+    final order = apicat.selectedOrder; 
+
+    if (order == null || order.billing == null) {
+      return Center(
+        child: Text(
+          "No Customer Data Available",
+          style: TextStyle(color: theme.error),
+        ),
+      );
+    }
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -173,68 +214,16 @@ class address extends StatelessWidget {
               height: 5.h,
             ),
             Contentmedium(
-                subtitle: 'Suite 304-305, 2nd Floor, Main Rashid Minhas Road',
+                subtitle: order.billing!.address1, colors: theme.primary),
+            Contentmedium(
+                subtitle: order.billing!.city, colors: theme.primary),
+            Contentmedium(
+                subtitle:
+                    '${order.billing!.state}, ${order.billing!.country}',
                 colors: theme.primary),
-            Contentmedium(subtitle: 'Karachi 74500', colors: theme.primary),
-            Contentmedium(subtitle: 'Pakistan', colors: theme.primary),
           ],
         ),
       ],
     );
   }
 }
-
-
-
-
-
-
-
-
-// Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           // crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             SizedBox(
-//               height: 15.h,
-//               width: 15.w,
-//               child: Icon(
-//                 Icons.person,
-//                 color: theme.primary,
-//                 size: 20,
-//               ),
-//             ),
-//             SizedBox(
-//               width: 10.w,
-//             ),
-//             Contentheading1(
-//               subtitle: 'Customer Info',
-//               color: theme.primary,
-//             )
-//           ],
-//         ),
-//         Row(
-//           children: [
-//             SizedBox(
-//               height: 15.h,
-//               width: 15.w,
-//             ),
-//             SizedBox(
-//               width: 10.w,
-//             ),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Contentmedium(subtitle: 'Abdul Sami', colors: theme.primary),
-//                 Contentmedium(
-//                     subtitle: 'abdulsami123@gmail.com', colors: theme.primary),
-//                 Contentmedium(subtitle: '026572612636', colors: theme.primary),
-//               ],
-//             ),
-//           ],
-//         )
-//       ],
-//     );

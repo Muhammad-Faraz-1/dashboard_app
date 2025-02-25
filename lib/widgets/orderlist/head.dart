@@ -1,9 +1,10 @@
-// ignore_for_file: must_be_immutable
-import 'dart:ui';
+// ignore_for_file: must_be_immutable, camel_case_types
+// import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 // import 'package:testapp/utils/headstatic.dart';
 import 'package:testapp/utils/textwidgets.dart';
@@ -13,8 +14,10 @@ class Allorder_Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     // final provider = Provider.of<Provider1>(context);
+    // final order = apicat.orderlist!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,14 +27,14 @@ class Allorder_Header extends StatelessWidget {
           children: [
             headinfobox(
               label: 'Orders',
-              val: '100',
+              val: apicat.orderlist!.length.toString(),
             ),
             SizedBox(
               width: 5.w,
             ),
             headinfobox(
               label: 'Sales',
-              val: '\$40K',
+              val: '\$${apicat.sales!.toStringAsFixed(0)}K',
             ),
             SizedBox(
               width: 5.w,
@@ -143,9 +146,13 @@ class orderfilter extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
+    final apicat = Provider.of<apiDataHandeling>(
+      context,
+    );
     return GestureDetector(
       onTap: () {
         provider.drawerval == false ? provider.changeorderfilter(id!) : null;
+        apicat.currentorders(label=='Processing'?'pending':label!);
       },
       child: Container(
         height: 75.h,

@@ -20,21 +20,29 @@ class Categroiesbody extends StatelessWidget {
       color: Colors.transparent,
       child: SizedBox(
         height: 420.h,
-        child: GridView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 5),
-          itemCount:
-              apicat.categories?.length ?? 0, // Ensure null safety
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // 2 items per row
-            crossAxisSpacing: 5, // Space between columns
-            mainAxisSpacing: 5, // Space between rows
-            childAspectRatio: 1.05.sp, // Adjust height of boxes
-          ),
-          itemBuilder: (context, index) {
-            final category = apicat.categories![index];
-            return Categorybox2(name: category['name'],img: category['image2'],parentid: category['uid'],);
-          },
-        ),
+        child: apicat.isloading == false
+            ? GridView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                itemCount: apicat.categories?.length ?? 0, // Ensure null safety
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 items per row
+                  crossAxisSpacing: 5, // Space between columns
+                  mainAxisSpacing: 5, // Space between rows
+                  childAspectRatio: 1.05.sp, // Adjust height of boxes
+                ),
+                itemBuilder: (context, index) {
+                  final category = apicat.categories![index];
+                  return Categorybox2(
+                    name: category['name'],
+                    img: category['image2'],
+                    parentid: category['uid'],
+                  );
+                },
+              )
+            : Center(
+                child: SizedBox(
+                    height: 50, width: 50, child: CircularProgressIndicator()),
+              ),
       ),
     );
   }

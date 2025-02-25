@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/popup.dart';
 import 'package:testapp/utils/textwidgets.dart';
@@ -169,7 +170,9 @@ class headinfobox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+    final order = apicat.selectedOrder; // Order? object
     return Expanded(
       child: Stack(
         children: [
@@ -198,7 +201,7 @@ class headinfobox extends StatelessWidget {
                           width: 5.w,
                         ),
                         Contentmedium(
-                            subtitle: '16253',
+                            subtitle: order?.uid.toString(),
                             weight: FontWeight.w600,
                             colors: theme.primary),
                       ],
@@ -213,7 +216,7 @@ class headinfobox extends StatelessWidget {
                           width: 5.w,
                         ),
                         Contentmedium(
-                            subtitle: 'Acima Leasing',
+                            subtitle: order?.paymentMethod,
                             weight: FontWeight.w600,
                             colors: theme.primary),
                       ],
@@ -230,7 +233,7 @@ class headinfobox extends StatelessWidget {
                       width: 5.w,
                     ),
                     Contentmedium(
-                        subtitle: '12 Jan 2025',
+                        subtitle: order?.createdAt.toString().substring(0,10),
                         weight: FontWeight.w600,
                         colors: theme.primary),
                   ],
@@ -245,7 +248,7 @@ class headinfobox extends StatelessWidget {
                       width: 5.w,
                     ),
                     Contentmedium(
-                        subtitle: '25 Jan 2025',
+                        subtitle: '-',
                         weight: FontWeight.w600,
                         colors: theme.primary),
                   ],
@@ -267,18 +270,23 @@ class headinfobox extends StatelessWidget {
               },
               child: Container(
                 width: 90.w,
-                height: 22.h,
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 5.sp),
                 decoration: BoxDecoration(
-                    color: Color(0xff32A848),
-                    borderRadius: BorderRadius.circular(4)),
+                    color: order?.status == 'pending'
+                        ? Color(0xffEBA352)
+                        : order?.status == 'delivered'
+                            ? Color(0xff32A848)
+                            : order?.status == 'cancel'
+                                ? Color(0xffF08F9F)
+                                : Color(0xff5285B4),
+                    borderRadius: BorderRadius.circular(4.r)),
                 child: Center(
                   child: Text(
-                    'Delivered',
+                    order!.status!,
                     style: GoogleFonts.poppins(
-                        fontSize: 9.sp,
+                        fontSize: 8.sp,
                         fontWeight: FontWeight.w700,
-                        height: 1.3,
+                        height: 1.5,
                         color: theme.primary),
                   ),
                 ),

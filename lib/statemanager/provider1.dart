@@ -66,8 +66,9 @@ class Provider1 extends ChangeNotifier {
   // naviagtion bar changes pages from this method
   int currentpage = 1;
   double navpos = 20;
-  changepage(int activepage) {
+  changepage(int activepage)async {
     chck = 0;
+    Future.delayed(Duration(seconds: 2));
     currentpage = activepage;
     currentpage == 1
         ? navpos = 20
@@ -170,4 +171,6 @@ class Provider1 extends ChangeNotifier {
     reviewstatus = val;
     notifyListeners();
   }
+ 
+
 }

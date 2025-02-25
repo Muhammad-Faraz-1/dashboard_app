@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
 class Payment_Details extends StatelessWidget {
@@ -10,6 +12,8 @@ class Payment_Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final apicat = Provider.of<apiDataHandeling>(context);
+    final order = apicat.selectedOrder;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
@@ -37,18 +41,18 @@ class Payment_Details extends StatelessWidget {
             ),
             child: Column(
               children: [
-                DetailsRow(label: 'Subtotal', content: '\$233'),SizedBox(height: 5.h,),
-                DetailsRow(label: 'Tax', content: '\$233'),SizedBox(height: 5.h,),
-                DetailsRow(label: 'Discount', content: '\$233'),SizedBox(height: 5.h,),
-                DetailsRow(label: 'Shipping', content: '\$233'),SizedBox(height: 5.h,),
-                DetailsRow(label: 'Professional Assembly', content: '\$233'),SizedBox(height: 5.h,),
-                DetailsRow(label: 'Protection Plan', content: '\$233'),SizedBox(height: 5.h,),
+                DetailsRow(label: 'Subtotal', content:"\$${order?.subTotal?.toStringAsFixed(2)}"),SizedBox(height: 5.h,),
+                DetailsRow(label: 'Tax', content: "\$${order?.tax?.toStringAsFixed(2) }"),SizedBox(height: 5.h,),
+                DetailsRow(label: 'Discount', content: "\$${order?.discount?.toStringAsFixed(2) }"),SizedBox(height: 5.h,),
+                DetailsRow(label: 'Shipping', content: "\$${order?.shippingCost?.toStringAsFixed(2) }"),SizedBox(height: 5.h,),
+                DetailsRow(label: 'Professional Assembly', content: "\$${order?.professionalAssembledPrice?.toStringAsFixed(2) }"),SizedBox(height: 5.h,),
+                DetailsRow(label: 'Protection Plan', content: "\$${order?.cartProtectionPrice?.toStringAsFixed(2)}"),SizedBox(height: 5.h,),
                 Divider(height: 1,color: theme.primary,),SizedBox(height: 5.h,),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 // Contentheading1(subtitle: 'Total', color: theme.primary, ),
                 // Contentheading1(subtitle: '\$4,900', color: theme.primary, ),
                 Sectionheading(subtitle: 'Total'),
-                Sectionheading(subtitle: '\$1200')
+                Sectionheading(subtitle: "\$${order?.total?.toStringAsFixed(2)}")
     ])
               ],
             ),

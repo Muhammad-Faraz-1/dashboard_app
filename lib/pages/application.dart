@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/utils/drawer.dart';
-import 'package:testapp/pages/allorders.dart';
+import 'package:testapp/pages/orderlist.dart';
 import 'package:testapp/pages/catpage.dart';
 import 'package:testapp/pages/landingpage.dart';
 import 'package:testapp/pages/reviewspage.dart';

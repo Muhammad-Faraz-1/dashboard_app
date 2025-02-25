@@ -27,7 +27,7 @@ class SubCatBody extends StatelessWidget {
           ),
           SizedBox(
                   height: 500.h,
-                  child: GridView.builder(
+                  child:apicat.isfetchedsubcat==true? GridView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     itemCount:
             apicat.subcategories?.length ?? 0, // Ensure null safety
@@ -41,7 +41,10 @@ class SubCatBody extends StatelessWidget {
           final category = apicat.subcategories![index];
           return SubCategorybox2(name: category['name'],img: category['image2'],parentid: category['uid'],);
                     },
-                  ),
+                  ):Center(
+                child: SizedBox(
+                    height: 50, width: 50, child: CircularProgressIndicator()),
+              ),
                 )
         ],
       ),
@@ -123,12 +126,6 @@ class SubCategorybox2 extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: () {
-        // provider.changecattype(1);
-        // apicat.getcategoriesdata();
-        // fetchPost(context);
-        // apicat.setparent(parentid);
-        // apicat.fetchsubcategories();
-        // Navigator.pushNamed(context, '/fourth');
         provider.changecattype(1);
         Navigator.pushNamed(context, '/fifth');
       },

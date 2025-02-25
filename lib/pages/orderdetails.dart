@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/widgets/orderdetails/addons.dart';
 import 'package:testapp/widgets/orderdetails/customerinfo.dart';
@@ -16,11 +17,12 @@ class OrderDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
     final theme = Theme.of(context).colorScheme;
+    final apicat = Provider.of<apiDataHandeling>(context);
     return SafeArea(
       child: Scaffold(
         body: MediaQuery(
-          
-          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+          data: MediaQuery.of(context)
+              .copyWith(textScaler: TextScaler.linear(1.0)),
           child: Container(
             height: double.infinity,
             width: double.infinity,
@@ -42,23 +44,30 @@ class OrderDetails extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   gradient: LinearGradient(colors: [
-                        theme.primary.withOpacity(0.6),
-                        theme.primary.withOpacity(0.3),
-                        theme.primary.withOpacity(0.6),
-                      ]),
+                    theme.primary.withOpacity(0.6),
+                    theme.primary.withOpacity(0.3),
+                    theme.primary.withOpacity(0.6),
+                  ]),
                 ),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
                       Headerdetails(),
-                      provider.filter == 1
-                          ? CustomerDetails()
-                          : provider.filter == 2
-                              ? ListofProducts()
-                              : provider.filter == 3
-                                  ? Add_On()
-                                  : Payment_Details(),
+                      apicat.isloading == false
+                          ? provider.filter == 1
+                              ? CustomerDetails()
+                              : provider.filter == 2
+                                  ? ListofProducts()
+                                  : provider.filter == 3
+                                      ? Add_On()
+                                      : Payment_Details()
+                          : Center(
+                              child: SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: CircularProgressIndicator()),
+                            ),
                     ],
                   ),
                 ),

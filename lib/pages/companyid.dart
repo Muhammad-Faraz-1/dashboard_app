@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:testapp/model/categoriesapi.dart';
+// import 'package:testapp/model/categoriesapi.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/main.dart';
 // import 'package:testapp/statemanager/provider1.dart';
