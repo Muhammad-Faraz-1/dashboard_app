@@ -68,8 +68,11 @@ class Provider1 extends ChangeNotifier {
   double navpos = 20;
   changepage(int activepage)async {
     chck = 0;
-    Future.delayed(Duration(seconds: 2));
+    // Future.delayed(Duration(seconds: 2));
+    if (drawerval == false){
     currentpage = activepage;
+    // notifyListeners();
+    }
     currentpage == 1
         ? navpos = 20
         : currentpage == 2

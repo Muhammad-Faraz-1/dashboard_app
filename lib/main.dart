@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         return MultiProvider(
           providers: [
             ChangeNotifierProvider(create: (context) => Provider1()),
-            ChangeNotifierProvider(create: (context) => apiDataHandeling()),
+            ChangeNotifierProvider(create: (context) => apiDataHandeling( )),
           ],
           child: MaterialApp(
             theme: ThemeDataStyle.light,

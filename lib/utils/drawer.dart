@@ -79,206 +79,283 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(
-                // scrollDirection: Axis.none,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  ListTile(
-                    title: Row(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 15.sp,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // scrollDirection: Axis.none,
+                  // physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    Column(
                       children: [
-                        Icon(
-                          Icons.home,
-                          color: Colors.white,
+                        Container(
+                          padding: provider.currentpage == 1
+                              ? EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 10.sp)
+                              : EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          decoration: BoxDecoration(
+                              color: provider.currentpage == 1
+                                  ? theme.secondaryContainer
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                  provider.currentpage == 1 ? 10 : 0)),
+                          child: GestureDetector(
+                            onTap: () {
+                              provider.changeval();
+                              provider.changepage(1);
+                              // Add your action when the drawer item is pressed
+                              // Navigator.pop(context);
+                              // provider.changeval();
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Dashboard',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          width: 10.w,
+                        Container(
+                          padding: provider.currentpage == 2
+                              ? EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 10.sp)
+                              : EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          decoration: BoxDecoration(
+                              color: provider.currentpage == 2
+                                  ? theme.secondaryContainer
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                  provider.currentpage == 2 ? 10 : 0)),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Add your action when the drawer item is pressed
+                              // Navigator.pop(context);
+                              provider.changeval();
+                              provider.changepage(2);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.open_in_browser,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Orders',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
                         ),
-                        cost(
-                            subtitle: 'Dashboard',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
+                        Container(
+                          padding: provider.currentpage == 3
+                              ? EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 10.sp)
+                              : EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          decoration: BoxDecoration(
+                              color: provider.currentpage == 3
+                                  ? theme.secondaryContainer
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                  provider.currentpage == 3 ? 10 : 0)),
+                          child: GestureDetector(
+                            onTap: () {
+                              // Add your action when the drawer item is pressed
+                              // Navigator.pop(context);
+                              provider.changeval();
+                              provider.changepage(3);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.wallet,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Categories',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: provider.currentpage == 4
+                              ? EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 10.sp)
+                              : EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          decoration: BoxDecoration(
+                              color: provider.currentpage == 4
+                                  ? theme.secondaryContainer
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(
+                                  provider.currentpage == 4 ? 10 : 0)),
+                          child: GestureDetector(
+                            onTap: () {
+                              provider.changeval();
+                              provider.changepage(4);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.reviews,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Reviews',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
+                        ),
+                        // SizedBox(
+                        //   height: 20.h,
+                        // ),
+                        Container(
+                          padding:EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          child: GestureDetector(
+                            onTap: () {
+                              provider.changeval();
+                              // provider.changepage(4);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.receipt_rounded,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Reports',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(padding:EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          child: GestureDetector(
+                            onTap: () {
+                              provider.changeval();
+                              // provider.changepage(4);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.settings,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Settings',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(padding:EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 0.sp),
+                          child: GestureDetector(
+                            onTap: () {
+                              provider.changeval();
+                              provider.changepage(4);
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.notifications,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                cost(
+                                    subtitle: 'Notifications',
+                                    colors: Colors.white,
+                                    weight: FontWeight.w500,
+                                    fontSize: 15,
+                                    height: 1.2)
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    onTap: () {
-                      provider.changepage(1);
-                      provider.changeval();
-                      // Add your action when the drawer item is pressed
-                      // Navigator.pop(context);
-                      // provider.changeval();
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.open_in_browser,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Orders',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
+
+                    // SizedBox(
+                    //   height: 110.h,
+                    // ),
+                    GestureDetector(
+                      onTap: () {
+                        provider.changeval();
+                        Navigator.pop(context);
+                        // provider.changepage(4);
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.logout,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          cost(
+                              subtitle: 'Logout',
+                              colors: Colors.white,
+                              weight: FontWeight.w500,
+                              fontSize: 15,
+                              height: 1.2)
+                        ],
+                      ),
                     ),
-                    onTap: () {
-                      // Add your action when the drawer item is pressed
-                      // Navigator.pop(context);
-                      provider.changepage(2);
-                      provider.changeval();
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.wallet,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Categories',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
-                    ),
-                    onTap: () {
-                      // Add your action when the drawer item is pressed
-                      // Navigator.pop(context);
-                      provider.changeval();
-                      provider.changepage(3);
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.reviews,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Reviews',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
-                    ),
-                    onTap: () {
-                      provider.changeval();
-                      provider.changepage(4);
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.receipt_rounded,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Reports',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
-                    ),
-                    onTap: () {
-                      provider.changeval();
-                      provider.changepage(4);
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.settings,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Settings',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
-                    ),
-                    onTap: () {
-                      provider.changeval();
-                      provider.changepage(4);
-                    },
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.notifications,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Notifications',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
-                    ),
-                    onTap: () {
-                      provider.changeval();
-                      provider.changepage(4);
-                    },
-                  ),
-                  SizedBox(
-                    height: 110.h,
-                  ),
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Icon(
-                          Icons.logout,
-                          color: Colors.white,
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        cost(
-                            subtitle: 'Logout',
-                            colors: Colors.white,
-                            weight: FontWeight.w500,
-                            fontSize: 15,
-                            height: 1.2)
-                      ],
-                    ),
-                    onTap: () {
-                      provider.changeval();
-                      Navigator.pop(context);
-                      // provider.changepage(4);
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],

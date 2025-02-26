@@ -27,7 +27,7 @@ class SubCatBody extends StatelessWidget {
           ),
           SizedBox(
                   height: 500.h,
-                  child:apicat.isfetchedsubcat==true? GridView.builder(
+                  child:apicat.isloading==false? GridView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     itemCount:
             apicat.subcategories?.length ?? 0, // Ensure null safety

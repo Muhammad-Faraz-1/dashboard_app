@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 import 'package:testapp/widgets/categories/categoryheader.dart';
@@ -104,6 +105,7 @@ class subcatheaderinfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     // final provider = Provider.of<Provider1>(context);
     // final theme = Theme.of(context).colorScheme;
     return Column(
@@ -121,7 +123,7 @@ class subcatheaderinfo extends StatelessWidget {
           children: [
             catinfobox(
               label: 'categories',
-              val: '29',
+              val: apicat.subcategories!.length.toString(),
             ),
             catinfobox(
               label: 'Products',

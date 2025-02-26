@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/utils/drawer.dart';
 import 'package:testapp/pages/orderlist.dart';
 import 'package:testapp/pages/catpage.dart';
@@ -14,36 +16,37 @@ class Application_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  // double? width= MediaQuery.of(context).size.width;
-  // double? height= MediaQuery.of(context).size.height;
-  // print('width');
-  // print(width);
-  // print('height');
-  // print(height);
+    final apicat = Provider.of<apiDataHandeling>(context);
+    // double? width= MediaQuery.of(context).size.width;
+    // double? height= MediaQuery.of(context).size.height;
+    // print('width');
+    // print(width);
+    // print('height');
+    // print(height);
     final provider = Provider.of<Provider1>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.red,
         body: Stack(
-            
-            children: [
-              MyDrawer(),
-              TweenAnimationBuilder(
-                tween:Tween<double>(
-                      begin: 0, end: provider.drawerval == true ? 1 : 0),
-                duration: Duration(seconds: 1),
-                builder: (_, double val, __) {
-                  return Transform(
-                    alignment: Alignment.center,
-                      transform: Matrix4.identity()
-                        ..setEntry(3, 2, 0.001)
-                        ..setEntry(0, 3, 200 * val)
-                        ..rotateY((pi / 6) * val),
-                    child: Stack(
-                      children: [
-                        MediaQuery(
-                          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
-                          child: Container(
+          children: [
+            MyDrawer(),
+            TweenAnimationBuilder(
+              tween: Tween<double>(
+                  begin: 0, end: provider.drawerval == true ? 1 : 0),
+              duration: Duration(seconds: 1),
+              builder: (_, double val, __) {
+                return Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..setEntry(0, 3, 200 * val)
+                    ..rotateY((pi / 6) * val),
+                  child: Stack(
+                    children: [
+                      MediaQuery(
+                        data: MediaQuery.of(context)
+                            .copyWith(textScaler: TextScaler.linear(1.0)),
+                        child: Container(
                             height: double.infinity,
                             width: double.infinity,
                             decoration: BoxDecoration(
@@ -62,17 +65,24 @@ class Application_Page extends StatelessWidget {
                                         ? Categories_Page()
                                         : provider.currentpage == 4
                                             ? Reviewspage()
-                                            : Landingpage(),
-                          ),
+                                            : Landingpage()),
+                      ),
+                      Positioned(bottom: 10, left: 10, child: Navbar()),
+                      apicat.isloading?
+                      BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3,sigmaY: 3),
+                        child: Container(height: double.infinity,
+                        width: double.infinity,
+                        color: Colors.transparent,
                         ),
-                        Positioned(bottom: 10, left: 10, child: Navbar()),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+                      ):Container(),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/statemanager/provider1.dart';
 // import 'package:testapp/utils/headstatic.dart';
@@ -15,6 +17,8 @@ class Category_Header extends StatelessWidget {
   Widget build(BuildContext context) {
     // final provider = Provider.of<Provider1>(context);
     // final theme = Theme.of(context).colorScheme;
+    
+  final apicat = Provider.of<apiDataHandeling>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +30,7 @@ class Category_Header extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            catinfobox(label: 'categories', val: '29',),
+            catinfobox(label: 'categories', val: apicat.categories!.length.toString(),),
             
             catinfobox(label: 'Products', val: '320',),
           ],

@@ -115,7 +115,7 @@ class Categorybox2 extends StatelessWidget {
   String? name;
   String? img;
   int? parentid;
-  Categorybox2({super.key, this.name, this.img,this.parentid});
+  Categorybox2({super.key, this.name, this.img, this.parentid});
 
   @override
   Widget build(BuildContext context) {
@@ -123,11 +123,7 @@ class Categorybox2 extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: () {
-        // provider.changecattype(1);
-        // apicat.getcategoriesdata();
-        // fetchPost(context);
-        apicat.setparent(parentid);
-        apicat.fetchsubcategories();
+        apicat.setparent(parentid, context);
         Navigator.pushNamed(context, '/fourth');
       },
       child: Container(
@@ -149,10 +145,6 @@ class Categorybox2 extends StatelessWidget {
           children: [
             // image container
             Container(
-              // height: 40.h,
-              // height: double.infinity,
-              // height: 75.h,
-              // width: 60.w,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
               child: Image.network(
                 apicat.urlBase + img!,
@@ -162,40 +154,14 @@ class Categorybox2 extends StatelessWidget {
             SizedBox(
               height: 5.w,
             ),
-            // content column
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Flexible(child: SectionSubheading(subtitle: name,weight: FontWeight.w600,)),
-                // SizedBox(
-                //   width: 80,
-                //   child: Text(
-                //     name!,
-                //     style: GoogleFonts.poppins(
-                //       textStyle: TextStyle(
-                //         color: theme.primary,
-                //         fontSize: 12.sp,
-                //         height: 1,
-                //         fontWeight: FontWeight.w600,
-                //       ),
-                //     ),
-                //     overflow: TextOverflow.clip,
-                //     textAlign: TextAlign.start,
-                //     textScaler: TextScaler.linear(1.sp),
-                //     maxLines: 2,
-                //   ),
-                // ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Contentsmall(
-                    //   subtitle: '12 \nSubcategories',
-                    //   weight: FontWeight.w500,
-                    //   colors: theme.primary,
-                    //   height: 1.25,
-                    // ),
                     Column(
                       children: [
                         Text(
@@ -216,12 +182,6 @@ class Categorybox2 extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // Contentsmall(
-                    //   subtitle: '44 Products',
-                    //   weight: FontWeight.w500,
-                    //   colors: theme.primary,
-                    //   height: 1.25,
-                    // ),
                     Column(
                       children: [
                         Text(

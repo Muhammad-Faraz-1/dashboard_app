@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 // import 'package:testapp/pages/orderdetails.dart';
 import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
+import 'package:testapp/utils/shimmer.dart';
 // import 'package:testapp/statemanager/provider1.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/pages/orderdetails.dart';
@@ -20,7 +21,7 @@ class BodySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
+    // final theme = Theme.of(context).colorScheme;
     // final provider = Provider.of<Provider1>(context);
     final apicat = Provider.of<apiDataHandeling>(context);
     return Container(
@@ -75,34 +76,34 @@ class BodySection extends StatelessWidget {
                                       totalprice: order['total'],
                                       status: order['status'],
                                       // status: 'Processing',
-                                    )
-                                  : Container(
-                                      // height: 60.h,
-                                      width: 320.w,
-                                      padding: EdgeInsets.all(10.sp),
-                                      decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: theme.primary),
-                                        borderRadius:
-                                            BorderRadius.circular(10.r),
-                                        gradient: LinearGradient(colors: [
-                                          theme.primary.withOpacity(0.6),
-                                          theme.primary.withOpacity(0.3),
-                                          theme.primary.withOpacity(0.6),
-                                        ]),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [],
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                    ):CustomShimmer();
+                                  // : Container(
+                                  //     // height: 60.h,
+                                  //     width: 320.w,
+                                  //     padding: EdgeInsets.all(10.sp),
+                                  //     decoration: BoxDecoration(
+                                  //       border:
+                                  //           Border.all(color: theme.primary),
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(10.r),
+                                  //       gradient: LinearGradient(colors: [
+                                  //         theme.primary.withOpacity(0.6),
+                                  //         theme.primary.withOpacity(0.3),
+                                  //         theme.primary.withOpacity(0.6),
+                                  //       ]),
+                                  //     ),
+                                  //     child: Column(
+                                  //       crossAxisAlignment:
+                                  //           CrossAxisAlignment.start,
+                                  //       children: [
+                                  //         Row(
+                                  //           mainAxisAlignment:
+                                  //               MainAxisAlignment.spaceBetween,
+                                  //           children: [],
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   );
                         },
                       )
                     : Center(

@@ -37,9 +37,7 @@ class Navbar extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      provider.drawerval == false
-                          ? provider.changepage(1)
-                          : null;
+                      provider.changepage(1);
                     },
                     child: Container(
                       height: 44.h,
@@ -63,11 +61,10 @@ class Navbar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async{
-                      apicat.getorderlist();
-                      await Future.delayed(Duration(seconds: 2));
-                      provider.drawerval == false
-                          ? provider.changepage(2)
-                          : null;
+                      apicat.getorderlist(context);
+                      // await Future.delayed(Duration(seconds: 2));
+                      // apicat.isloading==false?
+                      // provider.changepage(2):null;
                     },
                     child: Container(
                       height: 44.h,
@@ -91,10 +88,9 @@ class Navbar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                          apicat.fetchcategories();
-                      provider.drawerval == false
-                          ? provider.changepage(3)
-                          : null;
+                          apicat.fetchcategories(context);
+                      // apicat.isloading==false?
+                      // provider.changepage(3):null;
                     },
                     child: Container(
                       height: 44.h,
