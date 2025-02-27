@@ -88,7 +88,8 @@ class Navbar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                          apicat.fetchcategories(context);
+                           
+                          apicat.fetchcategories(context);provider.changepage(3);
                       // apicat.isloading==false?
                       // provider.changepage(3):null;
                     },

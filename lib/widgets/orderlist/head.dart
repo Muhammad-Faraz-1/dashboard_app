@@ -41,7 +41,7 @@ class Allorder_Header extends StatelessWidget {
             ),
             headinfobox(
               label: 'Sales',
-              val: '\$40K',
+              val: '\$${apicat.sales!.toStringAsFixed(0)}K',
             ),
           ],
         ),

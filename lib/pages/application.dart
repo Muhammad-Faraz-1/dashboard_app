@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'dart:ui';
+// import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:testapp/statemanager/apidatahandle.dart';
+// import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/utils/drawer.dart';
 import 'package:testapp/pages/orderlist.dart';
 import 'package:testapp/pages/catpage.dart';
@@ -16,7 +16,7 @@ class Application_Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final apicat = Provider.of<apiDataHandeling>(context);
+    // final apicat = Provider.of<apiDataHandeling>(context);
     // double? width= MediaQuery.of(context).size.width;
     // double? height= MediaQuery.of(context).size.height;
     // print('width');
@@ -68,14 +68,14 @@ class Application_Page extends StatelessWidget {
                                             : Landingpage()),
                       ),
                       Positioned(bottom: 10, left: 10, child: Navbar()),
-                      apicat.isloading?
-                      BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 3,sigmaY: 3),
-                        child: Container(height: double.infinity,
-                        width: double.infinity,
-                        color: Colors.transparent,
-                        ),
-                      ):Container(),
+                      // apicat.isloading?
+                      // BackdropFilter(
+                      //   filter: ImageFilter.blur(sigmaX: 3,sigmaY: 3),
+                      //   child: Container(height: double.infinity,
+                      //   width: double.infinity,
+                      //   color: Colors.transparent,
+                      //   ),
+                      // ):Container(),
                     ],
                   ),
                 );

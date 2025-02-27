@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/apidatahandle.dart';
+import 'package:testapp/utils/shimmer.dart';
 // import 'package:provider/provider.dart';
 // import 'package:testapp/statemanager/provider1.dart';
 // import 'package:testapp/utils/headstatic.dart';
@@ -17,29 +18,49 @@ class Category_Header extends StatelessWidget {
   Widget build(BuildContext context) {
     // final provider = Provider.of<Provider1>(context);
     // final theme = Theme.of(context).colorScheme;
-    
-  final apicat = Provider.of<apiDataHandeling>(context);
+
+    final apicat = Provider.of<apiDataHandeling>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // provider.cattype==0?
         // const Static_Header():NewHeader(name: 'Category Name'),
-        SizedBox(height: 10.h,),
-        // //
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            catinfobox(label: 'categories', val: apicat.categories!.length.toString(),),
-            
-            catinfobox(label: 'Products', val: '320',),
-          ],
-        )
+        SizedBox(
+          height: 10.h,
+        ),
+        // Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: [
+        //           CustomShimmer(width: 160.w, height: 54.h),
+        //           CustomShimmer(width: 160.w, height: 54.h),
+        //         ],
+        //       )
+        apicat.isloading == true
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomShimmer(width: 160.w, height: 54.h),
+                  CustomShimmer(width: 160.w, height: 54.h),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  catinfobox(
+                    label: 'categories',
+                    val: apicat.categories!.length.toString(),
+                  ),
+                  catinfobox(
+                    label: 'Products',
+                    val: '320',
+                  ),
+                ],
+              )
       ],
     );
   }
 }
-
 
 class catinfobox extends StatelessWidget {
   String? val;
@@ -55,8 +76,8 @@ class catinfobox extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10.sp),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10).r,
-          gradient:
-              LinearGradient(colors: [theme.onSecondary, theme.secondaryContainer])),
+          gradient: LinearGradient(
+              colors: [theme.onSecondary, theme.secondaryContainer])),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,10 +91,10 @@ class catinfobox extends StatelessWidget {
                     height: 1.1,
                     color: theme.primary)),
           ),
-          Contentsmall(subtitle: label!, weight: FontWeight.w600, colors: theme.primary)
+          Contentsmall(
+              subtitle: label!, weight: FontWeight.w600, colors: theme.primary)
         ],
       ),
     );
   }
 }
-

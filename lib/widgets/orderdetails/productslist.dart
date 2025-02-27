@@ -122,7 +122,7 @@ print(valuesString);
                   height: 60.h,
                   width: 81.w,
                   child: Image.network(
-                    apicat.urlBase + product.image, // Show product image
+                    apicat.urlBaseZelle + product.image, // Show product image
                     fit: BoxFit.fill,
                   ),
                 ),

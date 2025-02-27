@@ -4,16 +4,23 @@ import 'package:provider/provider.dart';
 import 'package:testapp/model/categoriesapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:testapp/model/ordersapi.dart';
+import 'package:testapp/model/productsapi.dart';
 import 'package:testapp/statemanager/provider1.dart';
 
 class apiDataHandeling extends ChangeNotifier {
   ////////
-  String urlBase = 'https://fm.zellehost.com';
+  String urlBaseZelle = 'https://fm.zellehost.com';
+  String urlBaseSky = 'https://fm.skyhub.pk';
+  String api_products =
+      '/api/v1/products/by-category?categorySlug=sectionals&per_page=10&page=1';
+  String api_categories = '/api/v1/productCategory/get?parent=0';
+  String api_orders = '/api/v1/orders/get?';
 
   /// is loading logic
   bool isloading = false;
   loader(bool state) {
     isloading = state;
+    print(isloading);
     notifyListeners();
   }
 //////////////////////////////////////////////////////
@@ -22,17 +29,17 @@ class apiDataHandeling extends ChangeNotifier {
   List<dynamic>? categories;
   bool isfetched = false;
   Future<Post?> fetchcategories(BuildContext context) async {
-    Provider1 provider1 = Provider.of<Provider1>(context, listen: false);
+    // Provider1 provider1 = Provider.of<Provider1>(context, listen: false);
     // if (categories!.isEmpty){}
     if (isfetched == true) {
       print('fetched categories');
-      provider1.changepage(3);
+      // provider1.changepage(3);
       return null;
     } else {
       print('fetching categories');
       loader(true);
       // isloading=true;
-      final uri = Uri.parse('${urlBase}/api/v1/productCategory/get?parent=0');
+      final uri = Uri.parse('${urlBaseZelle}${api_categories}');
       final response = await http.get(uri);
 
       if (response.statusCode == 200) {
@@ -40,7 +47,6 @@ class apiDataHandeling extends ChangeNotifier {
         categories = jsonDecode(response.body)['categories'];
         isfetched = true;
 
-        provider1.changepage(3);
         loader(false);
 
         // getcategoriesdata(data);
@@ -57,6 +63,7 @@ class apiDataHandeling extends ChangeNotifier {
   int? parentuid;
   setparent(int? id, BuildContext context) {
     parentuid = id;
+    loader(true);
     // print(parentuid);
     fetchsubcategories(context);
     print(subcategories);
@@ -68,21 +75,15 @@ class apiDataHandeling extends ChangeNotifier {
 
   Future<Post?> fetchsubcategories(BuildContext context) async {
     print('fetching subcategories');
-    loader(true);
-    final uri =
-        Uri.parse('${urlBase}/api/v1/productCategory/get?parent=${parentuid}');
+    // loader(true);
+    final uri = Uri.parse(
+        '${urlBaseZelle}/api/v1/productCategory/get?parent=${parentuid}');
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       // print(response.statusCode);
       // print(jsonDecode(response.body)['categories']);
       subcategories = jsonDecode(response.body)['categories'];
       print(subcategories!.length);
-      // for (var i = 0; i < subcategories!.length; i++) {
-      //   // print(subcategories![i]);
-      //   // print('\n');
-
-      // }
-      // isfetchedsubcat = true;
       loader(false);
       notifyListeners();
     }
@@ -113,7 +114,8 @@ class apiDataHandeling extends ChangeNotifier {
     } else {
       print('fetching orders');
       loader(true);
-      final uri = Uri.parse('https://fm.skyhub.pk/api/v1/orders/get?');
+      // final uri = Uri.parse('https://fm.skyhub.pk/api/v1/orders/get?');
+      final uri = Uri.parse('${urlBaseSky}${api_orders}');
       // final uri= Uri.parse('https://fm.skyhub.pk/api/v1/orders/get_by_id?_id=67b2c5904f75453ebd5c3228');
       final response = await http.get(uri);
       if (response.statusCode == 200) {
@@ -146,8 +148,7 @@ class apiDataHandeling extends ChangeNotifier {
 
     loader(true); // Start loading indicator
 
-    final url =
-        Uri.parse('https://fm.skyhub.pk/api/v1/orders/get_by_id?_id=$orderId');
+    final url = Uri.parse('${urlBaseSky}/api/v1/orders/get_by_id?_id=$orderId');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -166,4 +167,76 @@ class apiDataHandeling extends ChangeNotifier {
 
     notifyListeners(); // Notify UI about the update
   }
+
+  /////////////////////////////////////////
+  ///product list work is here
+  String sub_cat_slug = '';
+  List<dynamic>? productlist;
+  int page = 1;
+  setslug(String slug) {
+    sub_cat_slug = slug;
+    fetchProducts();
+    print(sub_cat_slug);
+    notifyListeners();
+  }
+
+  List<Product> _products = [];
+  String _errorMessage = '';
+
+  List<Product> get products => _products;
+  String get errorMessage => _errorMessage;
+
+  Future<void> fetchProducts() async {
+    final url = Uri.parse(
+        '${urlBaseZelle}/api/v1/products/by-category?categorySlug=${sub_cat_slug}&per_page=10&page=1');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      _products = (data['products'] as List)
+          .map((item) => Product.fromJson(item))
+          .toList();
+      if (_products.isEmpty) {
+        print('No products found.');
+        return;
+      }
+
+      for (var product in _products) {
+        print('Product Name: ${product.name}, Price: ${product.salePrice}, Dimension${product.weightDimention}');
+      }
+    }
+    notifyListeners();
+  }
+  ///////////////////////////////
+  ///get single product
+  Product? selectedproduct;
+  setproductid(Product id) {
+    selectedproduct = id;
+    
+    notifyListeners();
+  }
+  // Product? _productdetails;
+  // Product? get productdetails => _productdetails;
+  // clearorder(){
+  //   _productdetails=null;
+  //   notifyListeners();
+  // }
+  // Future<void> fetchproductdetails()async{
+  //   final url = Uri.parse(
+  //       '${urlBaseZelle}/api/v1/products/get/${pid}');
+  //   final response = await http.get(url);
+  //   if (response.statusCode==200){
+  //     final Map<String, dynamic> data = json.decode(response.body);
+  //     _productdetails== (data['products'])
+  //         .map((item) => Product.fromJson(item))
+  //         .toList();
+  //         print(response.statusCode);
+  //         if (_productdetails! == null
+  //         ) {
+  //           print('null');
+  //         }
+  //         print(_productdetails!.name);
+  //         notifyListeners();
+  //   }
+  // }
 }

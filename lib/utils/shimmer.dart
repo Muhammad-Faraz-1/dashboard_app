@@ -45,14 +45,18 @@ class _CustomShimmerState extends State<CustomShimmer>
       animation: _controller,
       builder: (context, child) {
         return ClipRRect(
+          clipBehavior: Clip.hardEdge,
           borderRadius: BorderRadius.circular(widget.borderRadius),
           child: Stack(
             children: [
               Container(
                 width: widget.width,
-                height: widget.height,
+                // height: widget.height,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(widget.borderRadius),
                 color:
                     const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+                ),
               ),
               Positioned(
                 top: -20,
@@ -61,7 +65,7 @@ class _CustomShimmerState extends State<CustomShimmer>
                   angle: 60,
                   child: Container(
                     width: widget.width * 0.3, // Define shimmer width
-                    height: 120,
+                    height: widget.height + 30,
                     decoration: BoxDecoration(
                       // boxShadow: [
                       //   BoxShadow(

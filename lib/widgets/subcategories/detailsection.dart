@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
@@ -13,7 +14,9 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+    final product = apicat.selectedproduct;
     return Container(
       width: double.infinity,
       color: Colors.transparent,
@@ -53,8 +56,8 @@ class ProductDetails extends StatelessWidget {
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10).r),
-                      child: Image.asset(
-                        'assets/product2.png',
+                      child: Image.network(
+                        '${apicat.urlBaseZelle}${product!.images[0].imageUrl}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -64,15 +67,16 @@ class ProductDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Contentmedium(
-                            subtitle: 'Bedroom', colors: theme.tertiary),
+                            subtitle: product.categories[1].name,
+                            colors: theme.tertiary),
                         Container(
                           height: 22.h,
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 15.sp, vertical: 5.sp),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.sp, vertical: 5.sp),
                           color: Colors.green,
                           child: Center(
                             child: Text(
-                              'In stock',
+                              product.manageStock.stockStatus,
                               style: GoogleFonts.poppins(
                                   fontSize: 9.sp,
                                   fontWeight: FontWeight.w700,
@@ -84,7 +88,7 @@ class ProductDetails extends StatelessWidget {
                     ),
 
                     Text(
-                      'Lumina Bedroom Set',
+                      product.name,
                       style: GoogleFonts.poppins(
                           textStyle: TextStyle(
                               fontSize: 18.sp,
@@ -101,7 +105,7 @@ class ProductDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'SKU: 1635242',
+                              product.sku,
                               style: GoogleFonts.poppins(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
@@ -110,7 +114,7 @@ class ProductDetails extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'Queen Bed, Dresser and Mirror in Gray',
+                              product.categories[1].name,
                               style: GoogleFonts.poppins(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
@@ -125,7 +129,7 @@ class ProductDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              '\$145',
+                              '\$${product.regularPrice}',
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       decoration: TextDecoration.lineThrough,
@@ -136,7 +140,7 @@ class ProductDetails extends StatelessWidget {
                                       color: theme.tertiary)),
                             ),
                             Text(
-                              '\$105',
+                              '\$${product.salePrice}',
                               style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
                                       fontSize: 15.sp,
@@ -154,73 +158,116 @@ class ProductDetails extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         cost(
-                            subtitle: 'Color',
+                            subtitle: product.attributes[0].name,
                             colors: theme.tertiary,
                             weight: FontWeight.w500,
                             fontSize: 10,
                             height: 1.2),
                         SizedBox(height: 5.h),
-                        Row(
-                          children: [
-                            color_attribute(color: Colors.red, id: 1),
-                            SizedBox(width: 5.w),
-                            color_attribute(color: Colors.blue, id: 2),
-                            SizedBox(width: 5.w),
-                            color_attribute(color: Colors.green, id: 3),
-                          ],
-                        )
+                        product.type == 'simple'
+                            ? SizedBox(
+                                height: 15.h,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      product.attributes[1].options.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return  color_attribute(
+                                      color: Color(
+                                        int.parse(
+                                          '0xff${product.attributes[index].options[index].value.substring(1, 7)}',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
+                            // Row(
+                            //   children: [
+                            //     color_attribute(color: Color(int.parse('0xff${product.attributes[0].options[0].value.substring(1,7)}')), id: 1),
+                            //     SizedBox(width: 5.w),
+                            //     color_attribute(color: Colors.blue, id: 2),
+                            //     SizedBox(width: 5.w),
+                            //     color_attribute(color: Colors.green, id: 3),
+                            //   ],
+                            // )
+                            : SizedBox(
+                                height: 15.h,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      product.attributes[1].options.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return color_attribute(
+                                      color: Color(
+                                        int.parse(
+                                          '0xff${product.attributes[index].options[index].value.substring(1, 7)}',
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
                       ],
                     ),
+                    // SizedBox(height: vspace.h),
+                    // product.type != 'simple'
+                    //     ? Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           cost(
+                    //               subtitle: 'Size',
+                    //               colors: theme.tertiary,
+                    //               weight: FontWeight.w500,
+                    //               fontSize: 10,
+                    //               height: 1.2),
+                    //           SizedBox(height: 5.h),
+                    //           Row(
+                    //             children: [
+                    //               size_attribute(id: 1, title: 'King Size'),
+                    //               SizedBox(width: 5.w),
+                    //               size_attribute(id: 2, title: 'Queen Size'),
+                    //               SizedBox(width: 5.w),
+                    //               size_attribute(id: 3, title: 'Twin Size'),
+                    //               SizedBox(width: 5.w),
+                    //               size_attribute(id: 4, title: 'Full Size'),
+                    //             ],
+                    //           )
+                    //         ],
+                    //       )
+                    //     : Container(),
                     SizedBox(height: vspace.h),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         cost(
-                            subtitle: 'Size',
+                            subtitle: product.attributes[1].name,
                             colors: theme.tertiary,
                             weight: FontWeight.w500,
                             fontSize: 10,
                             height: 1.2),
                         SizedBox(height: 5.h),
-                        Row(
-                          children: [
-                            size_attribute(id: 1, title: 'King Size'),
-                            SizedBox(width: 5.w),
-                            size_attribute(id: 2, title: 'Queen Size'),
-                            SizedBox(width: 5.w),
-                            size_attribute(id: 3, title: 'Twin Size'),
-                            SizedBox(width: 5.w),
-                            size_attribute(id: 4, title: 'Full Size'),
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(height: vspace.h),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        cost(
-                            subtitle: 'Package',
-                            colors: theme.tertiary,
-                            weight: FontWeight.w500,
-                            fontSize: 10,
-                            height: 1.2),
-                        SizedBox(height: 5.h),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          // spacing: ,
-                          runSpacing: 5,
-                          children: [
-                            package_attribute(id: 1, title: 'Bed and Mirror'),
-                            SizedBox(width: 5.w),
-                            package_attribute(
-                                id: 2, title: 'Bed, Dresser and Mirror'),
-                            SizedBox(width: 5.w),
-                            package_attribute(
-                                id: 3,
-                                title: 'Bed, Dresser, Mirror and Nightstand'),
-                          ],
-                        )
+                        product.type == 'simple'
+                            ? SizedBox(
+                              width: 320.w,
+                              child: ListView.builder(
+                                padding: EdgeInsets.all(0),
+                                // scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                              itemCount: product.attributes[1].options.length,
+                              itemBuilder: (BuildContext context, int index) { 
+                                return Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    package_attribute(
+                                      id: 1, title: product.attributes[1].options[index].name),
+                                  ],
+                                );
+                               },),
+                            )
+                            : Container()
                       ],
                     ),
                   ],
@@ -263,25 +310,24 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.h),
-                    ExpandableText(
-                        text:
-                            'Upgrade your bedroom with the Sullivan Bedroom Set, a perfect blend of style, functionality, and timeless design. Finished in a warm drift gray tone with clean, modern lines, this set effortlessly complements a wide range of bedroom decor styles, making it a versatile and inviting choice for any home.'),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'Dimensions',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: theme.secondary,
-                          fontSize: 15.sp,
-                          height: 1.2,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 5.h),
-                    ExpandableText(
-                        text:
-                            'Upgrade your bedroom with the Sullivan Bedroom Set, a perfect blend of style, functionality, and timeless design. Finished in a warm drift gray tone with clean, modern lines, this set effortlessly complements a wide range of bedroom decor styles, making it a versatile and inviting choice for any home.')
+                    ExpandableText(text: product.description),
+                    // SizedBox(height: 10.h),
+                    // Text(
+                    //   'Dimensions',
+                    //   style: GoogleFonts.poppins(
+                    //     textStyle: TextStyle(
+                    //       color: theme.secondary,
+                    //       fontSize: 15.sp,
+                    //       height: 1.2,
+                    //       fontWeight: FontWeight.w600,
+                    //     ),
+                    //   ),
+                    // ),
+                    // SizedBox(height: 5.h),
+                    // HtmlElementView(viewType: product.weightDimention)
+                    // ExpandableText(
+                    //     text:
+                    //         product.weightDimention)
                   ],
                 ),
               )
@@ -298,7 +344,7 @@ class ProductDetails extends StatelessWidget {
 class size_attribute extends StatelessWidget {
   int? id;
   String? title;
-  size_attribute({super.key, required this.id, required this.title});
+  size_attribute({super.key, this.id, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -308,27 +354,29 @@ class size_attribute extends StatelessWidget {
       onTap: () {
         provider.change_size(id!);
       },
-      child: Container(
-        height: 22.h,
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: provider.selected_size == id
-                  ? [theme.onSecondary, theme.secondaryContainer]
-                  : [
-                      theme.primary.withOpacity(0.6),
-                      theme.primary.withOpacity(0.3),
-                      theme.primary.withOpacity(0.6),
-                    ],
-            ),
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-                color: provider.selected_size != id
-                    ? theme.primary
-                    : Colors.transparent)),
-        child: Contentmedium(
-          subtitle: title,
-          colors: provider.selected_size == id ? theme.primary : theme.tertiary,
+      child: IntrinsicWidth(
+        child: Container(
+          height: 22.h,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: provider.selected_size == id
+                    ? [theme.onSecondary, theme.secondaryContainer]
+                    : [
+                        theme.primary.withOpacity(0.6),
+                        theme.primary.withOpacity(0.3),
+                        theme.primary.withOpacity(0.6),
+                      ],
+              ),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(
+                  color: provider.selected_size != id
+                      ? theme.primary
+                      : Colors.transparent)),
+          child: Contentmedium(
+            subtitle: title,
+            colors: provider.selected_size == id ? theme.primary : theme.tertiary,
+          ),
         ),
       ),
     );
@@ -339,7 +387,7 @@ class size_attribute extends StatelessWidget {
 class package_attribute extends StatelessWidget {
   int? id;
   String? title;
-  package_attribute({super.key, required this.id, required this.title});
+  package_attribute({super.key, this.id, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -351,6 +399,7 @@ class package_attribute extends StatelessWidget {
       },
       child: Container(
         height: 22.h,
+        // width: 100.w,
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -381,7 +430,7 @@ class package_attribute extends StatelessWidget {
 class color_attribute extends StatelessWidget {
   Color? color;
   int? id;
-  color_attribute({super.key, required this.color, required this.id});
+  color_attribute({super.key, this.color, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -458,8 +507,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                   TextSpan(
                     text: _isExpanded
                         ? widget.text
-                        : widget.text
-                            .substring(0, 250),
+                        : widget.text.substring(0, 250),
                   ),
                   if (isOverflowing || _isExpanded)
                     WidgetSpan(
