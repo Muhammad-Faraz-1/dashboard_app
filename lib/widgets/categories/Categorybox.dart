@@ -144,15 +144,16 @@ class Categorybox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // image container
-            Container(
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-              child: Image.network(
-                apicat.urlBaseZelle + img!,
-                fit: BoxFit.contain,
+            Expanded(
+              child: Container(
+                child: Image.network(
+                  apicat.urlBaseZelle + img!,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
-              height: 5.w,
+              height: 10.h,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

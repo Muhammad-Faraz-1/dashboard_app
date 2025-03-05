@@ -107,19 +107,21 @@ class head extends StatelessWidget {
                   CustomShimmer(width: 160.w, height: 54.h),
                 ],
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  catinfobox(
-                    label: 'categories',
-                    val: apicat.subcategories!.length.toString(),
-                  ),
-                  catinfobox(
-                    label: 'Products',
-                    val: '320',
-                  ),
-                ],
-              ):Container(
+            : Headerinforow()
+            // Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       catinfobox(
+            //         label: 'categories',
+            //         val: apicat.subcategories!.length.toString(),
+            //       ),
+            //       catinfobox(
+            //         label: 'Products',
+            //         val: '320',
+            //       ),
+            //     ],
+            //   )
+              :Container(
                     height: 0,
                   )
                 // : subcatheaderinfo(),
@@ -129,6 +131,34 @@ class head extends StatelessWidget {
     );
   }
 }
+///////////////////////////////////////////////////////////
+
+class Headerinforow extends StatelessWidget {
+  const Headerinforow({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final apicat = Provider.of<apiDataHandeling>(context);
+    final provider = Provider.of<Provider1>(context);
+    return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  catinfobox(
+                    label:provider.cattype==0? 'categories':'In Stock',
+                    val: apicat.subcategories!.length.toString(),
+                  ),
+                  catinfobox(
+                    label: 'Products',
+                    val:provider.cattype==1?  apicat.products.length.toString():'122',
+                  ),
+                ],
+              );
+  }
+}
+
+
+
+////////////////////////////////////////////////
 
 class subcatheaderinfo extends StatelessWidget {
   const subcatheaderinfo({super.key});

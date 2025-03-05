@@ -16,13 +16,14 @@ class Navbar extends StatelessWidget {
   final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     return ClipRect(
+      clipBehavior: Clip.hardEdge,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
         child: Stack(
           children: [
             Container(
               height: 60.h,
-              width: 340.w,
+              width: MediaQuery.of(context).size.width - 20,
               padding: EdgeInsets.symmetric(vertical: 5.sp, horizontal: 20.sp),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -61,10 +62,11 @@ class Navbar extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () async{
-                      apicat.getorderlist(context);
+                      apicat.getorderlist();
                       // await Future.delayed(Duration(seconds: 2));
                       // apicat.isloading==false?
-                      // provider.changepage(2):null;
+                      // :null;
+                      provider.changepage(2);
                     },
                     child: Container(
                       height: 44.h,

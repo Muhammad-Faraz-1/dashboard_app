@@ -37,14 +37,14 @@ class Categroiesbody extends StatelessWidget {
                   },
                 )
               : GridView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  padding: EdgeInsets.all(0),
                   itemCount:
                       apicat.categories?.length ?? 0, // Ensure null safety
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // 2 items per row
                     crossAxisSpacing: 5, // Space between columns
                     mainAxisSpacing: 5, // Space between rows
-                    childAspectRatio: 1.05.sp, // Adjust height of boxes
+                    childAspectRatio: 0.92.sp, // Adjust height of boxes
                   ),
                   itemBuilder: (context, index) {
                     final category = apicat.categories![index];

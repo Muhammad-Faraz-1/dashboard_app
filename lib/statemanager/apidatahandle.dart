@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:testapp/model/categoriesapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:testapp/model/ordersapi.dart';
 import 'package:testapp/model/productsapi.dart';
-import 'package:testapp/statemanager/provider1.dart';
 
 class apiDataHandeling extends ChangeNotifier {
   ////////
@@ -105,18 +103,14 @@ class apiDataHandeling extends ChangeNotifier {
   }
 
   List<dynamic>? pendingOrders;
-  Future<Order?> getorderlist(BuildContext context) async {
-    Provider1 provider1 = Provider.of<Provider1>(context, listen: false);
+  Future<Order?> getorderlist() async {
     if (isfetchdeatils == true) {
       print('fetched order details');
-      provider1.changepage(2);
       return null;
     } else {
       print('fetching orders');
       loader(true);
-      // final uri = Uri.parse('https://fm.skyhub.pk/api/v1/orders/get?');
       final uri = Uri.parse('${urlBaseSky}${api_orders}');
-      // final uri= Uri.parse('https://fm.skyhub.pk/api/v1/orders/get_by_id?_id=67b2c5904f75453ebd5c3228');
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         orderlist = jsonDecode(response.body)['orders'];
@@ -124,7 +118,6 @@ class apiDataHandeling extends ChangeNotifier {
             orderlist!.fold(0, (sum, order) => sum! + (order['total'] as num));
       }
       isfetchdeatils = true;
-      provider1.changepage(2);
       loader(false);
     }
     notifyListeners();
@@ -196,47 +189,37 @@ class apiDataHandeling extends ChangeNotifier {
       _products = (data['products'] as List)
           .map((item) => Product.fromJson(item))
           .toList();
-      if (_products.isEmpty) {
-        print('No products found.');
-        return;
-      }
-
-      for (var product in _products) {
-        print('Product Name: ${product.name}, Price: ${product.salePrice}, Dimension${product.weightDimention}');
-      }
     }
     notifyListeners();
   }
+
   ///////////////////////////////
   ///get single product
   Product? selectedproduct;
+  String? defaultcolor;
+  String? defaultpackage;
   setproductid(Product id) {
     selectedproduct = id;
-    
+    defaultcolor = selectedproduct!.defaultAttributes[0].type == 'color'
+        ? selectedproduct!.defaultAttributes[0].options[0].name
+        : selectedproduct!.defaultAttributes[1].options[0].name;
+    defaultpackage = selectedproduct!.defaultAttributes[0].type == 'select'
+        ? selectedproduct!.defaultAttributes[0].options[0].name
+        : selectedproduct!.defaultAttributes[1].options[0].name;
+    print(defaultcolor);
+    print(defaultpackage);
+
     notifyListeners();
   }
-  // Product? _productdetails;
-  // Product? get productdetails => _productdetails;
-  // clearorder(){
-  //   _productdetails=null;
-  //   notifyListeners();
-  // }
-  // Future<void> fetchproductdetails()async{
-  //   final url = Uri.parse(
-  //       '${urlBaseZelle}/api/v1/products/get/${pid}');
-  //   final response = await http.get(url);
-  //   if (response.statusCode==200){
-  //     final Map<String, dynamic> data = json.decode(response.body);
-  //     _productdetails== (data['products'])
-  //         .map((item) => Product.fromJson(item))
-  //         .toList();
-  //         print(response.statusCode);
-  //         if (_productdetails! == null
-  //         ) {
-  //           print('null');
-  //         }
-  //         print(_productdetails!.name);
-  //         notifyListeners();
-  //   }
-  // }
+
+  //////////////////// default attribute change function
+  changepackage(String name) {
+    defaultpackage = name;
+    notifyListeners();
+  }
+
+  changecolor(String name) {
+    defaultcolor = name;
+    notifyListeners();
+  }
 }

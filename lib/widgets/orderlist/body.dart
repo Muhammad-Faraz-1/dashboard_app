@@ -26,36 +26,39 @@ class BodySection extends StatelessWidget {
     final apicat = Provider.of<apiDataHandeling>(context);
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+      padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
       color: Colors.transparent,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Sectionheading(subtitle: 'All Orders'),
-          // SizedBox(
-          //   height: 5.w,
-          // ),
-          SizedBox(
-            height: 360.h,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: SizedBox(
-                height: 500.h,
-                child: apicat.isfetchdeatils == true
-                    ? GridView.builder(
-                        padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
-                        scrollDirection: Axis.vertical,
-                        itemCount: apicat.orderlist!.length,
-
-                        // apicat.orderdetails?.length ?? 0, // Ensure null safety
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1, // 2 items per row
-                          mainAxisSpacing: 5, // Space between rows
-                          childAspectRatio: 4.6.sp, // Adjust height of boxes
-                        ),
-                        itemBuilder: (context, index) {
-                          final order = apicat.orderlist![index];
-                          return apicat.orderfilter == "all"
+      child: SizedBox(
+        height: 360.h,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            height: 500.h,
+            child: apicat.isfetchdeatils == true
+                ? GridView.builder(
+                    padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
+                    scrollDirection: Axis.vertical,
+                    itemCount: apicat.orderlist!.length,
+                    // apicat.orderdetails?.length ?? 0, // Ensure null safety
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1, // 2 items per row
+                      mainAxisSpacing: 5, // Space between rows
+                      childAspectRatio: 3.9.sp, // Adjust height of boxes
+                    ),
+                    itemBuilder: (context, index) {
+                      final order = apicat.orderlist![index];
+                      return apicat.orderfilter == "all"
+                          ? orderbox(
+                              name: order['billing']['first_name'] +
+                                  " " +
+                                  order['billing']['last_name'],
+                              orderid: order['_id'],
+                              date: order['createdAt'],
+                              totalprice: order['total'],
+                              status: order['status'],
+                              // status: 'Processing',
+                            )
+                          : order['status'] == apicat.orderfilter
                               ? orderbox(
                                   name: order['billing']['first_name'] +
                                       " " +
@@ -65,57 +68,17 @@ class BodySection extends StatelessWidget {
                                   totalprice: order['total'],
                                   status: order['status'],
                                   // status: 'Processing',
-                                )
-                              : order['status'] == apicat.orderfilter
-                                  ? orderbox(
-                                      name: order['billing']['first_name'] +
-                                          " " +
-                                          order['billing']['last_name'],
-                                      orderid: order['_id'],
-                                      date: order['createdAt'],
-                                      totalprice: order['total'],
-                                      status: order['status'],
-                                      // status: 'Processing',
-                                    ):CustomShimmer();
-                                  // : Container(
-                                  //     // height: 60.h,
-                                  //     width: 320.w,
-                                  //     padding: EdgeInsets.all(10.sp),
-                                  //     decoration: BoxDecoration(
-                                  //       border:
-                                  //           Border.all(color: theme.primary),
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(10.r),
-                                  //       gradient: LinearGradient(colors: [
-                                  //         theme.primary.withOpacity(0.6),
-                                  //         theme.primary.withOpacity(0.3),
-                                  //         theme.primary.withOpacity(0.6),
-                                  //       ]),
-                                  //     ),
-                                  //     child: Column(
-                                  //       crossAxisAlignment:
-                                  //           CrossAxisAlignment.start,
-                                  //       children: [
-                                  //         Row(
-                                  //           mainAxisAlignment:
-                                  //               MainAxisAlignment.spaceBetween,
-                                  //           children: [],
-                                  //         ),
-                                  //       ],
-                                  //     ),
-                                  //   );
-                        },
-                      )
-                    : Center(
-                        child: SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: CircularProgressIndicator()),
-                      ),
-              ),
-            ),
-          )
-        ],
+                                ):CustomShimmer();
+                    },
+                  )
+                : Center(
+                    child: SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: CircularProgressIndicator()),
+                  ),
+          ),
+        ),
       ),
     );
   }
@@ -156,7 +119,7 @@ class orderbox extends StatelessWidget {
           children: [
             Container(
               // height: 60.h,
-              width: 320.w,
+              width: MediaQuery.of(context).size.width - 20,
               padding: EdgeInsets.all(10.sp),
               decoration: BoxDecoration(
                 border: Border.all(color: theme.primary),
@@ -169,6 +132,7 @@ class orderbox extends StatelessWidget {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

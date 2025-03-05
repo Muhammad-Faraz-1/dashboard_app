@@ -51,7 +51,7 @@ class SubCatBody extends StatelessWidget {
                         crossAxisCount: 2, // 2 items per row
                         crossAxisSpacing: 5, // Space between columns
                         mainAxisSpacing: 5, // Space between rows
-                        childAspectRatio: 1.05.sp, // Adjust height of boxes
+                        childAspectRatio: 0.92.sp, // Adjust height of boxes
                       ),
                       itemBuilder: (context, index) {
                         final category = apicat.subcategories![index];
@@ -104,15 +104,17 @@ class Subcatbox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // image container
-            Container(
-              // height: 40.h,
-              // height: double.infinity,
-              // height: 75.h,
-              // width: 60.w,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
-              child: Image.network(
-                apicat.urlBaseZelle + img!,
-                fit: BoxFit.contain,
+            Expanded(
+              child: Container(
+                // height: 40.h,
+                // height: double.infinity,
+                // height: 75.h,
+                // width: 60.w,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                child: Image.network(
+                  apicat.urlBaseZelle + img!,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(

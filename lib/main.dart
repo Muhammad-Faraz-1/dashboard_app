@@ -20,6 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ThemeMode themeMode = ThemeMode.system;
+    double width=MediaQuery.of(context).size.width;
+    double height=MediaQuery.of(context).size.height;
+    print(width);
+    print(height);
     return ScreenUtilInit(
       useInheritedMediaQuery: true,
       designSize: const Size(360, 690),

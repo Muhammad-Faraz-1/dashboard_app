@@ -10,6 +10,7 @@ import 'package:testapp/utils/textwidgets.dart';
 
 class ProductDetails extends StatelessWidget {
   int vspace = 5;
+  bool isvariable = false;
   ProductDetails({super.key});
 
   @override
@@ -17,6 +18,7 @@ class ProductDetails extends StatelessWidget {
     final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     final product = apicat.selectedproduct;
+    // final bool isvariable = product!.variation.length == 0 ? false : true;
     return Container(
       width: double.infinity,
       color: Colors.transparent,
@@ -50,6 +52,7 @@ class ProductDetails extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    ////////////// product image container
                     Container(
                       width: double.infinity,
                       height: 180.h,
@@ -66,9 +69,11 @@ class ProductDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        /////////////// product category
                         Contentmedium(
                             subtitle: product.categories[1].name,
                             colors: theme.tertiary),
+                        ////////////////// product stock status
                         Container(
                           height: 22.h,
                           padding: EdgeInsets.symmetric(
@@ -86,7 +91,7 @@ class ProductDetails extends StatelessWidget {
                         )
                       ],
                     ),
-
+                    //////////////// product name
                     Text(
                       product.name,
                       style: GoogleFonts.poppins(
@@ -105,7 +110,7 @@ class ProductDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              product.sku,
+                              'Sku: ${product.sku}',
                               style: GoogleFonts.poppins(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
@@ -114,7 +119,7 @@ class ProductDetails extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              product.categories[1].name,
+                              'Package: ${product.categories[1].name}',
                               style: GoogleFonts.poppins(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w500,
@@ -128,6 +133,7 @@ class ProductDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            //////////// regular/canceled price
                             Text(
                               '\$${product.regularPrice}',
                               style: GoogleFonts.poppins(
@@ -139,6 +145,7 @@ class ProductDetails extends StatelessWidget {
                                       fontWeight: FontWeight.w500,
                                       color: theme.tertiary)),
                             ),
+                            ///////// sale price
                             Text(
                               '\$${product.salePrice}',
                               style: GoogleFonts.poppins(
@@ -164,80 +171,34 @@ class ProductDetails extends StatelessWidget {
                             fontSize: 10,
                             height: 1.2),
                         SizedBox(height: 5.h),
-                        product.type == 'simple'
-                            ? SizedBox(
-                                height: 15.h,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount:
-                                      product.attributes[1].options.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return  color_attribute(
+                        SizedBox(
+                          height: 22.h,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: product.attributes[0].options.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return product.attributes[0].type == 'color'
+                                  ? color_attribute(
+                                      id: product
+                                          .attributes[index].options[index].name,
                                       color: Color(
                                         int.parse(
                                           '0xff${product.attributes[index].options[index].value.substring(1, 7)}',
                                         ),
                                       ),
+                                    )
+                                  : SizedBox(
+                                      child: package_attribute(
+                                          id: product
+                                              .attributes[0].options[index].name,
+                                          title: product.attributes[0]
+                                              .options[index].name),
                                     );
-                                  },
-                                ),
-                              )
-                            // Row(
-                            //   children: [
-                            //     color_attribute(color: Color(int.parse('0xff${product.attributes[0].options[0].value.substring(1,7)}')), id: 1),
-                            //     SizedBox(width: 5.w),
-                            //     color_attribute(color: Colors.blue, id: 2),
-                            //     SizedBox(width: 5.w),
-                            //     color_attribute(color: Colors.green, id: 3),
-                            //   ],
-                            // )
-                            : SizedBox(
-                                height: 15.h,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount:
-                                      product.attributes[1].options.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return color_attribute(
-                                      color: Color(
-                                        int.parse(
-                                          '0xff${product.attributes[index].options[index].value.substring(1, 7)}',
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
+                            },
+                          ),
+                        )
                       ],
                     ),
-                    // SizedBox(height: vspace.h),
-                    // product.type != 'simple'
-                    //     ? Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           cost(
-                    //               subtitle: 'Size',
-                    //               colors: theme.tertiary,
-                    //               weight: FontWeight.w500,
-                    //               fontSize: 10,
-                    //               height: 1.2),
-                    //           SizedBox(height: 5.h),
-                    //           Row(
-                    //             children: [
-                    //               size_attribute(id: 1, title: 'King Size'),
-                    //               SizedBox(width: 5.w),
-                    //               size_attribute(id: 2, title: 'Queen Size'),
-                    //               SizedBox(width: 5.w),
-                    //               size_attribute(id: 3, title: 'Twin Size'),
-                    //               SizedBox(width: 5.w),
-                    //               size_attribute(id: 4, title: 'Full Size'),
-                    //             ],
-                    //           )
-                    //         ],
-                    //       )
-                    //     : Container(),
                     SizedBox(height: vspace.h),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,25 +210,32 @@ class ProductDetails extends StatelessWidget {
                             fontSize: 10,
                             height: 1.2),
                         SizedBox(height: 5.h),
-                        product.type == 'simple'
-                            ? SizedBox(
-                              width: 320.w,
-                              child: ListView.builder(
-                                padding: EdgeInsets.all(0),
-                                // scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                              itemCount: product.attributes[1].options.length,
-                              itemBuilder: (BuildContext context, int index) { 
-                                return Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    package_attribute(
-                                      id: 1, title: product.attributes[1].options[index].name),
-                                  ],
-                                );
-                               },),
-                            )
-                            : Container()
+                        SizedBox(
+                          height: 22.h,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: product.attributes[1].options.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return product.attributes[1].type == 'color'
+                                  ? color_attribute(
+                                      id: product
+                                          .attributes[1].options[index].name,
+                                      color: Color(
+                                        int.parse(
+                                          '0xff${product.attributes[1].options[index].value.substring(1, 7)}',
+                                        ),
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      child: package_attribute(
+                                          id: product
+                                              .attributes[1].options[index].name,
+                                          title: product.attributes[1]
+                                              .options[index].name),
+                                    );
+                            },
+                          ),
+                        )
                       ],
                     ),
                   ],
@@ -375,7 +343,8 @@ class size_attribute extends StatelessWidget {
                       : Colors.transparent)),
           child: Contentmedium(
             subtitle: title,
-            colors: provider.selected_size == id ? theme.primary : theme.tertiary,
+            colors:
+                provider.selected_size == id ? theme.primary : theme.tertiary,
           ),
         ),
       ),
@@ -385,41 +354,48 @@ class size_attribute extends StatelessWidget {
 
 ///////////////////////////////////////////////
 class package_attribute extends StatelessWidget {
-  int? id;
+  String? id;
   String? title;
-  package_attribute({super.key, this.id, this.title});
+  package_attribute({super.key, this.id, this.title,});
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<Provider1>(context);
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
+    print(id);
     return GestureDetector(
       onTap: () {
-        provider.change_package(id!);
+        // provider.change_package(id!);
+        apicat.changepackage(id!);
       },
-      child: Container(
-        height: 22.h,
-        // width: 100.w,
-        padding: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: provider.selected_package == id
-                  ? [theme.onSecondary, theme.secondaryContainer]
-                  : [
-                      theme.primary.withOpacity(0.6),
-                      theme.primary.withOpacity(0.3),
-                      theme.primary.withOpacity(0.6),
-                    ],
-            ),
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-                color: provider.selected_package != id
-                    ? theme.primary
-                    : Colors.transparent)),
-        child: Contentmedium(
-          subtitle: title,
-          colors:
-              provider.selected_package == id ? theme.primary : theme.tertiary,
+      child: Padding(
+        padding: EdgeInsets.only(right: 5.sp),
+        child: Container(
+          height: 22.h,
+          // width: 100.w,
+          padding: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: apicat.defaultpackage == id
+                    ? [theme.onSecondary, theme.secondaryContainer]
+                    : [
+                        theme.primary.withOpacity(0.6),
+                        theme.primary.withOpacity(0.3),
+                        theme.primary.withOpacity(0.6),
+                      ],
+              ),
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(
+                  color:
+                      apicat.defaultpackage != id ? theme.primary : Colors.transparent)),
+          // child: Text("abc",style: TextStyle(
+          //   fontSize: 12,
+          //   color: Colors.white
+          // ),),
+          child: Contentmedium(
+            subtitle: title,
+            colors: apicat.defaultpackage == id ? theme.primary : theme.tertiary,
+          ),
         ),
       ),
     );
@@ -429,23 +405,23 @@ class package_attribute extends StatelessWidget {
 ///////////////////////////////////////////////
 class color_attribute extends StatelessWidget {
   Color? color;
-  int? id;
-  color_attribute({super.key, this.color, this.id});
+  String? id;
+  color_attribute({super.key, this.color, required this.id,});
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<Provider1>(context);
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     return GestureDetector(
       onTap: () {
-        provider.change_color(id!);
+        apicat.changecolor(id!);
       },
       child: Container(
-        height: 15.h,
-        width: 15.w,
+        // height: 22.h,
+        width: 22.w,
         decoration: BoxDecoration(
             border: Border.all(
-                color: provider.selected_color == id
+                color: apicat.defaultcolor == id
                     ? theme.onSecondaryContainer
                     : Colors.transparent,
                 width: 1),
