@@ -38,9 +38,9 @@ class CustomerDetails extends StatelessWidget {
               child: Column(
                 children: [
                   Customer(),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 10.h),
                   address(),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 10.h),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -62,6 +62,7 @@ class CustomerDetails extends StatelessWidget {
                           ),
                           SizedBox(height: 5.h),
                           Contentmedium(
+                            weight: FontWeight.w600,
                               subtitle: order?.isShipping == 0
                                   ? 'Local Pickup'
                                   : order?.shippingCost == 0
@@ -72,7 +73,7 @@ class CustomerDetails extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,6 +97,7 @@ class CustomerDetails extends StatelessWidget {
                           ),
                           SizedBox(height: 5.h),
                           Contentmedium(
+                            weight: FontWeight.w600,
                               subtitle: order?.paymentMethod!,
                               colors: theme.primary),
                         ],
@@ -142,28 +144,36 @@ class Customer extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10.w),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Contentheading1(
-              subtitle: 'Customer Info',
-              color: theme.primary,
-            ),
-            SizedBox(height: 5.h),
-            Contentmedium(
-              subtitle:
-                  order.billing!.firstName, 
-              colors: theme.primary,
-            ),
-            Contentmedium(
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Contentheading1(
+                size: 15.sp,
+                subtitle: 'Customer Info',
+                color: theme.primary,
+              ),
+              SizedBox(height: 2.h),
+              Contentmedium(
+                size: 12.sp,
+                subtitle:
+                    order.billing!.firstName, 
+                colors: theme.primary,
+              ),
+              SizedBox(height: 2.h),
+              Contentmedium(
+              size: 12.sp,
               subtitle: order.billing!.email,
               colors: theme.primary,
-            ),
-            Contentmedium(
-              subtitle: order.billing!.phone,
-              colors: theme.primary,
-            ),
-          ],
+                            ),
+              SizedBox(height: 2.h),
+              Contentmedium(
+                size: 12.sp,
+                subtitle: order.billing!.phone,
+                colors: theme.primary,
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -203,25 +213,33 @@ class address extends StatelessWidget {
         SizedBox(
           width: 10.w,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Contentheading1(
-              subtitle: 'Address',
-              color: theme.primary,
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Contentmedium(
-                subtitle: order.billing!.address1, colors: theme.primary),
-            Contentmedium(
-                subtitle: order.billing!.city, colors: theme.primary),
-            Contentmedium(
-                subtitle:
-                    '${order.billing!.state}, ${order.billing!.country}',
-                colors: theme.primary),
-          ],
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Contentheading1(
+                size: 15.sp,
+                subtitle: 'Address',
+                color: theme.primary,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Contentmedium(
+                size: 12.sp,
+                  subtitle: order.billing!.address1, colors: theme.primary),
+              SizedBox(height: 2.h),
+              Contentmedium(
+                size: 12.sp,
+                  subtitle: order.billing!.city, colors: theme.primary),
+              SizedBox(height: 2.h),
+              Contentmedium(
+                size: 12.sp,
+                  subtitle:
+                      '${order.billing!.state}, ${order.billing!.country}',
+                  colors: theme.primary),
+            ],
+          ),
         ),
       ],
     );

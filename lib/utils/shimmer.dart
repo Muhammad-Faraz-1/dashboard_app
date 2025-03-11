@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:testapp/main.dart';
 // import 'dart:async';
 
 class CustomShimmer extends StatefulWidget {
@@ -8,7 +10,7 @@ class CustomShimmer extends StatefulWidget {
 
   const CustomShimmer({
     Key? key,
-    this.width = 320.0,
+    this.width = 340.0,
     this.height = 80.0,
     this.borderRadius = 8.0,
   }) : super(key: key);
@@ -50,12 +52,12 @@ class _CustomShimmerState extends State<CustomShimmer>
           child: Stack(
             children: [
               Container(
-                width: widget.width,
+                width: widget.width.w,
                 // height: widget.height,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(widget.borderRadius),
-                color:
-                    const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+                  color:
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
                 ),
               ),
               Positioned(
@@ -64,7 +66,7 @@ class _CustomShimmerState extends State<CustomShimmer>
                 child: Transform.rotate(
                   angle: 60,
                   child: Container(
-                    width: widget.width * 0.3, // Define shimmer width
+                    width: widget.width, // Define shimmer width
                     height: widget.height + 30,
                     decoration: BoxDecoration(
                       // boxShadow: [

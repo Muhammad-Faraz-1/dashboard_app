@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/popup.dart';
+import 'package:testapp/utils/shimmer.dart';
 import 'package:testapp/utils/textwidgets.dart';
 // import 'package:testapp/widgets/allorders/head.dart';
 import 'package:testapp/widgets/orderdetails/orderheadercompoenets.dart';
@@ -17,6 +18,7 @@ class Headerdetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
@@ -97,7 +99,7 @@ class Headerdetails extends StatelessWidget {
             Row(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                headinfobox(),
+                apicat.isloading==false? headinfobox():CustomShimmer(),
               ],
             ),
             SizedBox(

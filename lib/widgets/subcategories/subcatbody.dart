@@ -84,7 +84,7 @@ class Subcatbox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         provider.changecattype(1);
-        apicat.setslug(slug!);
+        apicat.setSlug(slug!);
       },
       child: Container(
         // height: 50.h,

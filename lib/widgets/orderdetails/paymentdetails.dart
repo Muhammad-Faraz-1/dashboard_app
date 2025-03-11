@@ -48,12 +48,15 @@ class Payment_Details extends StatelessWidget {
                 DetailsRow(label: 'Professional Assembly', content: "\$${order?.professionalAssembledPrice?.toStringAsFixed(2) }"),SizedBox(height: 5.h,),
                 DetailsRow(label: 'Protection Plan', content: "\$${order?.cartProtectionPrice?.toStringAsFixed(2)}"),SizedBox(height: 5.h,),
                 Divider(height: 1,color: theme.primary,),SizedBox(height: 5.h,),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                // Contentheading1(subtitle: 'Total', color: theme.primary, ),
-                // Contentheading1(subtitle: '\$4,900', color: theme.primary, ),
-                Sectionheading(subtitle: 'Total'),
-                Sectionheading(subtitle: "\$${order?.total?.toStringAsFixed(2)}")
-    ])
+                Padding(
+                  padding:  EdgeInsets.symmetric(vertical: 5.sp),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                  // Contentheading1(subtitle: 'Total', color: theme.primary, ),
+                  // Contentheading1(subtitle: '\$4,900', color: theme.primary, ),
+                  Sectionheading(subtitle: 'Total'),
+                  Sectionheading(subtitle: "\$${order?.total?.toStringAsFixed(2)}")
+                      ]),
+                )
               ],
             ),
           ),

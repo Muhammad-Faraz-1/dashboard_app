@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
@@ -10,13 +11,14 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     return SafeArea(
         child: Scaffold(
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
               image: AssetImage(
@@ -24,7 +26,7 @@ class MyDrawer extends StatelessWidget {
               ),
               fit: BoxFit.fill),
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,7 +51,7 @@ class MyDrawer extends StatelessWidget {
                     height: 65,
                     width: 65,
                     alignment: Alignment.centerLeft,
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       backgroundImage: AssetImage('assets/profile.png'),
                       radius: 70,
                     ),
@@ -90,6 +92,7 @@ class MyDrawer extends StatelessWidget {
                   children: [
                     Column(
                       children: [
+                        // dashboard
                         Container(
                           padding: provider.currentpage == 1
                               ? EdgeInsets.symmetric(
@@ -113,7 +116,7 @@ class MyDrawer extends StatelessWidget {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.home,
                                   color: Colors.white,
                                 ),
@@ -130,28 +133,30 @@ class MyDrawer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: provider.currentpage == 2
-                              ? EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 10.sp)
-                              : EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 0.sp),
-                          decoration: BoxDecoration(
-                              color: provider.currentpage == 2
-                                  ? theme.secondaryContainer
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(
-                                  provider.currentpage == 2 ? 10 : 0)),
-                          child: GestureDetector(
-                            onTap: () {
-                              // Add your action when the drawer item is pressed
-                              // Navigator.pop(context);
-                              provider.changeval();
-                              provider.changepage(2);
-                            },
+                        // order list
+                        GestureDetector(
+                          onTap: () {
+                            // Add your action when the drawer item is pressed
+                            // Navigator.pop(context);
+                            apicat.getorderlist();
+                            provider.changeval();
+                            provider.changepage(2);
+                          },
+                          child: Container(
+                            padding: provider.currentpage == 2
+                                ? EdgeInsets.symmetric(
+                                    vertical: 15.sp, horizontal: 10.sp)
+                                : EdgeInsets.symmetric(
+                                    vertical: 15.sp, horizontal: 0.sp),
+                            decoration: BoxDecoration(
+                                color: provider.currentpage == 2
+                                    ? theme.secondaryContainer
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(
+                                    provider.currentpage == 2 ? 10 : 0)),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.open_in_browser,
                                   color: Colors.white,
                                 ),
@@ -168,28 +173,30 @@ class MyDrawer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: provider.currentpage == 3
-                              ? EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 10.sp)
-                              : EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 0.sp),
-                          decoration: BoxDecoration(
-                              color: provider.currentpage == 3
-                                  ? theme.secondaryContainer
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(
-                                  provider.currentpage == 3 ? 10 : 0)),
-                          child: GestureDetector(
-                            onTap: () {
-                              // Add your action when the drawer item is pressed
-                              // Navigator.pop(context);
-                              provider.changeval();
-                              provider.changepage(3);
-                            },
+                        // categories
+                        GestureDetector(
+                          onTap: () {
+                            // Add your action when the drawer item is pressed
+                            // Navigator.pop(context);
+                            apicat.fetchcategories(context);
+                            provider.changeval();
+                            provider.changepage(3);
+                          },
+                          child: Container(
+                            padding: provider.currentpage == 3
+                                ? EdgeInsets.symmetric(
+                                    vertical: 15.sp, horizontal: 10.sp)
+                                : EdgeInsets.symmetric(
+                                    vertical: 15.sp, horizontal: 0.sp),
+                            decoration: BoxDecoration(
+                                color: provider.currentpage == 3
+                                    ? theme.secondaryContainer
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(
+                                    provider.currentpage == 3 ? 10 : 0)),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.wallet,
                                   color: Colors.white,
                                 ),
@@ -206,26 +213,27 @@ class MyDrawer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          padding: provider.currentpage == 4
-                              ? EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 10.sp)
-                              : EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 0.sp),
-                          decoration: BoxDecoration(
-                              color: provider.currentpage == 4
-                                  ? theme.secondaryContainer
-                                  : Colors.transparent,
-                              borderRadius: BorderRadius.circular(
-                                  provider.currentpage == 4 ? 10 : 0)),
-                          child: GestureDetector(
-                            onTap: () {
-                              provider.changeval();
-                              provider.changepage(4);
-                            },
+                        // Reviews
+                        GestureDetector(
+                          onTap: () {
+                            provider.changeval();
+                            provider.changepage(4);
+                          },
+                          child: Container(
+                            padding: provider.currentpage == 4
+                                ? EdgeInsets.symmetric(
+                                    vertical: 15.sp, horizontal: 10.sp)
+                                : EdgeInsets.symmetric(
+                                    vertical: 15.sp, horizontal: 0.sp),
+                            decoration: BoxDecoration(
+                                color: provider.currentpage == 4
+                                    ? theme.secondaryContainer
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(
+                                    provider.currentpage == 4 ? 10 : 0)),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.reviews,
                                   color: Colors.white,
                                 ),
@@ -245,17 +253,18 @@ class MyDrawer extends StatelessWidget {
                         // SizedBox(
                         //   height: 20.h,
                         // ),
-                        Container(
-                          padding:EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 0.sp),
-                          child: GestureDetector(
-                            onTap: () {
-                              provider.changeval();
-                              // provider.changepage(4);
-                            },
+                        // Reports
+                        GestureDetector(
+                          onTap: () {
+                            provider.changeval();
+                            // provider.changepage(4);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.sp, horizontal: 0.sp),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.receipt_rounded,
                                   color: Colors.white,
                                 ),
@@ -272,16 +281,18 @@ class MyDrawer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(padding:EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 0.sp),
-                          child: GestureDetector(
-                            onTap: () {
-                              provider.changeval();
-                              // provider.changepage(4);
-                            },
+                        // Settings
+                        GestureDetector(
+                          onTap: () {
+                            provider.changeval();
+                            // provider.changepage(4);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.sp, horizontal: 0.sp),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.settings,
                                   color: Colors.white,
                                 ),
@@ -298,16 +309,18 @@ class MyDrawer extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(padding:EdgeInsets.symmetric(
-                                  vertical: 15.sp, horizontal: 0.sp),
-                          child: GestureDetector(
-                            onTap: () {
-                              provider.changeval();
-                              provider.changepage(4);
-                            },
+                        // Notifications
+                        GestureDetector(
+                          onTap: () {
+                            provider.changeval();
+                            provider.changepage(4);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15.sp, horizontal: 0.sp),
                             child: Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.notifications,
                                   color: Colors.white,
                                 ),
@@ -327,9 +340,7 @@ class MyDrawer extends StatelessWidget {
                       ],
                     ),
 
-                    // SizedBox(
-                    //   height: 110.h,
-                    // ),
+                    // Logout
                     GestureDetector(
                       onTap: () {
                         provider.changeval();
@@ -338,7 +349,7 @@ class MyDrawer extends StatelessWidget {
                       },
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.logout,
                             color: Colors.white,
                           ),

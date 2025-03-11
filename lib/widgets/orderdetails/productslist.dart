@@ -13,61 +13,122 @@ class ListofProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
-
-    // final order = apicat.selectedOrder;
     return Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
-        color: Colors.transparent,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Sectionheading(subtitle: 'Order Details'),
-          SizedBox(
-            height: 5.w,
+  width: double.infinity,
+  padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+  color: Colors.transparent,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Sectionheading(subtitle: 'Order Details'),
+      SizedBox(height: 5.w),
+      // Use ConstrainedBox to provide bounded height constraints
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.7, // Adjust as needed
+        ),
+        child: Container(
+          width: 320.w,
+          padding: EdgeInsets.all(10.sp),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.r),
+            gradient: LinearGradient(colors: [
+              theme.primary.withOpacity(0.6),
+              theme.primary.withOpacity(0.3),
+              theme.primary.withOpacity(0.6),
+            ]),
           ),
-          Container(
-              height: 390.h,
-              width: 320.w,
-              padding: EdgeInsets.all(10.sp),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.r),
-                gradient: LinearGradient(colors: [
-                  theme.primary.withOpacity(0.6),
-                  theme.primary.withOpacity(0.3),
-                  theme.primary.withOpacity(0.6),
-                ]),
-              ),
-              //// product container starts here
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: SizedBox(
-                  height: 500.h,
-                  child: apicat.isfetchdeatils == true
-                      ? GridView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          scrollDirection: Axis.vertical,
-                          itemCount: apicat.selectedOrder?.items?.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1, // 2 items per row
-                            mainAxisSpacing: 5, // Space between rows
-                            childAspectRatio: 4.1.sp, // Adjust height of boxes
-                          ),
-                          itemBuilder: (context, index) {
-                            final product = apicat.selectedOrder!
-                                .items![index]; // Fetch product details
-
-                            return SingleProductDetails(product: product);
-                          },
-                        )
-                      : Center(
-                          child: SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: CircularProgressIndicator()),
+          child: apicat.ordersfetched == true
+              ? SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min, // Prevent Column from expanding
+                    children: [
+                      GridView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: apicat.selectedOrder?.items?.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1, // 2 items per row
+                          mainAxisSpacing: 10, // Space between rows
+                          childAspectRatio: 4.1.sp, // Adjust height of boxes
                         ),
+                        itemBuilder: (context, index) {
+                          final product = apicat.selectedOrder!
+                              .items![index]; // Fetch product details
+                          return SingleProductDetails(product: product);
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              : Center(
+                  child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
-              ))
-        ]));
+        ),
+      ),
+    ],
+  ),
+);
+    // final order = apicat.selectedOrder;
+    // return Container(
+    //     width: double.infinity,
+    //     padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 10.sp),
+    //     color: Colors.transparent,
+    //     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    //       Sectionheading(subtitle: 'Order Details'),
+    //       SizedBox(
+    //         height: 5.w,
+    //       ),
+
+    //       // Container(
+    //       //     // height: 390.h,
+    //       //     width: 320.w,
+    //       //     padding: EdgeInsets.all(10.sp),
+    //       //     decoration: BoxDecoration(
+    //       //       borderRadius: BorderRadius.circular(10.r),
+    //       //       gradient: LinearGradient(colors: [
+    //       //         theme.primary.withOpacity(0.6),
+    //       //         theme.primary.withOpacity(0.3),
+    //       //         theme.primary.withOpacity(0.6),
+    //       //       ]),
+    //       //     ),
+    //       //     //// product container starts here
+    //       //     child: SingleChildScrollView(
+    //       //       scrollDirection: Axis.vertical,
+    //       //       child: SizedBox(
+    //       //         height: 500.h,
+    //       //         child: apicat.ordersfetched == true
+    //       //             ? GridView.builder(
+    //       //                 padding: EdgeInsets.symmetric(horizontal: 5),
+    //       //                 scrollDirection: Axis.vertical,
+    //       //                 itemCount: apicat.selectedOrder?.items?.length,
+    //       //                 gridDelegate:
+    //       //                     SliverGridDelegateWithFixedCrossAxisCount(
+    //       //                   crossAxisCount: 1, // 2 items per row
+    //       //                   mainAxisSpacing: 5, // Space between rows
+    //       //                   childAspectRatio: 4.1.sp, // Adjust height of boxes
+    //       //                 ),
+    //       //                 itemBuilder: (context, index) {
+    //       //                   final product = apicat.selectedOrder!
+    //       //                       .items![index]; // Fetch product details
+
+    //       //                   return SingleProductDetails(product: product);
+    //       //                 },
+    //       //               )
+    //       //             : Center(
+    //       //                 child: SizedBox(
+    //       //                     height: 50,
+    //       //                     width: 50,
+    //       //                     child: CircularProgressIndicator()),
+    //       //               ),
+    //       //       ),
+    //       //     ))
+    //     ]));
   }
 }
 
@@ -87,26 +148,21 @@ class divide extends StatelessWidget {
   }
 }
 
-
-
-
-
 /////////////////////////////////////////////////////
 class SingleProductDetails extends StatelessWidget {
   final OrderItem product; // Product data
 
   const SingleProductDetails({super.key, required this.product});
-  
 
   @override
   Widget build(BuildContext context) {
     final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     String valuesString = product.attributes
-    .map((attr) => attr["options"]?.map((opt) => opt["name"]).join(", "))
-    .join(", ");
+        .map((attr) => attr["options"]?.map((opt) => opt["name"]).join(", "))
+        .join(", ");
 
-print(valuesString);
+    print(valuesString);
     return SizedBox(
       height: 80.h,
       width: 300.w,
@@ -114,6 +170,7 @@ print(valuesString);
         padding: EdgeInsets.symmetric(vertical: 2.sp),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Stack(
               clipBehavior: Clip.none,
@@ -175,12 +232,12 @@ print(valuesString);
                     Contentsmall(
                         subtitle: product.sku,
                         height: 1.2,
-                        weight: FontWeight.w400,
+                        weight: FontWeight.w500,
                         colors: theme.primary),
                     Contentsmall(
                         subtitle: valuesString,
                         height: 1.2,
-                        weight: FontWeight.w400,
+                        weight: FontWeight.w500,
                         colors: theme.primary),
                   ],
                 ),

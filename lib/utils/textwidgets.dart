@@ -94,7 +94,8 @@ class SectionSubheading extends StatelessWidget {
 class Contentheading1 extends StatelessWidget {
   String? subtitle;
   Color? color;
-  Contentheading1({super.key, required this.subtitle,required this.color});
+  double? size;
+  Contentheading1({super.key, required this.subtitle,required this.color, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +106,7 @@ class Contentheading1 extends StatelessWidget {
       style: GoogleFonts.poppins(
         textStyle: TextStyle(
           color: color!,
-          fontSize: 12.sp,
+          fontSize:size?? 12.sp,
           height: 1.25,
           fontWeight: FontWeight.w600,
         ),
@@ -178,7 +179,8 @@ class Contentmedium extends StatelessWidget {
   String? subtitle;
   Color? colors;
   FontWeight? weight;
-   Contentmedium({super.key,required this.subtitle,required this.colors,this.weight});
+  double? size;
+   Contentmedium({super.key,required this.subtitle,required this.colors,this.weight,this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -189,9 +191,9 @@ class Contentmedium extends StatelessWidget {
       style: GoogleFonts.poppins(
         textStyle: TextStyle(
           color: colors,
-          fontSize: 10.sp,
+          fontSize:size ?? 10.sp,
           height: 1.2,
-          fontWeight: weight==null?FontWeight.w500:weight,
+          fontWeight: weight ?? FontWeight.w500,
         ),
       ),
       textAlign: TextAlign.start,

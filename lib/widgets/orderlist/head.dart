@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:testapp/statemanager/apidatahandle.dart';
 import 'package:testapp/statemanager/provider1.dart';
+import 'package:testapp/utils/shimmer.dart';
 // import 'package:testapp/utils/headstatic.dart';
 import 'package:testapp/utils/textwidgets.dart';
 
@@ -25,24 +26,43 @@ class Allorder_Header extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            headinfobox(
-              label: 'Orders',
-              val: apicat.orderlist!.length.toString(),
-            ),
+            apicat.isloading == false
+                ? headinfobox(
+                    label: 'Orders',
+                    val: apicat.fullOrderList.length.toString(),
+                    // val: apicat.displayedOrders.length.toString(),
+                    // val: '123',
+                  )
+                : CustomShimmer(
+                    width: 54.w,
+                    height: 109.h,
+                  ),
             SizedBox(
               width: 5.w,
             ),
-            headinfobox(
-              label: 'Sales',
-              val: '\$${apicat.sales!.toStringAsFixed(0)}K',
-            ),
+            apicat.isloading == false
+                ? headinfobox(
+                    label: 'Sales',
+                    val: '\$${apicat.sales!.toStringAsFixed(0)}K',
+                    // val: '123',
+                  )
+                : CustomShimmer(
+                    width: 54.w,
+                    height: 109.h,
+                  ),
             SizedBox(
               width: 5.w,
             ),
-            headinfobox(
-              label: 'Sales',
-              val: '\$${apicat.sales!.toStringAsFixed(0)}K',
-            ),
+            apicat.isloading == false
+                ? headinfobox(
+                    label: 'Sales',
+                    val: '\$${apicat.sales!.toStringAsFixed(0)}K',
+                    // val: '123',
+                  )
+                : CustomShimmer(
+                    width: 54.w,
+                    height: 109.h,
+                  ),
           ],
         ),
         SizedBox(
@@ -152,7 +172,7 @@ class orderfilter extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         provider.drawerval == false ? provider.changeorderfilter(id!) : null;
-        apicat.currentorders(label=='Processing'?'pending':label!);
+        apicat.currentorders(label == 'Processing' ? 'pending' : label!);
       },
       child: Container(
         height: 75.h,

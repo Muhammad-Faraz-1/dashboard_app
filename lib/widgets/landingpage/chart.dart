@@ -157,8 +157,9 @@ class RevenueChart extends StatelessWidget {
           ),
           Container(
             height: 250.h,
+            // width: 320.w,
             child: provider.selected == "line"
-                ? LineChartScreen()
+                ? const LineChartScreen()
                 : GroupedHistogramChart(),
           )
         ],

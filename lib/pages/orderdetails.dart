@@ -39,7 +39,7 @@ class OrderDetails extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
               child: Container(
-                height: double.infinity,
+                // height: double.infinity,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.transparent,

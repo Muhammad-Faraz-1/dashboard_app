@@ -12,8 +12,8 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Provider1>(context);
-    
-  final apicat = Provider.of<apiDataHandeling>(context);
+
+    final apicat = Provider.of<apiDataHandeling>(context);
     final theme = Theme.of(context).colorScheme;
     return ClipRect(
       clipBehavior: Clip.hardEdge,
@@ -36,6 +36,7 @@ class Navbar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  ///// Dashboard button
                   GestureDetector(
                     onTap: () {
                       provider.changepage(1);
@@ -60,8 +61,9 @@ class Navbar extends StatelessWidget {
                       )),
                     ),
                   ),
+                  // Order list button
                   GestureDetector(
-                    onTap: () async{
+                    onTap: () async {
                       apicat.getorderlist();
                       // await Future.delayed(Duration(seconds: 2));
                       // apicat.isloading==false?
@@ -88,10 +90,11 @@ class Navbar extends StatelessWidget {
                       )),
                     ),
                   ),
+                  // categories button
                   GestureDetector(
                     onTap: () {
-                           
-                          apicat.fetchcategories(context);provider.changepage(3);
+                      apicat.fetchcategories(context);
+                      provider.changepage(3);
                       // apicat.isloading==false?
                       // provider.changepage(3):null;
                     },
@@ -112,6 +115,7 @@ class Navbar extends StatelessWidget {
                       )),
                     ),
                   ),
+                  // settings button
                   GestureDetector(
                     onTap: () {
                       provider.drawerval == false

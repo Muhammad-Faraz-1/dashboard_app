@@ -10,47 +10,99 @@ import 'package:testapp/statemanager/provider1.dart';
 import 'package:testapp/utils/textwidgets.dart';
 // import 'package:testapp/widgets/categories/Categorybox.dart';
 
+// class Productbody extends StatelessWidget {
+//   const Productbody({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final apicat = Provider.of<apiDataHandeling>(context);
+//     return Container(
+//       width: double.infinity,
+//       padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
+//       color: Colors.transparent,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           // Sectionheading(subtitle: 'Products'),
+//           SizedBox(
+//             height: 5.w,
+//           ),
+//           SizedBox(
+//             height: 500.h,
+//             child: ListView.builder(
+//               padding: EdgeInsets.symmetric(horizontal: 5),
+//               itemCount: apicat.products.length,
+//               itemBuilder: (context, index) {
+//                 final product = apicat.products[index];
+
+//                 return Productbox(
+//                   name: product.name,
+//                   old_price: product.regularPrice.toString(),
+//                   new_price: product.salePrice,
+//                   parent: product.categories[0].name,
+//                   img: product.images[0].imageUrl,
+//                   stock: product.manageStock.stockStatus,id: product,
+//                 );
+//               },
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
 class Productbody extends StatelessWidget {
   const Productbody({super.key});
 
   @override
   Widget build(BuildContext context) {
     final apicat = Provider.of<apiDataHandeling>(context);
+
     return Container(
       width: double.infinity,
+      height: 500.h,
       padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
       color: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Sectionheading(subtitle: 'Products'),
-          SizedBox(
-            height: 5.w,
-          ),
-          SizedBox(
-            height: 500.h,
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 5),
-              itemCount: apicat.products.length,
-              itemBuilder: (context, index) {
-                final product = apicat.products[index];
-
-                return Productbox(
-                  name: product.name,
-                  old_price: product.regularPrice.toString(),
-                  new_price: product.salePrice,
-                  parent: product.categories[0].name,
-                  img: product.images[0].imageUrl,
-                  stock: product.manageStock.stockStatus,id: product,
-                );
+          SizedBox(height: 5.w),
+          Expanded( // Fix: Wrapping ListView in Expanded
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 100) {
+                  apicat.fetchProducts(); // Load more products when near bottom
+                }
+                return false;
               },
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                itemCount: apicat.products.length + (apicat.hasMore ? 1 : 0), // Loader at bottom
+                itemBuilder: (context, index) {
+                  if (index == apicat.products.length) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  final product = apicat.products[index];
+
+                  return Productbox(
+                    name: product.name,
+                    old_price: product.regularPrice.toString(),
+                    new_price: product.salePrice,
+                    parent: product.categories[0].name,
+                    img: product.images[0].imageUrl,
+                    stock: product.manageStock.stockStatus,
+                    id: product,
+                  );
+                },
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 }
+
 
 class Productbox extends StatelessWidget {
   final String name;
