@@ -29,9 +29,7 @@ class Allorder_Header extends StatelessWidget {
             apicat.isloading == false
                 ? headinfobox(
                     label: 'Orders',
-                    val: apicat.fullOrderList.length.toString(),
-                    // val: apicat.displayedOrders.length.toString(),
-                    // val: '123',
+                    val: apicat.displayedOrders.length.toString(),
                   )
                 : CustomShimmer(
                     width: 54.w,
@@ -44,7 +42,6 @@ class Allorder_Header extends StatelessWidget {
                 ? headinfobox(
                     label: 'Sales',
                     val: '\$${apicat.sales!.toStringAsFixed(0)}K',
-                    // val: '123',
                   )
                 : CustomShimmer(
                     width: 54.w,
@@ -57,7 +54,6 @@ class Allorder_Header extends StatelessWidget {
                 ? headinfobox(
                     label: 'Sales',
                     val: '\$${apicat.sales!.toStringAsFixed(0)}K',
-                    // val: '123',
                   )
                 : CustomShimmer(
                     width: 54.w,

@@ -24,45 +24,41 @@ class BodySection extends StatelessWidget {
     // final theme = Theme.of(context).colorScheme;
     // final provider = Provider.of<Provider1>(context);
     final apicat = Provider.of<apiDataHandeling>(context);
-    return Container(
-      height: 400.h,
-      padding: EdgeInsets.all(10.sp),
-      child: Expanded(
-  child: NotificationListener<ScrollNotification>(
-    onNotification: (ScrollNotification scrollInfo) {
-      if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-        apicat.loadMoreOrders(); // Load more orders when scrolled to the bottom
-      }
-      return false;
-    },
-    child: GridView.builder(
-      padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
-      scrollDirection: Axis.vertical,
-      itemCount: apicat.displayedOrders.length + (apicat.hasMoreOrders ? 1 : 0), 
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-        mainAxisSpacing: 5,
-        childAspectRatio: 3.9.sp,
-      ),
-      itemBuilder: (context, index) {
-        if (index == apicat.displayedOrders.length) {
-          return Center(child: CircularProgressIndicator()); // Show loader while loading more orders
-        }
-
-        final order = apicat.displayedOrders[index];
-        return orderbox(
-          name: order['billing']['first_name'] + " " + order['billing']['last_name'],
-          orderid: order['_id'],
-          date: order['createdAt'],
-          totalprice: order['total'],
-          status: order['status'],
-        );
-      },
+    return SizedBox(
+        height: 400.h,
+        child: NotificationListener<ScrollNotification>(
+  onNotification: (ScrollNotification scrollInfo) {
+    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+      print("Reached bottom! Loading more orders..."); // Debugging
+      apicat.loadMoreOrders();
+    }
+    return false;
+  },
+  child: GridView.builder(
+    padding: EdgeInsets.only(left: 5, right: 5, bottom: 10),
+    itemCount: apicat.displayedOrders.length + (apicat.hasMoreOrders ? 1 : 0),
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 1,
+      mainAxisSpacing: 5,
+      childAspectRatio: 3.9.sp,
     ),
+    itemBuilder: (context, index) {
+      if (index == apicat.displayedOrders.length) {
+        return Center(child: CircularProgressIndicator()); // Loader when fetching more
+      }
+
+      final order = apicat.displayedOrders[index];
+      return orderbox(
+        name: order['billing']['first_name'] + " " + order['billing']['last_name'],
+        orderid: order['_id'],
+        date: order['createdAt'],
+        totalprice: order['total'],
+        status: order['status'],
+      );
+    },
   ),
 )
-
-    );
+);
 
     // return Container(
     //   width: double.infinity,
